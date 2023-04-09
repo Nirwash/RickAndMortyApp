@@ -7,4 +7,7 @@
     <string name="back">back</string>
     <string name="search">search</string>
     <string name="filter">filter</string>
+    <string name="character_detail">Character detail</string>
+    <string name="episode_details">Episode details</string>
+    <string name="location_details">Location details</string>
 </resources>
