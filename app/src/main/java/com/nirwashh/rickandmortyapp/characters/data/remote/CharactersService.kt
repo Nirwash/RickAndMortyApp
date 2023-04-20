@@ -1,4 +1,4 @@
-package com.nirwashh.rickandmortyapp.characters.data.cloud
+package com.nirwashh.rickandmortyapp.characters.data.remote
 
 import com.nirwashh.rickandmortyapp.characters.data.model.CharactersResponse
 import retrofit2.Response
@@ -22,4 +22,6 @@ interface CharactersService {
         @Query("page")
         page: Int
     ): Response<CharactersResponse>
+
+
 }

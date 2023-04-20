@@ -5,6 +5,5 @@ data class CharacterFilters(
     var status: String = "",
     var species: String = "",
     var type: String = "",
-    var gender: String = "",
-    var page: Int = 1
+    var gender: String = ""
 )

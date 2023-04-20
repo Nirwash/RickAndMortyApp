@@ -1,6 +1,6 @@
 package com.nirwashh.rickandmortyapp.characters.di
 
-import com.nirwashh.rickandmortyapp.characters.data.cloud.CharactersService
+import com.nirwashh.rickandmortyapp.characters.data.remote.CharactersService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

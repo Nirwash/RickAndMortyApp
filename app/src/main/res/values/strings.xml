@@ -15,4 +15,6 @@
     <string name="status">status</string>
     <string name="gender">gender</string>
     <string name="comma">,\u0020</string>
+    <string name="load_error">Oops, can\'t load data</string>
+    <string name="try_again">Try Again</string>
 </resources>

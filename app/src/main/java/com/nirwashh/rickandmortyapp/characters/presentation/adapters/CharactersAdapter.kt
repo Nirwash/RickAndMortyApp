@@ -2,16 +2,15 @@ package com.nirwashh.rickandmortyapp.characters.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nirwashh.rickandmortyapp.characters.data.model.Character
 import com.nirwashh.rickandmortyapp.databinding.ItemCharacterBinding
 
-class CharactersAdapter() : RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>() {
-    inner class CharacterViewHolder(val binding: ItemCharacterBinding) :
-        RecyclerView.ViewHolder(binding.root)
+class CharactersAdapter :
+    PagingDataAdapter<Character, CharactersAdapter.CharacterViewHolder>(CharacterDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         CharacterViewHolder(
@@ -23,7 +22,7 @@ class CharactersAdapter() : RecyclerView.Adapter<CharactersAdapter.CharacterView
         )
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        val character = differ.currentList[position]
+        val character = checkNotNull(getItem(position))
         with(holder) {
             with(binding) {
                 Glide.with(itemView).load(character.image).into(imgCharacter)
@@ -35,16 +34,15 @@ class CharactersAdapter() : RecyclerView.Adapter<CharactersAdapter.CharacterView
         }
     }
 
-    override fun getItemCount() = differ.currentList.size
+    class CharacterViewHolder(val binding: ItemCharacterBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<Character>() {
+    class CharacterDiffCallback : DiffUtil.ItemCallback<Character>() {
         override fun areItemsTheSame(oldItem: Character, newItem: Character) =
             oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: Character, newItem: Character) =
             oldItem == newItem
     }
-
-    val differ = AsyncListDiffer(this, differCallback)
 }
 

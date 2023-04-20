@@ -1,8 +1,7 @@
 package com.nirwashh.rickandmortyapp.characters.data.model
 
-import com.nirwashh.rickandmortyapp.characters.data.cache.entities.CharacterDbEntity
+//import com.nirwashh.rickandmortyapp.characters.data.local.entities.CharacterDbEntity
 import com.nirwashh.rickandmortyapp.locations.data.model.Location
-import com.nirwashh.rickandmortyapp.locations.data.model.Origin
 
 data class Character(
     val created: String,
@@ -12,26 +11,25 @@ data class Character(
     val image: String,
     val location: Location,
     val name: String,
-    val origin: Origin,
+    val origin: Location,
     val species: String,
     val status: String,
     val type: String,
     val url: String
 ) {
-    fun toCharacterDbEntity(): CharacterDbEntity {
-        return CharacterDbEntity(
-            created = created,
-            //todo mapping episodesId = episode.forEach { it.id },
-            gender = gender,
-            characterId = id,
-            image = image,
-            locationId = location.id,
-            name = name,
-            //originId = origin.name,
-            species = species,
-            status = status,
-            type = type,
-            url = url
-        )
-    }
+//    companion object {
+//        fun Character.toCharacterBdEntity() =
+//            CharacterDbEntity(
+//                created = created,
+//                gender = gender,
+//                id = id,
+//                image = image,
+//                name = name,
+//                species = species,
+//                status = status,
+//                type = type,
+//                url = url
+//            )
+//    }
+
 }
