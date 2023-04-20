@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    android:elevation="8dp"
+    app:cardCornerRadius="16dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp">
+
+        <ImageView
+            android:id="@+id/img_character"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/icon_characters"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:padding="4dp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/Item_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_character"
+            tools:text="@string/rick_sanchez" />
+
+        <TextView
+            android:id="@+id/species"
+            style="@style/item_subtitle"
+            app:layout_constraintEnd_toStartOf="@+id/comma1"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            tools:text="@string/species" />
+
+        <TextView
+            android:id="@+id/comma1"
+            style="@style/item_subtitle"
+            android:text="@string/comma"
+            app:layout_constraintBottom_toBottomOf="@id/species"
+            app:layout_constraintEnd_toStartOf="@+id/status"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/species" />
+
+        <TextView
+            android:id="@+id/status"
+            style="@style/item_subtitle"
+            app:layout_constraintBottom_toBottomOf="@id/species"
+            app:layout_constraintEnd_toStartOf="@+id/comma2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/comma1"
+            tools:text="@string/status" />
+
+        <TextView
+            android:id="@+id/comma2"
+            style="@style/item_subtitle"
+            android:text="@string/comma"
+            app:layout_constraintBottom_toBottomOf="@id/species"
+            app:layout_constraintEnd_toStartOf="@+id/gender"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/status" />
+
+        <TextView
+            android:id="@+id/gender"
+            style="@style/item_subtitle"
+            app:layout_constraintBottom_toBottomOf="@id/species"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/comma2"
+            tools:text="@string/gender" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

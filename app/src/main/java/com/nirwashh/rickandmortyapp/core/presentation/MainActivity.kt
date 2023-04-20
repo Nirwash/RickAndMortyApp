@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.nirwashh.rickandmortyapp.R
-import com.nirwashh.rickandmortyapp.characters.presentation.CharacterDetailsFragment
-import com.nirwashh.rickandmortyapp.characters.presentation.CharactersFragment
+import com.nirwashh.rickandmortyapp.characters.presentation.fragments.CharacterDetailsFragment
+import com.nirwashh.rickandmortyapp.characters.presentation.fragments.CharactersFragment
 import com.nirwashh.rickandmortyapp.databinding.ActivityMainBinding
 import com.nirwashh.rickandmortyapp.episodes.presentation.EpisodeDetailsFragment
 import com.nirwashh.rickandmortyapp.episodes.presentation.EpisodesFragment
@@ -35,14 +35,15 @@ class MainActivity : FragmentActivity(), Navigation {
         }
     }
 
-    private fun setCurrentFragment(fragment: Fragment, addBackStack: Boolean) =
+    private fun setCurrentFragment(fragment: Fragment, addBackStack: Boolean) {
+        supportFragmentManager.popBackStack()
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragment_container, fragment)
-            if (addBackStack) {
+            if (addBackStack)
                 addToBackStack(fragment.tag)
-            }
             commit()
         }
+    }
 
     override fun navigateToCharacterDetails() {
         setCurrentFragment(CharacterDetailsFragment.newInstance(), true)

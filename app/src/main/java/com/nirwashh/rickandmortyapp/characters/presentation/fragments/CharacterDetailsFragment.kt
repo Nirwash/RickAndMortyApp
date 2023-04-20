@@ -1,4 +1,4 @@
-package com.nirwashh.rickandmortyapp.characters.presentation
+package com.nirwashh.rickandmortyapp.characters.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
