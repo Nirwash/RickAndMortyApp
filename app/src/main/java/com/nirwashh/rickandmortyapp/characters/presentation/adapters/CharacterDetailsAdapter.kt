@@ -1,0 +1,94 @@
+package com.nirwashh.rickandmortyapp.characters.presentation.adapters
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.nirwashh.rickandmortyapp.R
+import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailRecyclerViewHolder.CharacterViewHolder
+import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailRecyclerViewHolder.EpisodeViewHolder
+import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailRecyclerViewHolder.LocationViewHolder
+import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailRecyclerViewHolder.OriginViewHolder
+import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailRecyclerViewHolder.TitleViewHolder
+import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem.CharacterViewItem
+import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem.EpisodeViewItem
+import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem.LocationViewItem
+import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem.OriginViewItem
+import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem.TitleViewItem
+import com.nirwashh.rickandmortyapp.databinding.ItemCharacterDetailBinding
+import com.nirwashh.rickandmortyapp.databinding.ItemEpisodeBinding
+import com.nirwashh.rickandmortyapp.databinding.ItemLocationBinding
+import com.nirwashh.rickandmortyapp.databinding.ItemOriginBinding
+import com.nirwashh.rickandmortyapp.databinding.ItemTitleBinding
+
+class CharacterDetailsAdapter(private val viewItems: List<DetailsRecyclerViewItem>) :
+    RecyclerView.Adapter<DetailRecyclerViewHolder>() {
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailRecyclerViewHolder {
+        return when (viewType) {
+            R.layout.item_character_detail -> CharacterViewHolder(
+                ItemCharacterDetailBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
+            R.layout.item_episode -> EpisodeViewHolder(
+                ItemEpisodeBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
+            R.layout.item_location -> LocationViewHolder(
+                ItemLocationBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
+            R.layout.item_origin -> OriginViewHolder(
+                ItemOriginBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
+            R.layout.item_title -> TitleViewHolder(
+                ItemTitleBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
+            else -> throw IllegalArgumentException("Invalid ViewType provided")
+        }
+    }
+
+    override fun getItemCount() = viewItems.size
+
+    override fun onBindViewHolder(holder: DetailRecyclerViewHolder, position: Int) {
+        when (holder) {
+            is CharacterViewHolder -> holder.bind(viewItems[position] as CharacterViewItem)
+            is EpisodeViewHolder -> holder.bind(viewItems[position] as EpisodeViewItem)
+            is LocationViewHolder -> holder.bind(viewItems[position] as LocationViewItem)
+            is OriginViewHolder -> holder.bind(viewItems[position] as OriginViewItem)
+            is TitleViewHolder -> holder.bind(viewItems[position] as TitleViewItem)
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (viewItems[position]) {
+            is CharacterViewItem -> R.layout.item_character_detail
+            is EpisodeViewItem -> R.layout.item_episode
+            is LocationViewItem -> R.layout.item_location
+            is OriginViewItem -> R.layout.item_origin
+            is TitleViewItem -> R.layout.item_title
+        }
+    }
+}

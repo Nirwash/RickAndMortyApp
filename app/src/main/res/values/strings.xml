@@ -20,15 +20,20 @@
     <string name="alive">alive</string>
     <string name="dead">dead</string>
     <string name="unknown">unknown</string>
-    <string name="status_filter">Status:</string>
-    <string name="gender_filter">Gender:</string>
+    <string name="status_filter">Status:\u0020</string>
+    <string name="gender_filter">Gender:\u0020</string>
     <string name="female">female</string>
     <string name="male">male</string>
     <string name="genderless">genderless</string>
-    <string name="type_filter">Type..</string>
-    <string name="species_filter">Species..</string>
+    <string name="type_hint">Type..</string>
+    <string name="type_filter">Type:\u0020</string>
+    <string name="species_hint">Species..</string>
+    <string name="species_filter">Species:\u0020</string>
     <string name="deny">deny</string>
     <string name="apply">apply</string>
     <string name="clear">clear</string>
-    <string name="name_filter">Name..</string>
+    <string name="name_hint">Name..</string>
+    <string name="created">Created:\u0020</string>
+    <string name="location">Location:\u0020</string>
+    <string name="origin">Origin:\u0020</string>
 </resources>

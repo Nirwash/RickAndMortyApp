@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
+import com.nirwashh.rickandmortyapp.characters.data.model.Character
 import com.nirwashh.rickandmortyapp.characters.presentation.adapters.CharacterLoadStateAdapter
 import com.nirwashh.rickandmortyapp.characters.presentation.adapters.CharactersAdapter
 import com.nirwashh.rickandmortyapp.characters.presentation.viewmodels.CharactersViewModel
@@ -21,7 +22,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CharactersFragment : Fragment(), RefreshCallback {
+class CharactersFragment : Fragment(), RefreshCallback, CharactersAdapter.Listener {
     private lateinit var binding: FragmentCharactersBinding
     private lateinit var navigation: Navigation
     private lateinit var viewModel: CharactersViewModel
@@ -58,11 +59,12 @@ class CharactersFragment : Fragment(), RefreshCallback {
             CharacterFiltersFragment(viewModel)
                 .show(childFragmentManager, "")
         }
+
     }
 
 
     private fun setupRecyclerView() {
-        characterAdapter = CharactersAdapter()
+        characterAdapter = CharactersAdapter(this)
         binding.rvCharacters.apply {
             adapter = characterAdapter.withLoadStateHeaderAndFooter(
                 header = CharacterLoadStateAdapter(characterAdapter),
@@ -95,6 +97,10 @@ class CharactersFragment : Fragment(), RefreshCallback {
         lifecycleScope.launch {
             updateUi()
         }
+    }
+
+    override fun onClick(character: Character) {
+        navigation.navigateToCharacterDetails(character)
     }
 
 }

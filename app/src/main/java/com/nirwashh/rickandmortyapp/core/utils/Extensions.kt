@@ -4,6 +4,8 @@ import android.content.res.Resources
 import android.graphics.Rect
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem
+import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
 import kotlinx.coroutines.flow.MutableStateFlow
 
 fun DialogFragment.setWidthPercent(percentage: Int) {
@@ -23,3 +25,11 @@ inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
         }
     }
 }
+
+fun Episode.mapToEpisodeViewType() =
+    DetailsRecyclerViewItem.EpisodeViewItem(
+        name = this.name,
+        episode = this.episode
+    )
+
+

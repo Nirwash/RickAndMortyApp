@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.nirwashh.rickandmortyapp.characters.data.model.Character
 import com.nirwashh.rickandmortyapp.databinding.ItemCharacterBinding
 
-class CharactersAdapter :
+class CharactersAdapter(private val listener: Listener) :
     PagingDataAdapter<Character, CharactersAdapter.CharacterViewHolder>(CharacterDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -31,6 +31,9 @@ class CharactersAdapter :
                 status.text = character.status
                 gender.text = character.gender
             }
+            itemView.setOnClickListener {
+                listener.onClick(character)
+            }
         }
     }
 
@@ -44,5 +47,11 @@ class CharactersAdapter :
         override fun areContentsTheSame(oldItem: Character, newItem: Character) =
             oldItem == newItem
     }
+
+    interface Listener {
+        fun onClick(character: Character)
+    }
 }
+
+
 
