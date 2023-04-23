@@ -36,10 +36,8 @@ class CharacterLoadStateAdapter(
 
         fun bind(loadState: LoadState) = with(binding) {
             messageTextView.isVisible = loadState is LoadState.Error
-            messageTextView.text = LoadState.Error().error.message
             tryAgainButton.isVisible = loadState is LoadState.Error
             progressBar.isVisible = loadState is LoadState.Loading
-
         }
     }
 }

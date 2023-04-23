@@ -5,7 +5,6 @@
     <string name="episodes">Episodes</string>
     <string name="todo">TODO</string>
     <string name="back">back</string>
-    <string name="search">search</string>
     <string name="filter">filter</string>
     <string name="character_detail">Character detail</string>
     <string name="episode_details">Episode details</string>
@@ -17,4 +16,19 @@
     <string name="comma">,\u0020</string>
     <string name="load_error">Oops, can\'t load data</string>
     <string name="try_again">Try Again</string>
+    <string name="search">search..</string>
+    <string name="alive">alive</string>
+    <string name="dead">dead</string>
+    <string name="unknown">unknown</string>
+    <string name="status_filter">Status:</string>
+    <string name="gender_filter">Gender:</string>
+    <string name="female">female</string>
+    <string name="male">male</string>
+    <string name="genderless">genderless</string>
+    <string name="type_filter">Type..</string>
+    <string name="species_filter">Species..</string>
+    <string name="deny">deny</string>
+    <string name="apply">apply</string>
+    <string name="clear">clear</string>
+    <string name="name_filter">Name..</string>
 </resources>

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -22,7 +21,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CharactersFragment : Fragment() {
+class CharactersFragment : Fragment(), RefreshCallback {
     private lateinit var binding: FragmentCharactersBinding
     private lateinit var navigation: Navigation
     private lateinit var viewModel: CharactersViewModel
@@ -55,31 +54,46 @@ class CharactersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupSwipeToRefresh()
+        binding.filter.setOnClickListener {
+            CharacterFiltersFragment(viewModel)
+                .show(childFragmentManager, "")
+        }
     }
 
 
     private fun setupRecyclerView() {
         characterAdapter = CharactersAdapter()
         binding.rvCharacters.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = characterAdapter.withLoadStateHeaderAndFooter(
                 header = CharacterLoadStateAdapter(characterAdapter),
                 footer = CharacterLoadStateAdapter(characterAdapter)
             )
+            layoutManager = GridLayoutManager(requireContext(), 2)
             lifecycleScope.launch {
-                viewModel.charactersFlow.collectLatest(characterAdapter::submitData)
+                updateUi()
             }
         }
+
     }
 
 
     private fun setupSwipeToRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             lifecycleScope.launch {
-                characterAdapter.submitData(PagingData.empty())
-                viewModel.charactersFlow.collectLatest(characterAdapter::submitData)
+                updateUi()
             }
             binding.swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    private suspend fun updateUi() {
+        characterAdapter.submitData(PagingData.empty())
+        viewModel.charactersFlow.collectLatest(characterAdapter::submitData)
+    }
+
+    override fun invoke() {
+        lifecycleScope.launch {
+            updateUi()
         }
     }
 
