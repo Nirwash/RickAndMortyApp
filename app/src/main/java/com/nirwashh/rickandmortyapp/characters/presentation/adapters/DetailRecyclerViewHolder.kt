@@ -1,5 +1,6 @@
 package com.nirwashh.rickandmortyapp.characters.presentation.adapters
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
@@ -26,24 +27,41 @@ sealed class DetailRecyclerViewHolder(binding: ViewBinding) :
                 gender.text = character.gender
                 species.text = character.species
                 type.text = character.type
+                setVisibility(species, character.species == "")
+                setVisibility(tvSpecies, character.species == "")
+                setVisibility(type, character.type == "")
+                setVisibility(tvType, character.type == "")
             }
+        }
+
+        private fun setVisibility(view: View, shouldNotVisible: Boolean) {
+            if (shouldNotVisible)
+                view.visibility = View.INVISIBLE
+            else
+                view.visibility = View.VISIBLE
         }
     }
 
     class LocationViewHolder(private val binding: ItemLocationBinding) :
         DetailRecyclerViewHolder(binding) {
-        fun bind(location: LocationViewItem) {
+        fun bind(location: LocationViewItem, listener: CharacterDetailsAdapter.Listener) {
             with(binding) {
                 tvLocationName.text = location.name
+            }
+            itemView.setOnClickListener {
+                listener.onClick(location)
             }
         }
     }
 
     class OriginViewHolder(private val binding: ItemOriginBinding) :
         DetailRecyclerViewHolder(binding) {
-        fun bind(origin: OriginViewItem) {
+        fun bind(origin: OriginViewItem, listener: CharacterDetailsAdapter.Listener) {
             with(binding) {
                 tvOriginName.text = origin.name
+            }
+            itemView.setOnClickListener {
+                listener.onClick(origin)
             }
         }
     }
@@ -59,10 +77,13 @@ sealed class DetailRecyclerViewHolder(binding: ViewBinding) :
 
     class EpisodeViewHolder(private val binding: ItemEpisodeBinding) :
         DetailRecyclerViewHolder(binding) {
-        fun bind(episode: EpisodeViewItem) {
+        fun bind(episode: EpisodeViewItem, listener: CharacterDetailsAdapter.Listener) {
             with(binding) {
                 tvEpisodeName.text = episode.name
                 tvEpisode.text = episode.episode
+            }
+            itemView.setOnClickListener {
+                listener.onClick(episode)
             }
         }
     }

@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:layout_marginStart="8dp"
+    android:layout_marginTop="2dp"
     android:layout_marginEnd="8dp"
-    android:orientation="horizontal">
+    android:background="@drawable/card_background"
+    android:paddingStart="8dp">
 
     <TextView
         android:id="@+id/tvEpisodeName"
         style="@style/text_style_location"
-        android:layout_gravity="start"
+        android:layout_gravity="start|center_vertical"
         android:textColor="@color/white"
         tools:text="The Ricklantis Mixup" />
 
-    <androidx.cardview.widget.CardView
-        style="@style/card_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        app:cardCornerRadius="16dp">
+    <TextView
+        android:id="@+id/tvEpisode"
+        style="@style/text_style_location"
+        android:layout_gravity="end|center_vertical"
+        android:background="@drawable/card_background"
+        android:padding="4dp"
+        android:textColor="@color/white"
+        tools:text="S03E07" />
 
-        <TextView
-            android:id="@+id/tvEpisode"
-            style="@style/text_style_location"
-            android:textColor="@color/white"
-            tools:text="S03E07" />
-
-    </androidx.cardview.widget.CardView>
 </FrameLayout>

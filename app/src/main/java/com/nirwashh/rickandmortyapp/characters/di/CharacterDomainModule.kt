@@ -7,10 +7,10 @@ import dagger.Provides
 
 
 @Module
-class DomainModule {
+class CharacterDomainModule {
 
     @Provides
-    fun provideCharacterInteractor(charactersRepository: CharactersRepository): CharactersInteractor {
-        return CharactersInteractor(charactersRepository)
-    }
+    fun provideCharacterInteractor(charactersRepository: CharactersRepository) =
+        CharactersInteractor(charactersRepository)
+
 }

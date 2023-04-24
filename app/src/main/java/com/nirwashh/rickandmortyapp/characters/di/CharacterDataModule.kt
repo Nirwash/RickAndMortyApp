@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class DataModule {
+class CharacterDataModule {
 
     @Provides
     fun provideCharactersRepository(

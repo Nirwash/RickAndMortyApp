@@ -1,11 +1,11 @@
 package com.nirwashh.rickandmortyapp.characters.data
 
-import android.net.Uri
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.nirwashh.rickandmortyapp.characters.data.model.Character
 import com.nirwashh.rickandmortyapp.characters.data.model.CharacterFilters
 import com.nirwashh.rickandmortyapp.characters.data.remote.CharactersService
+import com.nirwashh.rickandmortyapp.core.utils.pageParser
 
 class CharactersPagingSource(
     private val characterService: CharactersService,
@@ -30,17 +30,10 @@ class CharactersPagingSource(
             )
             val data = checkNotNull(response.body()).results
             val prevKey = if (pageIndex == 0) null else pageIndex - 1
-            val nextKey = pageParser(response.body()?.info?.next)
+            val nextKey = response.body()?.info?.next?.pageParser()
             return LoadResult.Page(data, prevKey, nextKey)
         } catch (e: Exception) {
             LoadResult.Error(e)
         }
     }
-
-    private fun pageParser(uri: String?): Int? {
-        val uri = Uri.parse(uri)
-        val pageQuery = uri.getQueryParameter("page")
-        return pageQuery?.toInt()
-    }
-
 }

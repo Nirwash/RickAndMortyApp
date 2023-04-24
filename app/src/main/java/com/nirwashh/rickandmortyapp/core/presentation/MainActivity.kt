@@ -1,8 +1,9 @@
 package com.nirwashh.rickandmortyapp.core.presentation
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.nirwashh.rickandmortyapp.R
 import com.nirwashh.rickandmortyapp.characters.data.model.Character
 import com.nirwashh.rickandmortyapp.characters.presentation.fragments.CharacterDetailsFragment
@@ -13,12 +14,13 @@ import com.nirwashh.rickandmortyapp.episodes.presentation.EpisodesFragment
 import com.nirwashh.rickandmortyapp.locations.presentation.LocationDetailsFragment
 import com.nirwashh.rickandmortyapp.locations.presentation.LocationsFragment
 
-class MainActivity : FragmentActivity(), Navigation {
+class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
 
         val charactersFragment = CharactersFragment()
@@ -56,9 +58,5 @@ class MainActivity : FragmentActivity(), Navigation {
 
     override fun navigateToLocationDetails() {
         setCurrentFragment(LocationDetailsFragment.newInstance(), true)
-    }
-
-    override fun back() {
-        supportFragmentManager.popBackStack()
     }
 }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,10 +15,12 @@ import com.nirwashh.rickandmortyapp.characters.presentation.viewmodels.Character
 import com.nirwashh.rickandmortyapp.characters.presentation.viewmodels.CharactersViewModelFactory
 import com.nirwashh.rickandmortyapp.core.App
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation
+import com.nirwashh.rickandmortyapp.core.utils.episodeParser
 import com.nirwashh.rickandmortyapp.databinding.FragmentCharacterDetailsBinding
+import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
 import javax.inject.Inject
 
-class CharacterDetailsFragment : Fragment() {
+class CharacterDetailsFragment : Fragment(), CharacterDetailsAdapter.Listener {
     private lateinit var binding: FragmentCharacterDetailsBinding
     private lateinit var navigation: Navigation
     private lateinit var viewModel: CharactersViewModel
@@ -28,6 +29,7 @@ class CharacterDetailsFragment : Fragment() {
 
     @Inject
     lateinit var vmFactory: CharactersViewModelFactory
+
 
     override fun onAttach(context: Context) {
         (context.applicationContext as App).appComponent.inject(this)
@@ -53,25 +55,30 @@ class CharacterDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        viewModel.setEpisodes(character.episode.episodeParser())
+        viewModel.episodes.observe(viewLifecycleOwner) {
+            setupEpisodesViewType(it)
+        }
         with(binding) {
-            btnBack.setOnClickListener { navigationBack() }
+            btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
             tvTitle.text = character.name
         }
+
 
     }
 
     private fun setupRecyclerView() {
-        characterDetailAdapter = CharacterDetailsAdapter(createViewItems(character))
+        characterDetailAdapter = CharacterDetailsAdapter(createViewItems(character), this)
         binding.rvCharacterDetails.apply {
             adapter = characterDetailAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
-    private fun createViewItems(character: Character): List<DetailsRecyclerViewItem> {
+    private fun createViewItems(character: Character): MutableList<DetailsRecyclerViewItem> {
         val list = mutableListOf<DetailsRecyclerViewItem>()
         list.add(
-            0, DetailsRecyclerViewItem.CharacterViewItem(
+            DetailsRecyclerViewItem.CharacterViewItem(
                 created = character.created,
                 gender = character.gender,
                 image = character.image,
@@ -82,36 +89,47 @@ class CharacterDetailsFragment : Fragment() {
             )
         )
         list.add(
-            1, DetailsRecyclerViewItem.LocationViewItem(
-                name = character.location.name
+            DetailsRecyclerViewItem.TitleViewItem(LOCATION)
+        )
+        list.add(
+            DetailsRecyclerViewItem.LocationViewItem(
+                name = character.location.name,
+                id = character.location.id
             )
         )
         list.add(
-            2, DetailsRecyclerViewItem.OriginViewItem(
-                name = character.origin.name
+            DetailsRecyclerViewItem.TitleViewItem(ORIGIN)
+        )
+        list.add(
+            DetailsRecyclerViewItem.OriginViewItem(
+                name = character.origin.name,
+                id = character.location.id
             )
         )
         list.add(
-            3,
-            DetailsRecyclerViewItem.TitleViewItem("EPISODES")
+            DetailsRecyclerViewItem.TitleViewItem(EPISODES)
         )
-        character.episode.forEach {
-            list.add(DetailsRecyclerViewItem.EpisodeViewItem(name = it, ""))
-        }
-        return list.toList()
+        return list
     }
 
-
-    private fun navigationBack() {
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                navigation.back()
-            }
+    private fun setupEpisodesViewType(episode: List<Episode>) {
+        episode.forEach {
+            characterDetailAdapter.viewItems.add(
+                DetailsRecyclerViewItem.EpisodeViewItem(
+                    name = it.name,
+                    episode = it.episode,
+                    id = it.id
+                )
+            )
         }
+        characterDetailAdapter.notifyDataSetChanged()
     }
 
     companion object {
         private const val CHARACTER = "character"
+        private const val LOCATION = "LOCATION: "
+        private const val ORIGIN = "ORIGIN: "
+        private const val EPISODES = "EPISODES: "
         fun newInstance(character: Character): Fragment {
             val fragment = CharacterDetailsFragment().apply {
                 arguments = Bundle().apply {
@@ -119,6 +137,19 @@ class CharacterDetailsFragment : Fragment() {
                 }
             }
             return fragment
+        }
+    }
+
+    override fun <T> onClick(t: T) {
+        when (t) {
+            is DetailsRecyclerViewItem.EpisodeViewItem ->
+                navigation.navigateToEpisodeDetails()
+
+            is DetailsRecyclerViewItem.LocationViewItem ->
+                navigation.navigateToLocationDetails()
+
+            is DetailsRecyclerViewItem.OriginViewItem ->
+                navigation.navigateToLocationDetails()
         }
     }
 }

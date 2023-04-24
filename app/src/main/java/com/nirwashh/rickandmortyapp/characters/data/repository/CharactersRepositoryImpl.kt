@@ -15,14 +15,10 @@ class CharactersRepositoryImpl(
     /*private val charactersDao: CharactersDao*/
 ) : CharactersRepository {
 
-    override suspend fun aboutCharacter(character: Character) {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun getCharacters(
         filters: CharacterFilters
     ): Flow<PagingData<Character>> = Pager(
         config = PagingConfig(1),
-        pagingSourceFactory = { CharactersPagingSource(characterService, filters)}
+        pagingSourceFactory = { CharactersPagingSource(characterService, filters) }
     ).flow
 }

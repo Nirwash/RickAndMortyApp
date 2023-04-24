@@ -12,6 +12,6 @@
         android:gravity="center_horizontal"
         android:text="EPISODES"
         android:textColor="@color/grey"
-        android:textSize="22sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>

@@ -20,7 +20,10 @@ import com.nirwashh.rickandmortyapp.databinding.ItemLocationBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemOriginBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemTitleBinding
 
-class CharacterDetailsAdapter(private val viewItems: List<DetailsRecyclerViewItem>) :
+class CharacterDetailsAdapter(
+    val viewItems: MutableList<DetailsRecyclerViewItem>,
+    private val listener: Listener
+) :
     RecyclerView.Adapter<DetailRecyclerViewHolder>() {
 
 
@@ -75,9 +78,9 @@ class CharacterDetailsAdapter(private val viewItems: List<DetailsRecyclerViewIte
     override fun onBindViewHolder(holder: DetailRecyclerViewHolder, position: Int) {
         when (holder) {
             is CharacterViewHolder -> holder.bind(viewItems[position] as CharacterViewItem)
-            is EpisodeViewHolder -> holder.bind(viewItems[position] as EpisodeViewItem)
-            is LocationViewHolder -> holder.bind(viewItems[position] as LocationViewItem)
-            is OriginViewHolder -> holder.bind(viewItems[position] as OriginViewItem)
+            is EpisodeViewHolder -> holder.bind(viewItems[position] as EpisodeViewItem, listener)
+            is LocationViewHolder -> holder.bind(viewItems[position] as LocationViewItem, listener)
+            is OriginViewHolder -> holder.bind(viewItems[position] as OriginViewItem, listener)
             is TitleViewHolder -> holder.bind(viewItems[position] as TitleViewItem)
         }
     }
@@ -90,5 +93,9 @@ class CharacterDetailsAdapter(private val viewItems: List<DetailsRecyclerViewIte
             is OriginViewItem -> R.layout.item_origin
             is TitleViewItem -> R.layout.item_title
         }
+    }
+
+    interface Listener {
+        fun <T> onClick(t: T)
     }
 }

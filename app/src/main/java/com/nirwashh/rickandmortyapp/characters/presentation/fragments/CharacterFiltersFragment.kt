@@ -10,13 +10,6 @@ import com.nirwashh.rickandmortyapp.characters.presentation.viewmodels.Character
 import com.nirwashh.rickandmortyapp.core.utils.setWidthPercent
 import com.nirwashh.rickandmortyapp.databinding.FragmentCharacterFilterBinding
 
-private const val MALE = "male"
-private const val FEMALE = "female"
-private const val GENDERLESS = "genderless"
-private const val ALIVE = "alive"
-private const val DEAD = "dead"
-private const val UNKNOWN = "unknown"
-
 class CharacterFiltersFragment(private val viewModel: CharactersViewModel) : DialogFragment() {
     private lateinit var binding: FragmentCharacterFilterBinding
     private lateinit var refresh: RefreshCallback
@@ -117,6 +110,15 @@ class CharacterFiltersFragment(private val viewModel: CharactersViewModel) : Dia
         viewModel.update()
         refresh()
         dismiss()
+    }
+
+    companion object {
+        private const val MALE = "male"
+        private const val FEMALE = "female"
+        private const val GENDERLESS = "genderless"
+        private const val ALIVE = "alive"
+        private const val DEAD = "dead"
+        private const val UNKNOWN = "unknown"
     }
 }
 

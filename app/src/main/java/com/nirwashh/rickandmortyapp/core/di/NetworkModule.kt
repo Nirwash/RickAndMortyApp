@@ -1,6 +1,5 @@
-package com.nirwashh.rickandmortyapp.characters.di
+package com.nirwashh.rickandmortyapp.core.di
 
-import com.nirwashh.rickandmortyapp.characters.data.remote.CharactersService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -28,10 +27,5 @@ class NetworkModule {
             .client(client)
             .build()
     }
-
-    @Singleton
-    @Provides
-    fun provideCharacterApi(retrofit: Retrofit): CharactersService =
-        retrofit.create(CharactersService::class.java)
 
 }

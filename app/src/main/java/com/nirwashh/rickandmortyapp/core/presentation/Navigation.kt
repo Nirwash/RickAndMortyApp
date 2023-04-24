@@ -6,5 +6,4 @@ interface Navigation {
     fun navigateToCharacterDetails(character: Character)
     fun navigateToEpisodeDetails()
     fun navigateToLocationDetails()
-    fun back()
 }

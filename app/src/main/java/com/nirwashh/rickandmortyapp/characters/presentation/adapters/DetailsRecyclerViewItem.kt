@@ -12,11 +12,13 @@ sealed class DetailsRecyclerViewItem {
     ) : DetailsRecyclerViewItem()
 
     class LocationViewItem(
-        val name: String
+        val name: String,
+        val id: Int
     ) : DetailsRecyclerViewItem()
 
     class OriginViewItem(
-        val name: String
+        val name: String,
+        val id: Int
     ) : DetailsRecyclerViewItem()
 
     class TitleViewItem(
@@ -25,6 +27,7 @@ sealed class DetailsRecyclerViewItem {
 
     class EpisodeViewItem(
         val name: String,
-        val episode: String
+        val episode: String,
+        val id: Int
     ) : DetailsRecyclerViewItem()
 }

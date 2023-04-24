@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
-        android:background="@color/semi_transparent"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
@@ -20,7 +20,9 @@
             android:layout_height="50dp"
             android:layout_margin="16dp"
             android:background="@android:color/transparent"
+            android:clickable="true"
             android:contentDescription="@string/todo"
+            android:focusable="true"
             android:src="@drawable/ic_arrow_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,4 +46,14 @@
         tools:itemCount="1"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_character_detail" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvEpisodes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:itemCount="5"
+        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_episode" />
+
+
 </LinearLayout>

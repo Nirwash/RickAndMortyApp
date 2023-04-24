@@ -2,6 +2,6 @@ package com.nirwashh.rickandmortyapp.characters.di
 
 import dagger.Module
 
-@Module(includes = [DataModule::class, DomainModule::class, NetworkModule::class/*, RoomModule::class*/])
+@Module(includes = [CharacterDataModule::class, CharacterDomainModule::class, CharacterApiModule::class/*, RoomModule::class*/])
 class CharacterModule {
 }
