@@ -1,4 +1,4 @@
-package com.nirwashh.rickandmortyapp.episodes.presentation
+package com.nirwashh.rickandmortyapp.episodes.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -23,6 +23,7 @@ class EpisodeAdapter(private val listener: Listener) :
             with(binding) {
                 tvEpisodeName.text = episode.name
                 tvEpisode.text = episode.episode
+                AirDate.text = episode.air_date
             }
         }
     }

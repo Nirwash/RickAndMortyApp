@@ -15,7 +15,7 @@ import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecy
 import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem.OriginViewItem
 import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem.TitleViewItem
 import com.nirwashh.rickandmortyapp.databinding.ItemCharacterDetailBinding
-import com.nirwashh.rickandmortyapp.databinding.ItemEpisodeBinding
+import com.nirwashh.rickandmortyapp.databinding.ItemEpisodeDetailBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemLocationBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemOriginBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemTitleBinding
@@ -38,7 +38,7 @@ class CharacterDetailsAdapter(
             )
 
             R.layout.item_episode -> EpisodeViewHolder(
-                ItemEpisodeBinding.inflate(
+                ItemEpisodeDetailBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false

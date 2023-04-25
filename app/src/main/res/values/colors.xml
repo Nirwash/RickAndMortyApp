@@ -18,6 +18,7 @@
     <color name="main">#98F62E</color>
     <color name="deny">#D32F2F</color>
     <color name="semi_transparent">#80000000</color>
+    <color name="transparent_75">#BF000000</color>
     <color name="sky_blue">#2A22D0</color>
 
 

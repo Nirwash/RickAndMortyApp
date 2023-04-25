@@ -1,4 +1,4 @@
-package com.nirwashh.rickandmortyapp.characters.presentation.fragments
+package com.nirwashh.rickandmortyapp.episodes.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -10,27 +10,27 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
-import com.nirwashh.rickandmortyapp.characters.data.model.Character
-import com.nirwashh.rickandmortyapp.characters.presentation.adapters.CharacterLoadStateAdapter
-import com.nirwashh.rickandmortyapp.characters.presentation.adapters.CharactersAdapter
-import com.nirwashh.rickandmortyapp.characters.presentation.viewmodels.CharactersViewModel
-import com.nirwashh.rickandmortyapp.characters.presentation.viewmodels.CharactersViewModelFactory
 import com.nirwashh.rickandmortyapp.core.App
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation
-import com.nirwashh.rickandmortyapp.databinding.FragmentCharactersBinding
+import com.nirwashh.rickandmortyapp.databinding.FragmentEpisodesBinding
+import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
+import com.nirwashh.rickandmortyapp.episodes.presentation.adapters.EpisodeAdapter
+import com.nirwashh.rickandmortyapp.episodes.presentation.adapters.EpisodeLoadStateAdapter
+import com.nirwashh.rickandmortyapp.episodes.presentation.viewmodels.EpisodeViewModelFactory
+import com.nirwashh.rickandmortyapp.episodes.presentation.viewmodels.EpisodesViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CharactersFragment : Fragment(), CharacterFiltersFragment.RefreshCallback,
-    CharactersAdapter.Listener {
-    private lateinit var binding: FragmentCharactersBinding
+class EpisodesFragment : Fragment(), EpisodeFiltersFragment.RefreshCallback,
+    EpisodeAdapter.Listener {
+    private lateinit var binding: FragmentEpisodesBinding
     private lateinit var navigation: Navigation
-    private lateinit var viewModel: CharactersViewModel
-    private lateinit var characterAdapter: CharactersAdapter
+    private lateinit var viewModel: EpisodesViewModel
+    private lateinit var episodeAdapter: EpisodeAdapter
 
     @Inject
-    lateinit var vmFactory: CharactersViewModelFactory
+    lateinit var vmFactory: EpisodeViewModelFactory
 
     override fun onAttach(context: Context) {
         (context.applicationContext as App).appComponent.inject(this)
@@ -40,7 +40,7 @@ class CharactersFragment : Fragment(), CharacterFiltersFragment.RefreshCallback,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navigation = activity as Navigation
-        viewModel = ViewModelProvider(this, vmFactory)[CharactersViewModel::class.java]
+        viewModel = ViewModelProvider(this, vmFactory)[EpisodesViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -48,7 +48,7 @@ class CharactersFragment : Fragment(), CharacterFiltersFragment.RefreshCallback,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCharactersBinding.inflate(inflater, container, false)
+        binding = FragmentEpisodesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -57,28 +57,25 @@ class CharactersFragment : Fragment(), CharacterFiltersFragment.RefreshCallback,
         setupRecyclerView()
         setupSwipeToRefresh()
         binding.filter.setOnClickListener {
-            CharacterFiltersFragment(viewModel)
+            EpisodeFiltersFragment(viewModel)
                 .show(childFragmentManager, "")
         }
 
     }
 
-
     private fun setupRecyclerView() {
-        characterAdapter = CharactersAdapter(this)
-        binding.rvCharacters.apply {
-            adapter = characterAdapter.withLoadStateHeaderAndFooter(
-                header = CharacterLoadStateAdapter(characterAdapter),
-                footer = CharacterLoadStateAdapter(characterAdapter)
+        episodeAdapter = EpisodeAdapter(this)
+        binding.rvEpisodes.apply {
+            adapter = episodeAdapter.withLoadStateHeaderAndFooter(
+                header = EpisodeLoadStateAdapter(episodeAdapter),
+                footer = EpisodeLoadStateAdapter(episodeAdapter)
             )
             layoutManager = GridLayoutManager(requireContext(), 2)
             lifecycleScope.launch {
                 updateUi()
             }
         }
-
     }
-
 
     private fun setupSwipeToRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -90,8 +87,8 @@ class CharactersFragment : Fragment(), CharacterFiltersFragment.RefreshCallback,
     }
 
     private suspend fun updateUi() {
-        characterAdapter.submitData(PagingData.empty())
-        viewModel.charactersFlow.collectLatest(characterAdapter::submitData)
+        episodeAdapter.submitData(PagingData.empty())
+        viewModel.episodesFlow.collectLatest(episodeAdapter::submitData)
     }
 
     override fun invoke() {
@@ -100,9 +97,8 @@ class CharactersFragment : Fragment(), CharacterFiltersFragment.RefreshCallback,
         }
     }
 
-    override fun onClick(character: Character) {
-        navigation.navigateToCharacterDetails(character)
+    override fun onClick(episode: Episode) {
+        navigation.navigateToEpisodeDetails(episode)
     }
-
 }
 

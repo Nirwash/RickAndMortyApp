@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/character_detail_background"
+    android:alpha="0.9"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
-        android:background="@android:color/transparent"
+        android:background="@color/semi_transparent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton

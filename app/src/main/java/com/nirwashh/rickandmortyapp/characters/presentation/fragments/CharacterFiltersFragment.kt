@@ -120,8 +120,9 @@ class CharacterFiltersFragment(private val viewModel: CharactersViewModel) : Dia
         private const val DEAD = "dead"
         private const val UNKNOWN = "unknown"
     }
+
+    interface RefreshCallback {
+        operator fun invoke()
+    }
 }
 
-interface RefreshCallback {
-    operator fun invoke()
-}

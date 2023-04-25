@@ -9,8 +9,9 @@ import com.nirwashh.rickandmortyapp.characters.data.model.Character
 import com.nirwashh.rickandmortyapp.characters.presentation.fragments.CharacterDetailsFragment
 import com.nirwashh.rickandmortyapp.characters.presentation.fragments.CharactersFragment
 import com.nirwashh.rickandmortyapp.databinding.ActivityMainBinding
-import com.nirwashh.rickandmortyapp.episodes.presentation.EpisodeDetailsFragment
-import com.nirwashh.rickandmortyapp.episodes.presentation.EpisodesFragment
+import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
+import com.nirwashh.rickandmortyapp.episodes.presentation.fragments.EpisodeDetailsFragment
+import com.nirwashh.rickandmortyapp.episodes.presentation.fragments.EpisodesFragment
 import com.nirwashh.rickandmortyapp.locations.presentation.LocationDetailsFragment
 import com.nirwashh.rickandmortyapp.locations.presentation.LocationsFragment
 
@@ -52,8 +53,8 @@ class MainActivity : AppCompatActivity(), Navigation {
         setCurrentFragment(CharacterDetailsFragment.newInstance(character), true)
     }
 
-    override fun navigateToEpisodeDetails() {
-        setCurrentFragment(EpisodeDetailsFragment.newInstance(), true)
+    override fun navigateToEpisodeDetails(episode: Episode) {
+        setCurrentFragment(EpisodeDetailsFragment.newInstance(episode), true)
     }
 
     override fun navigateToLocationDetails() {

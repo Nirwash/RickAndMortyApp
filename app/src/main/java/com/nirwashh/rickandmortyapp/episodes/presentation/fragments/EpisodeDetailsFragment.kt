@@ -1,4 +1,4 @@
-package com.nirwashh.rickandmortyapp.episodes.presentation
+package com.nirwashh.rickandmortyapp.episodes.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation
-import com.nirwashh.rickandmortyapp.databinding.FragmentEpisodesBinding
+import com.nirwashh.rickandmortyapp.databinding.FragmentEpisodeDetailsBinding
+import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
 
-class EpisodesFragment : Fragment() {
-    private var _binding: FragmentEpisodesBinding? = null
+class EpisodeDetailsFragment : Fragment() {
+    private var _binding: FragmentEpisodeDetailsBinding? = null
     private val binding get() = _binding!!
     private lateinit var navigation: Navigation
 
@@ -23,14 +24,14 @@ class EpisodesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEpisodesBinding.inflate(inflater, container, false)
+        _binding = FragmentEpisodeDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.button2.setOnClickListener {
-            navigation.navigateToEpisodeDetails()
+        binding.btnBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
     }
 
@@ -38,5 +39,17 @@ class EpisodesFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-}
 
+    companion object {
+        private const val EPISODE = "Episode"
+        fun newInstance(episode: Episode): Fragment {
+            val fragment = EpisodeDetailsFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(EPISODE, episode)
+                }
+
+            }
+            return fragment
+        }
+    }
+}

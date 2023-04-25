@@ -141,15 +141,15 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsAdapter.Listener {
     }
 
     override fun <T> onClick(t: T) {
-        when (t) {
-            is DetailsRecyclerViewItem.EpisodeViewItem ->
-                navigation.navigateToEpisodeDetails()
-
-            is DetailsRecyclerViewItem.LocationViewItem ->
-                navigation.navigateToLocationDetails()
-
-            is DetailsRecyclerViewItem.OriginViewItem ->
-                navigation.navigateToLocationDetails()
-        }
+//        when (t) {
+//            is DetailsRecyclerViewItem.EpisodeViewItem ->
+//                //todo
+//
+//            is DetailsRecyclerViewItem.LocationViewItem ->
+//                navigation.navigateToLocationDetails()
+//
+//            is DetailsRecyclerViewItem.OriginViewItem ->
+//                navigation.navigateToLocationDetails()
+//        }
     }
 }
