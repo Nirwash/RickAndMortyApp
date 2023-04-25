@@ -45,7 +45,7 @@ class CharacterDetailsAdapter(
                 )
             )
 
-            R.layout.item_location -> LocationViewHolder(
+            R.layout.item_location_detail -> LocationViewHolder(
                 ItemLocationBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -89,7 +89,7 @@ class CharacterDetailsAdapter(
         return when (viewItems[position]) {
             is CharacterViewItem -> R.layout.item_character_detail
             is EpisodeViewItem -> R.layout.item_episode
-            is LocationViewItem -> R.layout.item_location
+            is LocationViewItem -> R.layout.item_location_detail
             is OriginViewItem -> R.layout.item_origin
             is TitleViewItem -> R.layout.item_title
         }

@@ -10,6 +10,6 @@ import javax.inject.Singleton
 class EpisodeApiModule {
     @Singleton
     @Provides
-    fun provideCharacterApi(retrofit: Retrofit): EpisodesService =
+    fun provideEpisodeApi(retrofit: Retrofit): EpisodesService =
         retrofit.create(EpisodesService::class.java)
 }

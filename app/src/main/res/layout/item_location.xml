@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:layout_margin="2dp"
-    android:background="@drawable/card_background"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:background="@drawable/episode_item_background">
 
-    <TextView
-        android:id="@+id/tvLocationName"
-        style="@style/text_style_location"
-        android:layout_gravity="center"
-        android:textColor="@color/light_grey"
-        tools:text="ANATOMY PARK" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="4dp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvLocationName"
+            style="@style/Item_title"
+            android:layout_height="48dp"
+            android:gravity="top|center_horizontal"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            tools:text="Earth" />
+
+        <TextView
+            android:id="@+id/tvType"
+            style="@style/item_subtitle"
+            android:textSize="16sp"
+            tools:text="Planet" />
+
+        <TextView
+            android:id="@+id/tvDemension"
+            style="@style/item_subtitle"
+            android:textSize="16sp"
+            tools:text="Dimension C-137" />
+    </LinearLayout>
+
+
+</FrameLayout>
