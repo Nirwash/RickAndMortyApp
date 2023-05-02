@@ -6,4 +6,8 @@ import javax.inject.Inject
 class CharactersInteractor @Inject constructor(private val repository: CharactersRepository) {
     suspend fun getCharacters(filters: CharacterFilters) =
         repository.getCharacters(filters)
+
+    suspend fun getCharactersByIds(ids: String) = repository.getCharactersByIds(ids)
+
+
 }

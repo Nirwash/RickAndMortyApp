@@ -29,7 +29,7 @@
             tools:text="Planet" />
 
         <TextView
-            android:id="@+id/tvDemension"
+            android:id="@+id/tvDimension"
             style="@style/item_subtitle"
             android:gravity="center"
             android:textSize="16sp"

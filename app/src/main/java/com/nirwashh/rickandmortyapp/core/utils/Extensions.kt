@@ -40,7 +40,7 @@ fun String.pageParser(): Int? {
     return pageQuery?.toInt()
 }
 
-fun List<String>.episodeParser(): String {
+fun List<String>.idsParser(): String {
     val list = mutableListOf<Int>()
     this.forEach {
         val uri = Uri.parse(it)

@@ -8,8 +8,8 @@ class EpisodesInteractor @Inject constructor(private val repository: EpisodesRep
     suspend fun getEpisodes(filters: EpisodeFilters) =
         repository.getEpisodes(filters)
 
-    suspend fun getEpisodes(ids: String) =
-        repository.getEpisodes(ids)
+    suspend fun getEpisodesByIds(ids: String) =
+        repository.getEpisodesByIds(ids)
 
-    suspend fun getEpisode(id: Int) = repository.getEpisode(id)
+    suspend fun getEpisodeById(id: Int) = repository.getEpisodeById(id)
 }

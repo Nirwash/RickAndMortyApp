@@ -21,4 +21,7 @@ class CharactersRepositoryImpl(
         config = PagingConfig(1),
         pagingSourceFactory = { CharactersPagingSource(characterService, filters) }
     ).flow
+
+    override suspend fun getCharactersByIds(ids: String) =
+        characterService.fetchMultipleCharacters(ids)
 }

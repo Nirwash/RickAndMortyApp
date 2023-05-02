@@ -32,7 +32,7 @@ class LocationAdapter(private val listener: Listener) :
             with(binding) {
                 tvLocationName.text = location.name
                 tvType.text = location.type
-                tvDemension.text = location.dimension
+                tvDimension.text = location.dimension
             }
             itemView.setOnClickListener {
                 listener.onClick(location)

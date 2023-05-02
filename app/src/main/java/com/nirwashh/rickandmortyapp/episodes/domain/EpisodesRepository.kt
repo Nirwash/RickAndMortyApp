@@ -8,6 +8,6 @@ import retrofit2.Response
 
 interface EpisodesRepository {
     suspend fun getEpisodes(filters: EpisodeFilters): Flow<PagingData<Episode>>
-    suspend fun getEpisodes(ids: String): List<Episode>
-    suspend fun getEpisode(id: Int): Response<Episode>
+    suspend fun getEpisodesByIds(ids: String): List<Episode>
+    suspend fun getEpisodeById(id: Int): Response<Episode>
 }

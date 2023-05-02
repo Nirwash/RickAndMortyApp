@@ -15,7 +15,7 @@ import com.nirwashh.rickandmortyapp.characters.presentation.viewmodels.Character
 import com.nirwashh.rickandmortyapp.characters.presentation.viewmodels.CharactersViewModelFactory
 import com.nirwashh.rickandmortyapp.core.App
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation
-import com.nirwashh.rickandmortyapp.core.utils.episodeParser
+import com.nirwashh.rickandmortyapp.core.utils.idsParser
 import com.nirwashh.rickandmortyapp.databinding.FragmentCharacterDetailsBinding
 import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
 import javax.inject.Inject
@@ -55,7 +55,7 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsAdapter.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        viewModel.setEpisodes(character.episode.episodeParser())
+        viewModel.setEpisodes(character.episode.idsParser())
         viewModel.episodes.observe(viewLifecycleOwner) {
             setupEpisodesViewType(it)
         }

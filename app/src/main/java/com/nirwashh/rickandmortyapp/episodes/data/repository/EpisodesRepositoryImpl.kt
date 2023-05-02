@@ -20,8 +20,8 @@ class EpisodesRepositoryImpl(
             pagingSourceFactory = { EpisodesPagingSource(episodesService, filters) }
         ).flow
 
-    override suspend fun getEpisodes(ids: String) = episodesService.fetchMultipleEpisodes(ids)
+    override suspend fun getEpisodesByIds(ids: String) = episodesService.fetchMultipleEpisodes(ids)
 
-    override suspend fun getEpisode(id: Int) = episodesService.fetchEpisode(id)
+    override suspend fun getEpisodeById(id: Int) = episodesService.fetchEpisode(id)
 
 }

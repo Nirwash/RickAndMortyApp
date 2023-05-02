@@ -28,6 +28,7 @@
     <string name="type_hint">Type..</string>
     <string name="episode_hint">S01E01</string>
     <string name="type_filter">Type:\u0020</string>
+    <string name="episode_filter">Episode:\u0020</string>
     <string name="species_hint">Species..</string>
     <string name="species_filter">Species:\u0020</string>
     <string name="deny">deny</string>
@@ -40,4 +41,5 @@
     <string name="location">Location:\u0020</string>
     <string name="origin">Origin:\u0020</string>
     <string name="air_date">Air date:\u0020</string>
+    <string name="dimension_filter">Dimension:\u0020</string>
 </resources>

@@ -20,20 +20,4 @@ data class Character(
     val status: String,
     val type: String,
     val url: String
-) : Parcelable {
-//    companion object {
-//        fun Character.toCharacterBdEntity() =
-//            CharacterDbEntity(
-//                created = created,
-//                gender = gender,
-//                id = id,
-//                image = image,
-//                name = name,
-//                species = species,
-//                status = status,
-//                type = type,
-//                url = url
-//            )
-//    }
-
-}
+) : Parcelable

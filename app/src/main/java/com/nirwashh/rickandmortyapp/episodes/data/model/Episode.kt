@@ -14,17 +14,4 @@ data class Episode(
     val id: Int,
     val name: String,
     val url: String
-) : Parcelable {
-//    companion object {
-//        fun Episode.toEpisodeDbEntity() =
-//            EpisodeDbEntity(
-//                air_date = air_date,
-//                created = created,
-//                episode = episode,
-//                id = id,
-//                name = name,
-//                url = url
-//            )
-//    }
-
-}
+) : Parcelable

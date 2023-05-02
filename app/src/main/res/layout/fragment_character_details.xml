@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/character_detail_background"
     android:alpha="0.9"
+    android:background="@drawable/character_detail_background"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
             android:id="@+id/btn_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_margin="16dp"
+            android:layout_margin="10dp"
             android:background="@android:color/transparent"
             android:clickable="true"
             android:contentDescription="@string/todo"
@@ -31,12 +31,11 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTitle"
-            style="@style/MyTitleStyle"
+            style="@style/MyDetailTitleStyle"
             android:text="@string/character_detail"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_back"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -46,15 +45,6 @@
         android:layout_height="wrap_content"
         tools:itemCount="1"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_character_detail" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvEpisodes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:itemCount="5"
-        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_episode" />
-
+        tools:listitem="@layout/character_detail" />
 
 </LinearLayout>

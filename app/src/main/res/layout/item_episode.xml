@@ -11,8 +11,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/episode_frame"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="4dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvEpisodeName"

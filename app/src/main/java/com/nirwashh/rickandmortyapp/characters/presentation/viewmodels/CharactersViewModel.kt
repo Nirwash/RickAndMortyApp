@@ -42,7 +42,7 @@ class CharactersViewModel(
 
     fun setEpisodes(ids: String) {
         viewModelScope.launch {
-            episodes.value = episodesInteractor.getEpisodes(ids)
+            episodes.value = episodesInteractor.getEpisodesByIds(ids)
         }
     }
 

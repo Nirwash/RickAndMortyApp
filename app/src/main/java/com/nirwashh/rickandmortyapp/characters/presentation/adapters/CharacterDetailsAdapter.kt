@@ -14,7 +14,7 @@ import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecy
 import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem.LocationViewItem
 import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem.OriginViewItem
 import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem.TitleViewItem
-import com.nirwashh.rickandmortyapp.databinding.ItemCharacterDetailBinding
+import com.nirwashh.rickandmortyapp.databinding.CharacterDetailBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemEpisodeDetailBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemLocationDetailBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemOriginBinding
@@ -29,8 +29,8 @@ class CharacterDetailsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailRecyclerViewHolder {
         return when (viewType) {
-            R.layout.item_character_detail -> CharacterViewHolder(
-                ItemCharacterDetailBinding.inflate(
+            R.layout.character_detail -> CharacterViewHolder(
+                CharacterDetailBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -87,7 +87,7 @@ class CharacterDetailsAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (viewItems[position]) {
-            is CharacterViewItem -> R.layout.item_character_detail
+            is CharacterViewItem -> R.layout.character_detail
             is EpisodeViewItem -> R.layout.item_episode
             is LocationViewItem -> R.layout.item_location_detail
             is OriginViewItem -> R.layout.item_origin
