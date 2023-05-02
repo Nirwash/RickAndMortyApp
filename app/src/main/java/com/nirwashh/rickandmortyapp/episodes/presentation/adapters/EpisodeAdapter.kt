@@ -25,6 +25,9 @@ class EpisodeAdapter(private val listener: Listener) :
                 tvEpisode.text = episode.episode
                 AirDate.text = episode.air_date
             }
+            itemView.setOnClickListener {
+                listener.onClick(episode)
+            }
         }
     }
 

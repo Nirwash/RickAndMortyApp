@@ -24,15 +24,16 @@
 
         <TextView
             android:id="@+id/tvType"
-            style="@style/item_subtitle"
+            style="@style/item_subtitle_main_color"
             android:textSize="16sp"
             tools:text="Planet" />
 
         <TextView
             android:id="@+id/tvDemension"
             style="@style/item_subtitle"
+            android:gravity="center"
             android:textSize="16sp"
-            tools:text="Dimension C-137" />
+            tools:text="Post-Apocalyptic Dimension" />
     </LinearLayout>
 
 

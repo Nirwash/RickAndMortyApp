@@ -11,6 +11,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_95">#F2FFFFFF</color>
     <color name="semi_white">#80FFFFFF</color>
     <color name="grey">#BFFFFFFF</color>
     <color name="light_grey">#CCFFFFFF</color>
@@ -18,6 +19,7 @@
     <color name="main">#98F62E</color>
     <color name="deny">#D32F2F</color>
     <color name="semi_transparent">#80000000</color>
+    <color name="transparent_45">#73000000</color>
     <color name="transparent_75">#BF000000</color>
     <color name="sky_blue">#2A22D0</color>
 

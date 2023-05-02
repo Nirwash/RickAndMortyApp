@@ -1,4 +1,4 @@
-package com.nirwashh.rickandmortyapp.episodes.presentation.fragments
+package com.nirwashh.rickandmortyapp.locations.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.nirwashh.rickandmortyapp.core.utils.setWidthPercent
-import com.nirwashh.rickandmortyapp.databinding.FragmentEpisodeFilterBinding
-import com.nirwashh.rickandmortyapp.episodes.data.model.EpisodeFilters
-import com.nirwashh.rickandmortyapp.episodes.presentation.viewmodels.EpisodesViewModel
+import com.nirwashh.rickandmortyapp.databinding.FragmentLocationFilterBinding
+import com.nirwashh.rickandmortyapp.locations.data.model.LocationFilters
+import com.nirwashh.rickandmortyapp.locations.presentation.viewmodel.LocationViewModel
 
-class EpisodeFiltersFragment(private val viewModel: EpisodesViewModel) : DialogFragment() {
-    private lateinit var binding: FragmentEpisodeFilterBinding
+class LocationFiltersFragment(private val viewModel: LocationViewModel) : DialogFragment() {
+    private lateinit var binding: FragmentLocationFilterBinding
     private lateinit var refresh: RefreshCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,8 +24,12 @@ class EpisodeFiltersFragment(private val viewModel: EpisodesViewModel) : DialogF
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentEpisodeFilterBinding.inflate(inflater, container, false)
+        binding = FragmentLocationFilterBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    interface RefreshCallback {
+        operator fun invoke()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,28 +48,27 @@ class EpisodeFiltersFragment(private val viewModel: EpisodesViewModel) : DialogF
         }
     }
 
+
     private fun init() {
         val filters = viewModel.filterState.value
         with(binding) {
             search.setText(filters.name)
-            episode.setText(filters.episode)
+            type.setText(filters.type)
+            dimension.setText(filters.dimension)
         }
     }
 
     private fun applyFilters() {
         val name = binding.search.text.toString()
-        val episode = binding.episode.text.toString()
-        viewModel.updateFilters(EpisodeFilters(name, episode))
+        val type = binding.type.text.toString()
+        val dimension = binding.dimension.text.toString()
+        viewModel.updateFilters(LocationFilters(name, type, dimension))
     }
 
     private fun updateAndClose() {
         viewModel.update()
         refresh()
         dismiss()
-    }
-
-    interface RefreshCallback {
-        operator fun invoke()
     }
 }
 

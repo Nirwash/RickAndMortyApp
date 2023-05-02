@@ -1,4 +1,4 @@
-package com.nirwashh.rickandmortyapp.locations.presentation
+package com.nirwashh.rickandmortyapp.locations.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -22,7 +22,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class LocationsFragment : Fragment(), LocationAdapter.Listener {
+class LocationsFragment : Fragment(), LocationAdapter.Listener,
+    LocationFiltersFragment.RefreshCallback {
     private lateinit var binding: FragmentLocationsBinding
     private lateinit var navigation: Navigation
     private lateinit var viewModel: LocationViewModel
@@ -55,6 +56,9 @@ class LocationsFragment : Fragment(), LocationAdapter.Listener {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupSwipeToRefresh()
+        binding.filter.setOnClickListener {
+            LocationFiltersFragment(viewModel).show(childFragmentManager, "")
+        }
 
     }
 
@@ -88,7 +92,13 @@ class LocationsFragment : Fragment(), LocationAdapter.Listener {
 
 
     override fun onClick(location: Location) {
-        navigation.navigateToLocationDetails()
+        navigation.navigateToLocationDetails(location)
+    }
+
+    override fun invoke() {
+        lifecycleScope.launch {
+            updateUi()
+        }
     }
 }
 

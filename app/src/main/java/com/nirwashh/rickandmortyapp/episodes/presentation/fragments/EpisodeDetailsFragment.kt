@@ -13,10 +13,12 @@ class EpisodeDetailsFragment : Fragment() {
     private var _binding: FragmentEpisodeDetailsBinding? = null
     private val binding get() = _binding!!
     private lateinit var navigation: Navigation
+    private lateinit var episode: Episode
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navigation = activity as Navigation
+        episode = arguments?.getParcelable(EPISODE)!!
     }
 
     override fun onCreateView(
@@ -47,7 +49,6 @@ class EpisodeDetailsFragment : Fragment() {
                 arguments = Bundle().apply {
                     putParcelable(EPISODE, episode)
                 }
-
             }
             return fragment
         }

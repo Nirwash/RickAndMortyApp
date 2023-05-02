@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/tvEpisode"
-            style="@style/item_subtitle"
+            style="@style/item_subtitle_main_color"
             android:textSize="16sp"
             tools:text="S03E07" />
 

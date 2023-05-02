@@ -35,6 +35,7 @@
     <string name="clear">clear</string>
     <string name="name_hint">Name..</string>
     <string name="title_hint">Title..</string>
+    <string name="dimension_hint">Dimension..</string>
     <string name="created">Created:\u0020</string>
     <string name="location">Location:\u0020</string>
     <string name="origin">Origin:\u0020</string>
