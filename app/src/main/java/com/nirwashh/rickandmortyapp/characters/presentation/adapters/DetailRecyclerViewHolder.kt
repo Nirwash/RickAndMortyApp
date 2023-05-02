@@ -11,7 +11,7 @@ import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecy
 import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem.TitleViewItem
 import com.nirwashh.rickandmortyapp.databinding.ItemCharacterDetailBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemEpisodeDetailBinding
-import com.nirwashh.rickandmortyapp.databinding.ItemLocationBinding
+import com.nirwashh.rickandmortyapp.databinding.ItemLocationDetailBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemOriginBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemTitleBinding
 
@@ -42,7 +42,7 @@ sealed class DetailRecyclerViewHolder(binding: ViewBinding) :
         }
     }
 
-    class LocationViewHolder(private val binding: ItemLocationBinding) :
+    class LocationViewHolder(private val binding: ItemLocationDetailBinding) :
         DetailRecyclerViewHolder(binding) {
         fun bind(location: LocationViewItem, listener: CharacterDetailsAdapter.Listener) {
             with(binding) {

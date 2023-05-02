@@ -23,7 +23,8 @@ class LocationPagingSource(
             val response = service.fetchLocations(
                 name = filters.name,
                 type = filters.type,
-                dimension = filters.dimension
+                dimension = filters.dimension,
+                pageIndex
             )
             val data = checkNotNull(response.body()).results
             val prevKey = if (pageIndex == 0) null else pageIndex - 1

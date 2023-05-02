@@ -22,7 +22,8 @@ class EpisodesPagingSource(
         return try {
             val response = episodesService.fetchEpisodes(
                 name = filters.name,
-                episode = filters.episode
+                episode = filters.episode,
+                pageIndex
             )
             val data = checkNotNull(response.body()).results
             val prevKey = if (pageIndex == 0) null else pageIndex - 1

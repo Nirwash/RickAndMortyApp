@@ -24,6 +24,8 @@ interface EpisodesService {
         @Query("name")
         name: String,
         @Query("episode")
-        episode: String
+        episode: String,
+        @Query("page")
+        page: Int
     ): Response<EpisodesResponse>
 }

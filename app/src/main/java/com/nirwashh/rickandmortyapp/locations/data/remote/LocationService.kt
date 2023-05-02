@@ -14,6 +14,8 @@ interface LocationService {
         @Query("type")
         type: String,
         @Query("dimension")
-        dimension: String
+        dimension: String,
+        @Query("page")
+        page: Int
     ): Response<LocationResponse>
 }
