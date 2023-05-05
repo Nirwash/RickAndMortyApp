@@ -8,11 +8,12 @@ import com.nirwashh.rickandmortyapp.characters.data.model.Character
 import com.nirwashh.rickandmortyapp.characters.data.model.CharacterFilters
 import com.nirwashh.rickandmortyapp.characters.data.remote.CharactersService
 import com.nirwashh.rickandmortyapp.characters.domain.CharactersRepository
+import com.nirwashh.rickandmortyapp.core.data.local.RickAndMortyDao
 import kotlinx.coroutines.flow.Flow
 
 class CharactersRepositoryImpl(
     private val characterService: CharactersService,
-    /*private val charactersDao: CharactersDao*/
+    private val dao: RickAndMortyDao
 ) : CharactersRepository {
 
     override suspend fun getCharacters(
