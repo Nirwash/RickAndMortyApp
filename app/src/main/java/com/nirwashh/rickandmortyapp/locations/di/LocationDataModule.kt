@@ -1,5 +1,6 @@
 package com.nirwashh.rickandmortyapp.locations.di
 
+import com.nirwashh.rickandmortyapp.core.data.local.RickAndMortyDao
 import com.nirwashh.rickandmortyapp.locations.data.remote.LocationService
 import com.nirwashh.rickandmortyapp.locations.data.repository.LocationRepositoryImpl
 import com.nirwashh.rickandmortyapp.locations.domain.LocationRepository
@@ -10,6 +11,7 @@ import dagger.Provides
 class LocationDataModule {
     @Provides
     fun provideLocationRepository(
-        service: LocationService
-    ): LocationRepository = LocationRepositoryImpl(service)
+        service: LocationService,
+        dao: RickAndMortyDao
+    ): LocationRepository = LocationRepositoryImpl(service, dao)
 }

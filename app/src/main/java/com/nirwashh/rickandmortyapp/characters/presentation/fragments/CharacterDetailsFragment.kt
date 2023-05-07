@@ -56,6 +56,7 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsAdapter.Listener {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         viewModel.setEpisodes(character.episode.idsParser())
+        viewModel.setLocations(character.location, character.origin)
         viewModel.episodes.observe(viewLifecycleOwner) {
             setupEpisodesViewType(it)
         }
@@ -140,16 +141,22 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsAdapter.Listener {
         }
     }
 
-    override fun <T> onClick(t: T) {
-//        when (t) {
-//            is DetailsRecyclerViewItem.EpisodeViewItem ->
-//                //todo
-//
-//            is DetailsRecyclerViewItem.LocationViewItem ->
-//                navigation.navigateToLocationDetails()
-//
-//            is DetailsRecyclerViewItem.OriginViewItem ->
-//                navigation.navigateToLocationDetails()
-//        }
+    override fun <T> onClick(viewItem: T) {
+        when (viewItem) {
+            is DetailsRecyclerViewItem.EpisodeViewItem ->
+                navigation.navigateToEpisodeDetails(viewModel.getEpisode(viewItem.id))
+
+            is DetailsRecyclerViewItem.LocationViewItem -> {
+                if (viewItem.name != "unknown") {
+                    navigation.navigateToLocationDetails(viewModel.getLocation(viewItem.name))
+                }
+            }
+
+            is DetailsRecyclerViewItem.OriginViewItem -> {
+                if (viewItem.name != "unknown") {
+                    navigation.navigateToLocationDetails(viewModel.getLocation(viewItem.name))
+                }
+            }
+        }
     }
 }

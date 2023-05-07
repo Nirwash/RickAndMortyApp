@@ -1,5 +1,6 @@
 package com.nirwashh.rickandmortyapp.locations.data.remote
 
+import com.nirwashh.rickandmortyapp.locations.data.model.Location
 import com.nirwashh.rickandmortyapp.locations.data.model.LocationResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -17,5 +18,15 @@ interface LocationService {
         dimension: String,
         @Query("page")
         page: Int
+    ): Response<LocationResponse>
+
+    @GET("location")
+    suspend fun fetchLocationById(
+        @Query("id") id: Int
+    ): Location
+
+    @GET("location")
+    suspend fun fetchLocationByName(
+        @Query("name") name: String
     ): Response<LocationResponse>
 }

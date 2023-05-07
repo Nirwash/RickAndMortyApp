@@ -41,11 +41,12 @@ class MainActivity : AppCompatActivity(), Navigation {
     }
 
     private fun setCurrentFragment(fragment: Fragment, addBackStack: Boolean) {
-        supportFragmentManager.popBackStack()
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragment_container, fragment)
             if (addBackStack)
                 addToBackStack(fragment.tag)
+            else
+                supportFragmentManager.popBackStack()
             commit()
         }
     }
