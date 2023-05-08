@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_margin="2dp"
+    android:background="@drawable/card_background"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/imageCharacter"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.60"
+        android:src="@drawable/icon_characters"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCreated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/created"
+        android:textColor="@color/semi_white"
+        app:layout_constraintBottom_toTopOf="@id/tvStatus"
+        app:layout_constraintEnd_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/created"
+        style="@style/text_style_accent_white"
+        android:maxLength="10"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/tvCreated"
+        tools:text="2017.04.04" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/status_filter"
+        android:textColor="@color/semi_white"
+        app:layout_constraintBottom_toTopOf="@id/tvGender"
+        app:layout_constraintEnd_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tvCreated" />
+
+    <TextView
+        android:id="@+id/status"
+        style="@style/text_style_accent_white"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/tvStatus"
+        tools:text="ALIVE" />
+
+    <TextView
+        android:id="@+id/tvGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gender_filter"
+        android:textColor="@color/semi_white"
+        app:layout_constraintBottom_toTopOf="@id/tvSpecies"
+        app:layout_constraintEnd_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tvStatus" />
+
+    <TextView
+        android:id="@+id/gender"
+        style="@style/text_style_accent_white"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/tvGender"
+        tools:text="MALE" />
+
+    <TextView
+        android:id="@+id/tvSpecies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/species_filter"
+        android:textColor="@color/semi_white"
+        app:layout_constraintBottom_toTopOf="@id/tvType"
+        app:layout_constraintEnd_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tvGender" />
+
+    <TextView
+        android:id="@+id/species"
+        style="@style/text_style_accent_white"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/tvSpecies"
+        tools:text="HUMAN" />
+
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/type_filter"
+        android:textColor="@color/semi_white"
+        app:layout_constraintBottom_toBottomOf="@id/imageCharacter"
+        app:layout_constraintEnd_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tvSpecies" />
+
+    <TextView
+        android:id="@+id/type"
+        style="@style/text_style_accent_white"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/tvType"
+        tools:text="ROBOT" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

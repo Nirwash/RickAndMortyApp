@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:background="@drawable/episode_item_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/tvLocationName"
+            style="@style/Item_title"
+            android:layout_height="48dp"
+            android:gravity="top|center_horizontal"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            tools:text="Earth" />
+
+        <TextView
+            android:id="@+id/tvType"
+            style="@style/item_subtitle_main_color"
+            android:textSize="16sp"
+            tools:text="Planet" />
+
+        <TextView
+            android:id="@+id/tvDimension"
+            style="@style/item_subtitle"
+            android:gravity="center"
+            android:textSize="16sp"
+            tools:text="Post-Apocalyptic Dimension" />
+    </LinearLayout>
+
+
+</FrameLayout>

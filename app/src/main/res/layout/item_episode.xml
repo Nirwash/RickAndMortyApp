@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:background="@drawable/episode_item_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/episode_frame"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvEpisodeName"
+            style="@style/Item_title"
+            android:layout_height="48dp"
+            android:gravity="top|center_horizontal"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            tools:text="The Ricklantis Mixupsdfkjskldjflskdklklsjdlkfslkdjflk" />
+
+        <TextView
+            android:id="@+id/tvEpisode"
+            style="@style/item_subtitle_main_color"
+            android:textSize="16sp"
+            tools:text="S03E07" />
+
+        <TextView
+            android:id="@+id/AirDate"
+            style="@style/item_subtitle"
+            android:textSize="16sp"
+            tools:text="2017-04-02" />
+    </LinearLayout>
+
+
+</FrameLayout>
