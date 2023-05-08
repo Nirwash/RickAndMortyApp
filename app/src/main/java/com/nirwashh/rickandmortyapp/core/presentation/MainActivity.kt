@@ -6,15 +6,15 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.nirwashh.rickandmortyapp.R
 import com.nirwashh.rickandmortyapp.characters.data.model.Character
-import com.nirwashh.rickandmortyapp.characters.presentation.fragments.CharacterDetailsFragment
-import com.nirwashh.rickandmortyapp.characters.presentation.fragments.CharactersFragment
+import com.nirwashh.rickandmortyapp.characters.presentation.detail.fragments.CharacterDetailsFragment
+import com.nirwashh.rickandmortyapp.characters.presentation.list.fragments.CharactersFragment
 import com.nirwashh.rickandmortyapp.databinding.ActivityMainBinding
 import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
-import com.nirwashh.rickandmortyapp.episodes.presentation.fragments.EpisodeDetailsFragment
-import com.nirwashh.rickandmortyapp.episodes.presentation.fragments.EpisodesFragment
+import com.nirwashh.rickandmortyapp.episodes.presentation.detail.fragments.EpisodeDetailsFragment
+import com.nirwashh.rickandmortyapp.episodes.presentation.list.fragments.EpisodesFragment
 import com.nirwashh.rickandmortyapp.locations.data.model.Location
-import com.nirwashh.rickandmortyapp.locations.presentation.fragments.LocationDetailsFragment
-import com.nirwashh.rickandmortyapp.locations.presentation.fragments.LocationsFragment
+import com.nirwashh.rickandmortyapp.locations.presentation.detail.fragments.LocationDetailsFragment
+import com.nirwashh.rickandmortyapp.locations.presentation.list.fragments.LocationsFragment
 
 class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var binding: ActivityMainBinding

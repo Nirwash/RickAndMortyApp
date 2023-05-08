@@ -3,24 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:layout_margin="2dp"
-    android:background="@drawable/card_background">
+    android:layout_margin="2dp">
 
     <ImageView
-        android:id="@+id/img_character"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
+        android:id="@+id/imgCharacterDetail"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
         android:contentDescription="@string/todo"
-        android:focusable="true"
         android:scaleType="fitXY"
-        android:src="@drawable/icon_characters"
-        tools:padding="4dp" />
+        tools:padding="4dp"
+        tools:src="@drawable/icon_characters" />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvCharacterDetailName"
         style="@style/Item_title"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:background="@drawable/card_background"
