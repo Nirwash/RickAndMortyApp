@@ -16,7 +16,7 @@ class LocationDetailAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     interface Listener {
-        fun onClick(character: Character)
+        fun onClick(characterId: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = LocationDetailViewHolder(
@@ -35,9 +35,9 @@ class LocationDetailAdapter(
             with(binding) {
                 Glide.with(itemView).load(character.image).into(imgCharacter)
                 tvName.text = character.name
-            }
-            itemView.setOnClickListener {
-                listener.onClick(character)
+                imgCharacter.setOnClickListener {
+                    listener.onClick(character.id)
+                }
             }
         }
     }

@@ -9,11 +9,6 @@ import retrofit2.http.Query
 
 interface EpisodesService {
 
-    @GET("episode")
-    suspend fun fetchEpisode(
-        @Query("id") id: Int
-    ): Response<Episode>
-
     @GET("episode/{ids}")
     suspend fun fetchMultipleEpisodes(
         @Path("ids") ids: String

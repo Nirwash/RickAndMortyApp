@@ -66,7 +66,7 @@ class LocationDetailsFragment : Fragment(), LocationDetailAdapter.Listener {
     }
 
     private fun setupRecyclerView() {
-        locationDetailAdapter = LocationDetailAdapter( listener = this)
+        locationDetailAdapter = LocationDetailAdapter(listener = this)
         binding.rvCharacters.apply {
             adapter = locationDetailAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
@@ -104,7 +104,7 @@ class LocationDetailsFragment : Fragment(), LocationDetailAdapter.Listener {
         }
     }
 
-    override fun onClick(character: Character) {
-        TODO("Not yet implemented")
+    override fun onClick(characterId: Int) {
+        navigation.navigateToCharacterDetails(viewModel.getCharacter(characterId))
     }
 }

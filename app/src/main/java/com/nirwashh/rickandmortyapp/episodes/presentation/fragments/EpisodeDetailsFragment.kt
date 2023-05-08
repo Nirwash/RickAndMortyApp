@@ -103,7 +103,7 @@ class EpisodeDetailsFragment : Fragment(), EpisodeDetailAdapter.Listener {
         }
     }
 
-    override fun onClick(character: Character) {
-        TODO("Not yet implemented")
+    override fun onClick(characterId: Int) {
+        navigation.navigateToCharacterDetails(viewModel.getCharacter(characterId))
     }
 }

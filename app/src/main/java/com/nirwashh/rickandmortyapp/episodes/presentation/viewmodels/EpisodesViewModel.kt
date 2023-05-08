@@ -45,6 +45,10 @@ class EpisodesViewModel(
         }
     }
 
+    fun getCharacter(id: Int): Character {
+        return characters.value?.find { it.id == id }!!
+    }
+
     fun updateFilters(filters: EpisodeFilters) {
         _filterState.update {
             it.copy(

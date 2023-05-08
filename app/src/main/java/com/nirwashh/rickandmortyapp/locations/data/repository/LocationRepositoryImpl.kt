@@ -21,7 +21,6 @@ class LocationRepositoryImpl(
             pagingSourceFactory = { LocationPagingSource(service, filters) }
         ).flow
 
-    override suspend fun getLocationsById(id: Int) = service.fetchLocationById(id)
     override suspend fun getLocationByName(name: String): List<Location> {
         val response = service.fetchLocationByName(name)
         return response.body()!!.results

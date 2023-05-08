@@ -43,6 +43,10 @@ class LocationViewModel(
         }
     }
 
+    fun getCharacter(id: Int): Character {
+        return characters.value?.find { it.id == id }!!
+    }
+
     fun updateFilters(filters: LocationFilters) {
         _filterState.update {
             it.copy(

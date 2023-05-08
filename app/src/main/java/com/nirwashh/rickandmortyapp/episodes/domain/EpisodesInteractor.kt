@@ -9,6 +9,4 @@ class EpisodesInteractor(private val repository: EpisodesRepository) {
 
     suspend fun getEpisodesByIds(ids: String) =
         repository.getEpisodesByIds(ids)
-
-    suspend fun getEpisodeById(id: Int) = repository.getEpisodeById(id)
 }
