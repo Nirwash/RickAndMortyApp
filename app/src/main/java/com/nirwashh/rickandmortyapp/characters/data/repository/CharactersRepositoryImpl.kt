@@ -25,4 +25,7 @@ class CharactersRepositoryImpl(
 
     override suspend fun getCharactersByIds(ids: String) =
         characterService.fetchMultipleCharacters(ids)
+
+    override fun getObservableCharactersByIds(ids: String) =
+        characterService.fetchObservableMultipleCharacters(ids)
 }

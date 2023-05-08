@@ -67,12 +67,13 @@ public class LocationDetailsFragment extends Fragment implements LocationDetailA
         if (!location.getResidents().isEmpty()) {
             viewModel.setCharacters(StringParser.parser(location.getResidents()));
         }
-        viewModel.getCharacters().observe(getViewLifecycleOwner(), characters -> {
+        viewModel.charactersLiveData.observe(getViewLifecycleOwner(), characters -> {
             setupCharacters((ArrayList<Character>) characters);
         });
         binding.btnBack.setOnClickListener(view1 ->
                 getParentFragmentManager().popBackStack()
         );
+
     }
 
     private void setupRecyclerView() {
