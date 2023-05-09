@@ -5,7 +5,7 @@ import android.graphics.Rect
 import android.net.Uri
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.nirwashh.rickandmortyapp.characters.presentation.adapters.DetailsRecyclerViewItem
+import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem
 import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -50,5 +50,6 @@ fun List<String>.idsParser(): String {
     }
     return list.toList().toString()
 }
+
 
 
