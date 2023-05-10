@@ -23,4 +23,6 @@ class EpisodesRepositoryImpl(
         ).flow
 
     override suspend fun getEpisodesByIds(ids: String) = episodesService.fetchMultipleEpisodes(ids)
+    override fun getObservableEpisodesByIds(ids: String) =
+        episodesService.fetchObservableMultipleEpisodes(ids)
 }

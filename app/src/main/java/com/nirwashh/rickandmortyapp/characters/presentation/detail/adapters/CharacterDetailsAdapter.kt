@@ -9,11 +9,6 @@ import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.Deta
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailRecyclerViewHolder.LocationViewHolder
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailRecyclerViewHolder.OriginViewHolder
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailRecyclerViewHolder.TitleViewHolder
-import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem.CharacterViewItem
-import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem.EpisodeViewItem
-import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem.LocationViewItem
-import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem.OriginViewItem
-import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem.TitleViewItem
 import com.nirwashh.rickandmortyapp.databinding.CharacterDetailBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemEpisodeDetailBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemLocationDetailBinding
@@ -21,7 +16,7 @@ import com.nirwashh.rickandmortyapp.databinding.ItemOriginBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemTitleBinding
 
 class CharacterDetailsAdapter(
-    val viewItems: MutableList<DetailsRecyclerViewItem>,
+    val viewItems: MutableList<DetailsRecyclerViewItem> = mutableListOf(),
     private val listener: Listener
 ) :
     RecyclerView.Adapter<DetailRecyclerViewHolder>() {
@@ -77,25 +72,42 @@ class CharacterDetailsAdapter(
 
     override fun onBindViewHolder(holder: DetailRecyclerViewHolder, position: Int) {
         when (holder) {
-            is CharacterViewHolder -> holder.bind(viewItems[position] as CharacterViewItem)
-            is EpisodeViewHolder -> holder.bind(viewItems[position] as EpisodeViewItem, listener)
-            is LocationViewHolder -> holder.bind(viewItems[position] as LocationViewItem, listener)
-            is OriginViewHolder -> holder.bind(viewItems[position] as OriginViewItem, listener)
-            is TitleViewHolder -> holder.bind(viewItems[position] as TitleViewItem)
+            is CharacterViewHolder -> holder.bind(viewItems[position] as DetailsRecyclerViewItem.CharacterViewItem)
+            is EpisodeViewHolder -> holder.bind(
+                viewItems[position] as DetailsRecyclerViewItem.EpisodeViewItem,
+                listener
+            )
+
+            is LocationViewHolder -> holder.bind(
+                viewItems[position] as DetailsRecyclerViewItem.LocationViewItem,
+                listener
+            )
+
+            is OriginViewHolder -> holder.bind(
+                viewItems[position] as DetailsRecyclerViewItem.OriginViewItem,
+                listener
+            )
+
+            is TitleViewHolder -> holder.bind(viewItems[position] as DetailsRecyclerViewItem.TitleViewItem)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (viewItems[position]) {
-            is CharacterViewItem -> R.layout.character_detail
-            is EpisodeViewItem -> R.layout.item_episode
-            is LocationViewItem -> R.layout.item_location_detail
-            is OriginViewItem -> R.layout.item_origin
-            is TitleViewItem -> R.layout.item_title
+            is DetailsRecyclerViewItem.CharacterViewItem -> R.layout.character_detail
+            is DetailsRecyclerViewItem.EpisodeViewItem -> R.layout.item_episode
+            is DetailsRecyclerViewItem.LocationViewItem -> R.layout.item_location_detail
+            is DetailsRecyclerViewItem.OriginViewItem -> R.layout.item_origin
+            is DetailsRecyclerViewItem.TitleViewItem -> R.layout.item_title
+            else -> {
+                throw IllegalStateException()
+            }
         }
     }
 
     interface Listener {
-        fun <T> onClick(t: T)
+        fun onClickEpisode(episodeViewItem: DetailsRecyclerViewItem.EpisodeViewItem)
+        fun onClickLocation()
+        fun onClickOrigin()
     }
 }

@@ -15,11 +15,11 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
     fun inject(charactersFragment: CharactersFragment)
-    fun inject(characterDetailsFragment: CharacterDetailsFragment)
     fun inject(episodesFragment: EpisodesFragment)
     fun inject(locationsFragment: LocationsFragment)
     fun inject(episodeDetailsFragment: EpisodeDetailsFragment)
     fun inject(locationDetailsFragment: LocationDetailsFragment)
+    fun inject(characterDetailsFragment: CharacterDetailsFragment)
 
     @Component.Builder
     interface AppComponentBuilder {
