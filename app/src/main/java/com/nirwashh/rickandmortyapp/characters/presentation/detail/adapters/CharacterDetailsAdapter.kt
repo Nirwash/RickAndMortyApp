@@ -96,6 +96,8 @@ class CharacterDetailsAdapter(
     }
 
     interface Listener {
-        fun <T> onClick(t: T)
+        fun onClickEpisode(episodeViewItem: DetailsRecyclerViewItem.EpisodeViewItem)
+        fun onClickLocation()
+        fun onClickOrigin()
     }
 }

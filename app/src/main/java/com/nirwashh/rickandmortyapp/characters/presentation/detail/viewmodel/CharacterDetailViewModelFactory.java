@@ -17,7 +17,7 @@ public class CharacterDetailViewModelFactory implements ViewModelProvider.Factor
     }
 
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new CharacterDetailViewModelJava(episodesInteractor, locationInteractor);
+        return (T) new CharacterDetailViewModel(episodesInteractor, locationInteractor);
     }
 }
 

@@ -27,11 +27,11 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 public class LocationDetailsFragment extends Fragment implements LocationDetailAdapter.Listener {
-    FragmentLocationDetailsBinding binding;
-    Navigation navigation;
-    LocationDetailViewModel viewModel;
-    Location location;
-    LocationDetailAdapter locationDetailAdapter;
+    private FragmentLocationDetailsBinding binding;
+    private Navigation navigation;
+    private LocationDetailViewModel viewModel;
+    private Location location;
+    private LocationDetailAdapter locationDetailAdapter;
     private static final String LOCATION = "location";
 
     @Inject
@@ -64,16 +64,24 @@ public class LocationDetailsFragment extends Fragment implements LocationDetailA
         super.onViewCreated(view, savedInstanceState);
         setupLocation();
         setupRecyclerView();
-        if (!location.getResidents().isEmpty()) {
-            viewModel.setCharacters(StringParser.parser(location.getResidents()));
-        }
-        viewModel.charactersLiveData.observe(getViewLifecycleOwner(), characters -> {
-            setupCharacters((ArrayList<Character>) characters);
-        });
+        setLiveData();
+        observeLiveData();
         binding.btnBack.setOnClickListener(view1 ->
                 getParentFragmentManager().popBackStack()
         );
 
+    }
+
+    private void observeLiveData() {
+        viewModel.charactersLiveData.observe(getViewLifecycleOwner(), characters -> {
+            setupCharacters((ArrayList<Character>) characters);
+        });
+    }
+
+    private void setLiveData() {
+        if (!location.getResidents().isEmpty()) {
+            viewModel.setCharacters(StringParser.idsParser(location.getResidents()));
+        }
     }
 
     private void setupRecyclerView() {

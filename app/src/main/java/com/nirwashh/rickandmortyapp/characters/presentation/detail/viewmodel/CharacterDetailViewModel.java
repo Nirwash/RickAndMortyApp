@@ -15,14 +15,14 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class CharacterDetailViewModelJava extends ViewModel {
+public class CharacterDetailViewModel extends ViewModel {
     EpisodesInteractor episodesInteractor;
     LocationInteractor locationInteractor;
     public MutableLiveData<List<Episode>> episodesLiveData = new MutableLiveData<>();
     public MutableLiveData<Location> locationLiveData = new MutableLiveData<>();
     public MutableLiveData<Location> originLiveData = new MutableLiveData<>();
 
-    public CharacterDetailViewModelJava(EpisodesInteractor episodesInteractor, LocationInteractor locationInteractor) {
+    public CharacterDetailViewModel(EpisodesInteractor episodesInteractor, LocationInteractor locationInteractor) {
         this.episodesInteractor = episodesInteractor;
         this.locationInteractor = locationInteractor;
     }
@@ -72,8 +72,8 @@ public class CharacterDetailViewModelJava extends ViewModel {
                 .subscribe(
                         new DisposableSingleObserver<Location>() {
                             @Override
-                            public void onSuccess(Location location) {
-                                originLiveData.setValue(location);
+                            public void onSuccess(Location origin) {
+                                originLiveData.setValue(origin);
                             }
 
                             @Override

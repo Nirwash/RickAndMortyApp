@@ -49,7 +49,7 @@ sealed class DetailRecyclerViewHolder(binding: ViewBinding) :
                 tvLocationName.text = location.name
             }
             itemView.setOnClickListener {
-                listener.onClick(location)
+                listener.onClickLocation()
             }
         }
     }
@@ -61,7 +61,7 @@ sealed class DetailRecyclerViewHolder(binding: ViewBinding) :
                 tvOriginName.text = origin.name
             }
             itemView.setOnClickListener {
-                listener.onClick(origin)
+                listener.onClickOrigin()
             }
         }
     }
@@ -83,7 +83,7 @@ sealed class DetailRecyclerViewHolder(binding: ViewBinding) :
                 tvEpisode.text = episode.episode
             }
             itemView.setOnClickListener {
-                listener.onClick(episode)
+                listener.onClickEpisode(episode)
             }
         }
     }
