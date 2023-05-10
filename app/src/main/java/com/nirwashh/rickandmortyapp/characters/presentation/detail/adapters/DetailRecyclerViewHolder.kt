@@ -4,11 +4,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
-import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem.CharacterViewItem
-import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem.EpisodeViewItem
-import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem.LocationViewItem
-import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem.OriginViewItem
-import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem.TitleViewItem
 import com.nirwashh.rickandmortyapp.databinding.CharacterDetailBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemEpisodeDetailBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemLocationDetailBinding
@@ -19,7 +14,7 @@ sealed class DetailRecyclerViewHolder(binding: ViewBinding) :
     RecyclerView.ViewHolder(binding.root) {
     class CharacterViewHolder(private val binding: CharacterDetailBinding) :
         DetailRecyclerViewHolder(binding) {
-        fun bind(character: CharacterViewItem) {
+        fun bind(character: DetailsRecyclerViewItem.CharacterViewItem) {
             with(binding) {
                 Glide.with(itemView).load(character.image).into(imageCharacter)
                 created.text = character.created
@@ -44,7 +39,10 @@ sealed class DetailRecyclerViewHolder(binding: ViewBinding) :
 
     class LocationViewHolder(private val binding: ItemLocationDetailBinding) :
         DetailRecyclerViewHolder(binding) {
-        fun bind(location: LocationViewItem, listener: CharacterDetailsAdapter.Listener) {
+        fun bind(
+            location: DetailsRecyclerViewItem.LocationViewItem,
+            listener: CharacterDetailsAdapter.Listener
+        ) {
             with(binding) {
                 tvLocationName.text = location.name
             }
@@ -56,7 +54,10 @@ sealed class DetailRecyclerViewHolder(binding: ViewBinding) :
 
     class OriginViewHolder(private val binding: ItemOriginBinding) :
         DetailRecyclerViewHolder(binding) {
-        fun bind(origin: OriginViewItem, listener: CharacterDetailsAdapter.Listener) {
+        fun bind(
+            origin: DetailsRecyclerViewItem.OriginViewItem,
+            listener: CharacterDetailsAdapter.Listener
+        ) {
             with(binding) {
                 tvOriginName.text = origin.name
             }
@@ -68,7 +69,7 @@ sealed class DetailRecyclerViewHolder(binding: ViewBinding) :
 
     class TitleViewHolder(private val binding: ItemTitleBinding) :
         DetailRecyclerViewHolder(binding) {
-        fun bind(title: TitleViewItem) {
+        fun bind(title: DetailsRecyclerViewItem.TitleViewItem) {
             with(binding) {
                 tvTitle.text = title.title
             }
@@ -77,7 +78,10 @@ sealed class DetailRecyclerViewHolder(binding: ViewBinding) :
 
     class EpisodeViewHolder(private val binding: ItemEpisodeDetailBinding) :
         DetailRecyclerViewHolder(binding) {
-        fun bind(episode: EpisodeViewItem, listener: CharacterDetailsAdapter.Listener) {
+        fun bind(
+            episode: DetailsRecyclerViewItem.EpisodeViewItem,
+            listener: CharacterDetailsAdapter.Listener
+        ) {
             with(binding) {
                 tvEpisodeName.text = episode.name
                 tvEpisode.text = episode.episode
