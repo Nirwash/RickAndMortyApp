@@ -2,6 +2,7 @@ package com.nirwashh.rickandmortyapp.episodes.data.remote
 
 import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
 import com.nirwashh.rickandmortyapp.episodes.data.model.EpisodesResponse
+import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -23,4 +24,9 @@ interface EpisodesService {
         @Query("page")
         page: Int
     ): Response<EpisodesResponse>
+
+    @GET("episode/{ids}")
+    fun fetchObservableMultipleEpisodes(
+        @Path("ids") ids: String
+    ): Single<List<Episode>>
 }

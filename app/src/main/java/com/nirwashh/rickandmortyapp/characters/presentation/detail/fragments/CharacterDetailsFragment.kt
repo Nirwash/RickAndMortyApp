@@ -11,21 +11,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nirwashh.rickandmortyapp.characters.data.model.Character
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.CharacterDetailsAdapter
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem
-import com.nirwashh.rickandmortyapp.characters.presentation.detail.viewmodel.CharacterDetailViewModel
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.viewmodel.CharacterDetailViewModelFactory
+import com.nirwashh.rickandmortyapp.characters.presentation.detail.viewmodel.CharacterDetailViewModelJava
 import com.nirwashh.rickandmortyapp.core.App
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation
+import com.nirwashh.rickandmortyapp.core.utils.idParser
 import com.nirwashh.rickandmortyapp.core.utils.idsParser
 import com.nirwashh.rickandmortyapp.databinding.FragmentCharacterDetailsBinding
 import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
+import com.nirwashh.rickandmortyapp.locations.data.model.Location
 import javax.inject.Inject
 
 class CharacterDetailsFragment : Fragment(), CharacterDetailsAdapter.Listener {
     private lateinit var binding: FragmentCharacterDetailsBinding
     private lateinit var navigation: Navigation
-    private lateinit var viewModel: CharacterDetailViewModel
+    private lateinit var viewModel: CharacterDetailViewModelJava
     private lateinit var character: Character
     private lateinit var characterDetailAdapter: CharacterDetailsAdapter
+    private lateinit var episodes: List<Episode>
+    private lateinit var location: Location
+    private lateinit var origin: Location
+
 
     @Inject
     lateinit var vmFactory: CharacterDetailViewModelFactory
@@ -39,7 +45,7 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsAdapter.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navigation = activity as Navigation
-        viewModel = ViewModelProvider(this, vmFactory)[CharacterDetailViewModel::class.java]
+        viewModel = ViewModelProvider(this, vmFactory)[CharacterDetailViewModelJava::class.java]
         character = arguments?.getParcelable(CHARACTER)!!
     }
 
@@ -55,11 +61,8 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsAdapter.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        viewModel.setEpisodes(character.episode.idsParser())
-        viewModel.setLocations(character.location, character.origin)
-        viewModel.episodes.observe(viewLifecycleOwner) {
-            setupEpisodesViewType(it)
-        }
+        setsLiveData()
+        observeLiveData()
         with(binding) {
             btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
             tvTitle.text = character.name
@@ -68,15 +71,40 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsAdapter.Listener {
 
     }
 
+    private fun observeLiveData() {
+        viewModel.episodesLiveData.observe(viewLifecycleOwner) {
+            episodes = it
+            updateUi()
+        }
+        viewModel.locationLiveData.observe(viewLifecycleOwner) {
+            location = it
+        }
+        viewModel.originLiveData.observe(viewLifecycleOwner) {
+            origin = it
+        }
+    }
+
+    private fun updateUi() {
+        characterDetailAdapter.viewItems.clear()
+        characterDetailAdapter.viewItems.addAll(createViewItems(character))
+        characterDetailAdapter.notifyDataSetChanged()
+    }
+
+    private fun setsLiveData() {
+        viewModel.setEpisodesLiveData(character.episode.idsParser())
+        viewModel.setLocationLiveData(character.location.url.idParser())
+        viewModel.setOriginLiveData(character.origin.url.idParser())
+    }
+
     private fun setupRecyclerView() {
-        characterDetailAdapter = CharacterDetailsAdapter(createViewItems(character), this)
+        characterDetailAdapter = CharacterDetailsAdapter(listener = this)
         binding.rvCharacterDetails.apply {
             adapter = characterDetailAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
-    private fun createViewItems(character: Character): MutableList<DetailsRecyclerViewItem> {
+    private fun createViewItems(character: Character): List<DetailsRecyclerViewItem> {
         val list = mutableListOf<DetailsRecyclerViewItem>()
         list.add(
             DetailsRecyclerViewItem.CharacterViewItem(
@@ -110,12 +138,8 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsAdapter.Listener {
         list.add(
             DetailsRecyclerViewItem.TitleViewItem(EPISODES)
         )
-        return list
-    }
-
-    private fun setupEpisodesViewType(episode: List<Episode>) {
-        episode.forEach {
-            characterDetailAdapter.viewItems.add(
+        episodes.forEach {
+            list.add(
                 DetailsRecyclerViewItem.EpisodeViewItem(
                     name = it.name,
                     episode = it.episode,
@@ -123,7 +147,7 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsAdapter.Listener {
                 )
             )
         }
-        characterDetailAdapter.notifyDataSetChanged()
+        return list
     }
 
     companion object {
@@ -144,17 +168,18 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsAdapter.Listener {
     override fun <T> onClick(viewItem: T) {
         when (viewItem) {
             is DetailsRecyclerViewItem.EpisodeViewItem ->
-                navigation.navigateToEpisodeDetails(viewModel.getEpisode(viewItem.id))
+                episodes.find { it.id == viewItem.id }
+                    ?.let { navigation.navigateToEpisodeDetails(it) }
 
             is DetailsRecyclerViewItem.LocationViewItem -> {
                 if (viewItem.name != "unknown") {
-                    navigation.navigateToLocationDetails(viewModel.getLocation(viewItem.name))
+                    navigation.navigateToLocationDetails(location)
                 }
             }
 
             is DetailsRecyclerViewItem.OriginViewItem -> {
                 if (viewItem.name != "unknown") {
-                    navigation.navigateToLocationDetails(viewModel.getLocation(viewItem.name))
+                    navigation.navigateToLocationDetails(origin)
                 }
             }
         }

@@ -21,7 +21,7 @@ import com.nirwashh.rickandmortyapp.databinding.ItemOriginBinding
 import com.nirwashh.rickandmortyapp.databinding.ItemTitleBinding
 
 class CharacterDetailsAdapter(
-    val viewItems: MutableList<DetailsRecyclerViewItem>,
+    val viewItems: MutableList<DetailsRecyclerViewItem> = mutableListOf(),
     private val listener: Listener
 ) :
     RecyclerView.Adapter<DetailRecyclerViewHolder>() {

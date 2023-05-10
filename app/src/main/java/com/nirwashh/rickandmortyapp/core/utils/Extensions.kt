@@ -5,8 +5,6 @@ import android.graphics.Rect
 import android.net.Uri
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem
-import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
 import kotlinx.coroutines.flow.MutableStateFlow
 
 fun DialogFragment.setWidthPercent(percentage: Int) {
@@ -27,17 +25,11 @@ inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
     }
 }
 
-fun Episode.mapToEpisodeViewType() =
-    DetailsRecyclerViewItem.EpisodeViewItem(
-        name = this.name,
-        episode = this.episode,
-        id = this.id
-    )
-
-fun String.pageParser(): Int? {
+fun String.pageParser(): Int {
     val uri = Uri.parse(this)
     val pageQuery = uri.getQueryParameter("page")
-    return pageQuery?.toInt()
+    return pageQuery?.toInt() ?: -1
+
 }
 
 fun List<String>.idsParser(): String {
@@ -49,6 +41,16 @@ fun List<String>.idsParser(): String {
         list.add(id.toInt())
     }
     return list.toList().toString()
+}
+
+fun String.idParser(): Int {
+    if (this.isNotEmpty()) {
+        val uri = Uri.parse(this)
+        val parts = uri.toString().split("/")
+        val id = parts[parts.size - 1]
+        return id.toInt()
+    }
+    return 0
 }
 
 

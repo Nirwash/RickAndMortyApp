@@ -25,4 +25,6 @@ class LocationRepositoryImpl(
         val response = service.fetchLocationByName(name)
         return response.body()!!.results
     }
+
+    override fun getObservableLocationById(id: Int) = service.fetchObservableLocationById(id)
 }
