@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.nirwashh.rickandmortyapp.R
 import com.nirwashh.rickandmortyapp.characters.data.model.Character
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.fragments.CharacterDetailsFragment
@@ -18,6 +19,9 @@ import com.nirwashh.rickandmortyapp.locations.presentation.list.fragments.Locati
 
 class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var charactersFragment: CharactersFragment
+    private lateinit var locationsFragment: LocationsFragment
+    private lateinit var episodesFragment: EpisodesFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -25,9 +29,9 @@ class MainActivity : AppCompatActivity(), Navigation {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
 
-        val charactersFragment = CharactersFragment()
-        val locationsFragment = LocationsFragment()
-        val episodesFragment = EpisodesFragment()
+        charactersFragment = CharactersFragment()
+        locationsFragment = LocationsFragment()
+        episodesFragment = EpisodesFragment()
         setCurrentFragment(charactersFragment, false)
 
         binding.bottomNavView.setOnItemSelectedListener {
@@ -46,7 +50,7 @@ class MainActivity : AppCompatActivity(), Navigation {
             if (addBackStack)
                 addToBackStack(fragment.tag)
             else
-                supportFragmentManager.popBackStack()
+                supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             commit()
         }
     }
