@@ -92,8 +92,8 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
     }
 
     private void updateUi() {
-        characterDetailAdapter.getViewItems().clear();
-        characterDetailAdapter.getViewItems().addAll(createViewItems(character));
+        characterDetailAdapter.viewItems.clear();
+        characterDetailAdapter.viewItems.addAll(createViewItems(character));
         characterDetailAdapter.notifyDataSetChanged();
     }
 
