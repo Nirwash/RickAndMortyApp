@@ -27,5 +27,6 @@
 
 ### Основной экран с 3 вкладками "Characters", "Locations" и "Episodes", в каждой вкладке отображается соответствующий список. 
 Список можно обновить свайпом вниз. При нажатии на элемент списка открывается детальная информация о выбранном элементе. Также есть кнопка фильтрации, которая открывает окно, где можно отсортировать элементы с заданными фильтрами.
+
 <img src="https://github.com/Nirwash/RickAndMortyApp/blob/master/screen_shot_characters.jpg" width=33% height=33%> <img src="https://github.com/Nirwash/RickAndMortyApp/blob/master/screen_shot_locations.jpg" width=33% height=33%> <img src="https://github.com/Nirwash/RickAndMortyApp/blob/master/screen_shot_episodes.jpg" width=33% height=33%>
 
