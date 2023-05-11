@@ -22,7 +22,10 @@ class CharacterDetailsAdapter(
     RecyclerView.Adapter<DetailRecyclerViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailRecyclerViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): DetailRecyclerViewHolder {
         return when (viewType) {
             R.layout.character_detail -> CharacterViewHolder(
                 CharacterDetailBinding.inflate(
