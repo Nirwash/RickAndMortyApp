@@ -4,5 +4,5 @@ import com.nirwashh.rickandmortyapp.characters.data.model.Info
 
 data class LocationResponse(
     val info: Info,
-    val results: List<Location>
+    val results: List<LocationData>
 )

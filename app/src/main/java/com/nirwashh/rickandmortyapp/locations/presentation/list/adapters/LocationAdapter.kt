@@ -6,16 +6,16 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nirwashh.rickandmortyapp.databinding.ItemLocationBinding
-import com.nirwashh.rickandmortyapp.locations.data.model.Location
+import com.nirwashh.rickandmortyapp.locations.data.model.LocationData
 
 class LocationAdapter(private val listener: Listener) :
-    PagingDataAdapter<Location, LocationAdapter.LocationViewHolder>(LocationDiffCallback()) {
+    PagingDataAdapter<LocationData, LocationAdapter.LocationViewHolder>(LocationDiffCallback()) {
 
-    class LocationDiffCallback : DiffUtil.ItemCallback<Location>() {
-        override fun areItemsTheSame(oldItem: Location, newItem: Location) =
+    class LocationDiffCallback : DiffUtil.ItemCallback<LocationData>() {
+        override fun areItemsTheSame(oldItem: LocationData, newItem: LocationData) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Location, newItem: Location) =
+        override fun areContentsTheSame(oldItem: LocationData, newItem: LocationData) =
             oldItem == newItem
     }
 
@@ -23,7 +23,7 @@ class LocationAdapter(private val listener: Listener) :
         RecyclerView.ViewHolder(binding.root)
 
     interface Listener {
-        fun onClick(location: Location)
+        fun onClick(location: LocationData)
     }
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {

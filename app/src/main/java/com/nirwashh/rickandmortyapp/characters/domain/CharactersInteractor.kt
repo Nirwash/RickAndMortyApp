@@ -1,10 +1,20 @@
 package com.nirwashh.rickandmortyapp.characters.domain
 
-import com.nirwashh.rickandmortyapp.characters.data.model.CharacterFilters
-
 class CharactersInteractor(private val repository: CharactersRepository) {
-    suspend fun getCharacters(filters: CharacterFilters) =
-        repository.getCharacters(filters)
+    fun getCharacters(
+        name: String?,
+        status: String?,
+        gender: String?,
+        type: String?,
+        species: String?
+    ) =
+        repository.getCharacters(
+            name = name,
+            status = status,
+            gender = gender,
+            type = type,
+            species = species
+        )
 
     suspend fun getCharactersByIds(ids: String) = repository.getCharactersByIds(ids)
 

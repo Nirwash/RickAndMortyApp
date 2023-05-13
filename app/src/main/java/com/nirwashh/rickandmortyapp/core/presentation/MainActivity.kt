@@ -6,14 +6,14 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.nirwashh.rickandmortyapp.R
-import com.nirwashh.rickandmortyapp.characters.data.model.Character
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.fragments.CharacterDetailsFragment
 import com.nirwashh.rickandmortyapp.characters.presentation.list.fragments.CharactersFragment
+import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi
 import com.nirwashh.rickandmortyapp.databinding.ActivityMainBinding
 import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
 import com.nirwashh.rickandmortyapp.episodes.presentation.detail.fragments.EpisodeDetailsFragment
 import com.nirwashh.rickandmortyapp.episodes.presentation.list.fragments.EpisodesFragment
-import com.nirwashh.rickandmortyapp.locations.data.model.Location
+import com.nirwashh.rickandmortyapp.locations.data.model.LocationData
 import com.nirwashh.rickandmortyapp.locations.presentation.detail.fragments.LocationDetailsFragment
 import com.nirwashh.rickandmortyapp.locations.presentation.list.fragments.LocationsFragment
 
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), Navigation {
         }
     }
 
-    override fun navigateToCharacterDetails(character: Character) {
+    override fun navigateToCharacterDetails(character: CharacterUi) {
         setCurrentFragment(CharacterDetailsFragment.newInstance(character), true)
     }
 
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity(), Navigation {
         setCurrentFragment(EpisodeDetailsFragment.newInstance(episode), true)
     }
 
-    override fun navigateToLocationDetails(location: Location) {
+    override fun navigateToLocationDetails(location: LocationData) {
         setCurrentFragment(LocationDetailsFragment.newInstance(location), true)
     }
 }

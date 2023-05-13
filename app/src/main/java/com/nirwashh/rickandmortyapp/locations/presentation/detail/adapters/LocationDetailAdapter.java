@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.nirwashh.rickandmortyapp.R;
-import com.nirwashh.rickandmortyapp.characters.data.model.Character;
+import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi;
 
 import java.util.ArrayList;
 
 public class LocationDetailAdapter extends RecyclerView.Adapter<LocationDetailAdapter.LocationDetailViewHolder> {
-    public final ArrayList<Character> characters;
+    public final ArrayList<CharacterUi> characters;
     private final Listener listener;
 
     public static class LocationDetailViewHolder extends RecyclerView.ViewHolder {
@@ -32,7 +32,7 @@ public class LocationDetailAdapter extends RecyclerView.Adapter<LocationDetailAd
         }
     }
 
-    public LocationDetailAdapter(ArrayList<Character> characters, Listener listener) {
+    public LocationDetailAdapter(ArrayList<CharacterUi> characters, Listener listener) {
         this.characters = characters;
         this.listener = listener;
     }
@@ -48,7 +48,7 @@ public class LocationDetailAdapter extends RecyclerView.Adapter<LocationDetailAd
 
     @Override
     public void onBindViewHolder(@NonNull LocationDetailViewHolder holder, int position) {
-        Character character = characters.get(position);
+        CharacterUi character = characters.get(position);
         TextView textView = holder.tvName;
         ImageView imageView = holder.imgCharacter;
         View itemView = holder.itemView;

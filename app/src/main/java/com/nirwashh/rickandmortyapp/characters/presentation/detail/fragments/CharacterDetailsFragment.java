@@ -12,17 +12,18 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.nirwashh.rickandmortyapp.characters.data.model.Character;
+import com.nirwashh.rickandmortyapp.characters.domain.model.CharacterDomain;
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.CharacterDetailsAdapter;
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem;
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.viewmodel.CharacterDetailViewModel;
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.viewmodel.CharacterDetailViewModelFactory;
+import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi;
 import com.nirwashh.rickandmortyapp.core.App;
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation;
 import com.nirwashh.rickandmortyapp.core.utils.StringParser;
 import com.nirwashh.rickandmortyapp.databinding.FragmentCharacterDetailsBinding;
 import com.nirwashh.rickandmortyapp.episodes.data.model.Episode;
-import com.nirwashh.rickandmortyapp.locations.data.model.Location;
+import com.nirwashh.rickandmortyapp.locations.data.model.LocationData;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,11 +34,11 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
     private FragmentCharacterDetailsBinding binding;
     private Navigation navigation;
     private CharacterDetailViewModel viewModel;
-    private Character character;
+    private CharacterDomain character;
     private CharacterDetailsAdapter characterDetailAdapter;
     private ArrayList<Episode> episodes;
-    private Location location;
-    private Location origin;
+    private LocationData location;
+    private LocationData origin;
     @Inject
     public CharacterDetailViewModelFactory vmFactory;
     private static final String CHARACTER = "character";
@@ -97,11 +98,10 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         characterDetailAdapter.notifyDataSetChanged();
     }
 
-    private Collection<? extends DetailsRecyclerViewItem> createViewItems(Character character) {
+    private Collection<? extends DetailsRecyclerViewItem> createViewItems(CharacterDomain character) {
         ArrayList<DetailsRecyclerViewItem> list = new ArrayList<>();
         list.add(
                 new DetailsRecyclerViewItem.CharacterViewItem(
-                        character.getCreated(),
                         character.getGender(),
                         character.getImage(),
                         character.getName(),
@@ -115,8 +115,8 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         );
         list.add(
                 new DetailsRecyclerViewItem.LocationViewItem(
-                        character.getLocation().getName(),
-                        character.getLocation().getId()
+                        character.getLocation().get("locationName"),
+                        Integer.parseInt(character.getLocation().get("locationId"))
                 )
         );
 
@@ -125,8 +125,8 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         );
         list.add(
                 new DetailsRecyclerViewItem.OriginViewItem(
-                        character.getOrigin().getName(),
-                        character.getOrigin().getId()
+                        character.getOrigin().get("locationName"),
+                        Integer.parseInt(character.getOrigin().get("locationId"))
                 )
         );
         list.add(
@@ -148,11 +148,11 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         if (!character.getEpisode().isEmpty()) {
             viewModel.setEpisodesLiveData(StringParser.idsParser(character.getEpisode()));
         }
-        if (!character.getLocation().getName().equals("unknown")) {
-            viewModel.setLocationLiveData(StringParser.idParser(character.getLocation().getUrl()));
+        if (!character.getLocation().get("locationName").equals("unknown")) {
+            viewModel.setLocationLiveData(Integer.parseInt(character.getLocation().get("locationId")));
         }
-        if (!character.getOrigin().getName().equals("unknown")) {
-            viewModel.setOriginLiveData(StringParser.idParser(character.getOrigin().getUrl()));
+        if (!character.getOrigin().get("locationName").equals("unknown")) {
+            viewModel.setOriginLiveData(Integer.parseInt(character.getOrigin().get("locationId")));
         }
     }
 
@@ -185,7 +185,7 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         }
     }
 
-    public static CharacterDetailsFragment newInstance(Character character) {
+    public static CharacterDetailsFragment newInstance(CharacterUi character) {
         CharacterDetailsFragment fragment = new CharacterDetailsFragment();
         Bundle args = new Bundle();
         args.putParcelable(CHARACTER, character);

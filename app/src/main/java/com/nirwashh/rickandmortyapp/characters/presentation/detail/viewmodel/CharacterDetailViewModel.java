@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.nirwashh.rickandmortyapp.episodes.data.model.Episode;
 import com.nirwashh.rickandmortyapp.episodes.domain.EpisodesInteractor;
-import com.nirwashh.rickandmortyapp.locations.data.model.Location;
+import com.nirwashh.rickandmortyapp.locations.data.model.LocationData;
 import com.nirwashh.rickandmortyapp.locations.domain.LocationInteractor;
 
 import java.util.List;
@@ -19,8 +19,8 @@ public class CharacterDetailViewModel extends ViewModel {
     EpisodesInteractor episodesInteractor;
     LocationInteractor locationInteractor;
     public MutableLiveData<List<Episode>> episodesLiveData = new MutableLiveData<>();
-    public MutableLiveData<Location> locationLiveData = new MutableLiveData<>();
-    public MutableLiveData<Location> originLiveData = new MutableLiveData<>();
+    public MutableLiveData<LocationData> locationLiveData = new MutableLiveData<>();
+    public MutableLiveData<LocationData> originLiveData = new MutableLiveData<>();
 
     public CharacterDetailViewModel(EpisodesInteractor episodesInteractor, LocationInteractor locationInteractor) {
         this.episodesInteractor = episodesInteractor;
@@ -51,9 +51,9 @@ public class CharacterDetailViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new DisposableSingleObserver<Location>() {
+                        new DisposableSingleObserver<LocationData>() {
                             @Override
-                            public void onSuccess(Location location) {
+                            public void onSuccess(LocationData location) {
                                 locationLiveData.setValue(location);
                             }
 
@@ -70,9 +70,9 @@ public class CharacterDetailViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new DisposableSingleObserver<Location>() {
+                        new DisposableSingleObserver<LocationData>() {
                             @Override
-                            public void onSuccess(Location origin) {
+                            public void onSuccess(LocationData origin) {
                                 originLiveData.setValue(origin);
                             }
 

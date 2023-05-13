@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.nirwashh.rickandmortyapp.characters.data.model.CharacterFilters
 import com.nirwashh.rickandmortyapp.characters.presentation.list.viewmodels.CharactersViewModel
 import com.nirwashh.rickandmortyapp.core.utils.setWidthPercent
 import com.nirwashh.rickandmortyapp.databinding.FragmentCharacterFilterBinding
@@ -35,28 +34,30 @@ class CharacterFiltersFragment(private val viewModel: CharactersViewModel) : Dia
         init()
         with(binding) {
             clearButton.setOnClickListener {
-                viewModel.clearFilters()
-                updateAndClose()
+                clearFilters()
             }
             applyButton.setOnClickListener {
                 applyFilters()
-                updateAndClose()
             }
         }
     }
 
     private fun init() {
-        val filters = viewModel.filterState.value
         with(binding) {
-            search.setText(filters.name)
-            type.setText(filters.type)
-            species.setText(filters.species)
-            checkGender(filters.gender)
-            checkStatus(filters.status)
+            search.setText(viewModel.filters.value.getValue("name"))
+            type.setText(viewModel.filters.value.getValue("type"))
+            species.setText(viewModel.filters.value.getValue("type"))
         }
+        checkGender(viewModel.filters.value.getValue("gender"))
+        checkStatus(viewModel.filters.value.getValue("status"))
     }
 
-    private fun checkGender(gender: String) {
+    private fun clearFilters() {
+        refresh(null, null, null, null, null)
+        dismiss()
+    }
+
+    private fun checkGender(gender: String?) {
         when (gender) {
             MALE -> binding.chipMale.isChecked = true
             FEMALE -> binding.chipFemale.isChecked = true
@@ -65,7 +66,7 @@ class CharacterFiltersFragment(private val viewModel: CharactersViewModel) : Dia
         }
     }
 
-    private fun checkStatus(status: String) {
+    private fun checkStatus(status: String?) {
         when (status) {
             ALIVE -> binding.chipAlive.isChecked = true
             DEAD -> binding.chipDead.isChecked = true
@@ -73,7 +74,7 @@ class CharacterFiltersFragment(private val viewModel: CharactersViewModel) : Dia
         }
     }
 
-    private fun choiceGender(): String {
+    private fun choiceGender(): String? {
         return if (binding.chipMale.isChecked)
             MALE
         else if (binding.chipFemale.isChecked)
@@ -83,10 +84,10 @@ class CharacterFiltersFragment(private val viewModel: CharactersViewModel) : Dia
         else if (binding.chipUnknownGender.isChecked)
             UNKNOWN
         else
-            ""
+            null
     }
 
-    private fun choiceStatus(): String {
+    private fun choiceStatus(): String? {
         return if (binding.chipAlive.isChecked)
             ALIVE
         else if (binding.chipDead.isChecked)
@@ -94,7 +95,7 @@ class CharacterFiltersFragment(private val viewModel: CharactersViewModel) : Dia
         else if (binding.chipUnknownStatus.isChecked)
             UNKNOWN
         else
-            ""
+            null
     }
 
     private fun applyFilters() {
@@ -103,12 +104,11 @@ class CharacterFiltersFragment(private val viewModel: CharactersViewModel) : Dia
         val species = binding.species.text.toString()
         val gender = choiceGender()
         val status = choiceStatus()
-        viewModel.updateFilters(CharacterFilters(name, status, species, type, gender))
-    }
-
-    private fun updateAndClose() {
-        viewModel.update()
-        refresh()
+        refresh(name = name,
+            type = type,
+            species = species,
+            gender = gender,
+            status = status)
         dismiss()
     }
 
@@ -122,7 +122,11 @@ class CharacterFiltersFragment(private val viewModel: CharactersViewModel) : Dia
     }
 
     interface RefreshCallback {
-        operator fun invoke()
+        operator fun invoke(name: String?,
+                            status: String?,
+                            gender: String?,
+                            type: String?,
+                            species: String?)
     }
 }
 

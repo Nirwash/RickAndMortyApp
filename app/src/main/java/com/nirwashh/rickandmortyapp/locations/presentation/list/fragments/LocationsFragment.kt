@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.nirwashh.rickandmortyapp.core.App
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation
 import com.nirwashh.rickandmortyapp.databinding.FragmentLocationsBinding
-import com.nirwashh.rickandmortyapp.locations.data.model.Location
+import com.nirwashh.rickandmortyapp.locations.data.model.LocationData
 import com.nirwashh.rickandmortyapp.locations.presentation.list.adapters.LocationAdapter
 import com.nirwashh.rickandmortyapp.locations.presentation.list.adapters.LocationLoadStateAdapter
 import com.nirwashh.rickandmortyapp.locations.presentation.list.viewmodel.LocationViewModel
@@ -91,7 +91,7 @@ class LocationsFragment : Fragment(), LocationAdapter.Listener,
     }
 
 
-    override fun onClick(location: Location) {
+    override fun onClick(location: LocationData) {
         navigation.navigateToLocationDetails(location)
     }
 

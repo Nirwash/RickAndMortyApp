@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
 data class LocationDbEntity(
     val created: String,
     val dimension: String,
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val name: String,
     val type: String,
-    @PrimaryKey(autoGenerate = false)
     val locationUrl: String
 )

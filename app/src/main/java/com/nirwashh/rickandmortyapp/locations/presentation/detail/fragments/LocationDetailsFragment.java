@@ -12,12 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.nirwashh.rickandmortyapp.characters.data.model.Character;
+import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi;
 import com.nirwashh.rickandmortyapp.core.App;
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation;
 import com.nirwashh.rickandmortyapp.core.utils.StringParser;
 import com.nirwashh.rickandmortyapp.databinding.FragmentLocationDetailsBinding;
-import com.nirwashh.rickandmortyapp.locations.data.model.Location;
+import com.nirwashh.rickandmortyapp.locations.data.model.LocationData;
 import com.nirwashh.rickandmortyapp.locations.presentation.detail.adapters.LocationDetailAdapter;
 import com.nirwashh.rickandmortyapp.locations.presentation.detail.viewmodel.LocationDetailViewModel;
 import com.nirwashh.rickandmortyapp.locations.presentation.detail.viewmodel.LocationDetailViewModelFactory;
@@ -30,7 +30,7 @@ public class LocationDetailsFragment extends Fragment implements LocationDetailA
     private FragmentLocationDetailsBinding binding;
     private Navigation navigation;
     private LocationDetailViewModel viewModel;
-    private Location location;
+    private LocationData location;
     private LocationDetailAdapter locationDetailAdapter;
     private static final String LOCATION = "location";
 
@@ -74,7 +74,7 @@ public class LocationDetailsFragment extends Fragment implements LocationDetailA
 
     private void observeLiveData() {
         viewModel.charactersLiveData.observe(getViewLifecycleOwner(), characters -> {
-            setupCharacters((ArrayList<Character>) characters);
+            setupCharacters((ArrayList<CharacterUi>) characters);
         });
     }
 
@@ -98,7 +98,7 @@ public class LocationDetailsFragment extends Fragment implements LocationDetailA
         binding.dimension.setText(location.getDimension());
     }
 
-    private void setupCharacters(ArrayList<Character> characters) {
+    private void setupCharacters(ArrayList<CharacterUi> characters) {
         locationDetailAdapter.characters.addAll(characters);
         locationDetailAdapter.notifyDataSetChanged();
     }
@@ -108,7 +108,7 @@ public class LocationDetailsFragment extends Fragment implements LocationDetailA
         navigation.navigateToCharacterDetails(viewModel.getCharacter(characterId));
     }
 
-    public static LocationDetailsFragment newInstance(Location location) {
+    public static LocationDetailsFragment newInstance(LocationData location) {
         LocationDetailsFragment myFragment = new LocationDetailsFragment();
         Bundle args = new Bundle();
         args.putParcelable(LOCATION, location);

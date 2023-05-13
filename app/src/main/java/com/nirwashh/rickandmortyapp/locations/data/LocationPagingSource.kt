@@ -3,21 +3,21 @@ package com.nirwashh.rickandmortyapp.locations.data
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.nirwashh.rickandmortyapp.core.utils.pageParser
-import com.nirwashh.rickandmortyapp.locations.data.model.Location
+import com.nirwashh.rickandmortyapp.locations.data.model.LocationData
 import com.nirwashh.rickandmortyapp.locations.data.model.LocationFilters
 import com.nirwashh.rickandmortyapp.locations.data.remote.LocationService
 
 class LocationPagingSource(
     private val service: LocationService,
     private val filters: LocationFilters
-) : PagingSource<Int, Location>() {
-    override fun getRefreshKey(state: PagingState<Int, Location>): Int? {
+) : PagingSource<Int, LocationData>() {
+    override fun getRefreshKey(state: PagingState<Int, LocationData>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
         val page = state.closestPageToPosition(anchorPosition) ?: return null
         return page.prevKey?.plus(1) ?: page.nextKey?.minus(1)
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Location> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, LocationData> {
         val pageIndex = params.key ?: 0
         return try {
             val response = service.fetchLocations(

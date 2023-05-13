@@ -8,8 +8,8 @@ data class EpisodeDbEntity(
     val air_date: String,
     val created: String,
     val episode: String,
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val name: String,
-    @PrimaryKey(autoGenerate = false)
     val episodeUrl: String
 )

@@ -2,6 +2,7 @@ package com.nirwashh.rickandmortyapp.characters.di
 
 import com.nirwashh.rickandmortyapp.characters.domain.CharactersInteractor
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.viewmodel.CharacterDetailViewModelFactory
+import com.nirwashh.rickandmortyapp.characters.presentation.list.mapper.CharacterDomainToUi
 import com.nirwashh.rickandmortyapp.characters.presentation.list.viewmodels.CharactersViewModelFactory
 import com.nirwashh.rickandmortyapp.episodes.domain.EpisodesInteractor
 import com.nirwashh.rickandmortyapp.locations.domain.LocationInteractor
@@ -18,6 +19,9 @@ class CharacterModule {
         CharacterDetailViewModelFactory(episodeInteractor, locationInteractor)
 
     @Provides
-    fun provideCharactersViewModelFactory(charactersInteractor: CharactersInteractor) =
-        CharactersViewModelFactory(charactersInteractor)
+    fun provideCharactersViewModelFactory(
+        interactor: CharactersInteractor,
+        characterMapper: CharacterDomainToUi
+    ) =
+        CharactersViewModelFactory(interactor, characterMapper)
 }

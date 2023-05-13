@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.nirwashh.rickandmortyapp.locations.data.model.Location
+import com.nirwashh.rickandmortyapp.locations.data.model.LocationData
 import com.nirwashh.rickandmortyapp.locations.data.model.LocationFilters
 import com.nirwashh.rickandmortyapp.locations.domain.LocationInteractor
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.update
 class LocationViewModel(
     private val interactor: LocationInteractor
 ) : ViewModel() {
-    var locationFlow: Flow<PagingData<Location>> = emptyFlow()
+    var locationFlow: Flow<PagingData<LocationData>> = emptyFlow()
     private val _filterState = MutableStateFlow(LocationFilters())
     val filterState = _filterState.asStateFlow()
 

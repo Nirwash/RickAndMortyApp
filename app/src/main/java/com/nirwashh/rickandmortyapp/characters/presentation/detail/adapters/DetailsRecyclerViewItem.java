@@ -5,8 +5,6 @@ import org.jetbrains.annotations.NotNull;
 public abstract class DetailsRecyclerViewItem {
     public static final class CharacterViewItem extends DetailsRecyclerViewItem {
         @NotNull
-        private final String created;
-        @NotNull
         private final String gender;
         @NotNull
         private final String image;
@@ -20,25 +18,18 @@ public abstract class DetailsRecyclerViewItem {
         private final String type;
 
         public CharacterViewItem(
-                @NotNull String created,
                 @NotNull String gender,
                 @NotNull String image,
                 @NotNull String name,
                 @NotNull String species,
                 @NotNull String status,
                 @NotNull String type) {
-            this.created = created;
             this.gender = gender;
             this.image = image;
             this.name = name;
             this.species = species;
             this.status = status;
             this.type = type;
-        }
-
-        @NotNull
-        public final String getCreated() {
-            return this.created;
         }
 
         @NotNull

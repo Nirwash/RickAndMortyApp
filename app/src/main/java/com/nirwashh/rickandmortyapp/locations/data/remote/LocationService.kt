@@ -1,6 +1,6 @@
 package com.nirwashh.rickandmortyapp.locations.data.remote
 
-import com.nirwashh.rickandmortyapp.locations.data.model.Location
+import com.nirwashh.rickandmortyapp.locations.data.model.LocationData
 import com.nirwashh.rickandmortyapp.locations.data.model.LocationResponse
 import io.reactivex.Single
 import retrofit2.Response
@@ -30,5 +30,5 @@ interface LocationService {
     @GET("location/{id}")
     fun fetchObservableLocationById(
         @Path("id") id: Int
-    ): Single<Location>
+    ): Single<LocationData>
 }

@@ -20,24 +20,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvCreated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/created"
-        android:textColor="@color/semi_white"
-        app:layout_constraintBottom_toTopOf="@id/tvStatus"
-        app:layout_constraintEnd_toEndOf="@id/guideline"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/created"
-        style="@style/text_style_accent_white"
-        android:maxLength="10"
-        app:layout_constraintStart_toStartOf="@id/guideline"
-        app:layout_constraintTop_toTopOf="@id/tvCreated"
-        tools:text="2017.04.04" />
-
-    <TextView
         android:id="@+id/tvStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,7 +27,7 @@
         android:textColor="@color/semi_white"
         app:layout_constraintBottom_toTopOf="@id/tvGender"
         app:layout_constraintEnd_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tvCreated" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/status"

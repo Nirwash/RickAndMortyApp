@@ -28,7 +28,6 @@ public abstract class DetailRecyclerViewHolder extends RecyclerView.ViewHolder {
 
         public void bind(DetailsRecyclerViewItem.CharacterViewItem characterViewItem) {
             Glide.with(this.itemView).load(characterViewItem.getImage()).into(binding.imageCharacter);
-            binding.created.setText(characterViewItem.getCreated());
             binding.status.setText(characterViewItem.getStatus());
             binding.gender.setText(characterViewItem.getGender());
             binding.species.setText(characterViewItem.getSpecies());

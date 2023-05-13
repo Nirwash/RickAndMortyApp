@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.nirwashh.rickandmortyapp.characters.data.model.Character
+import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi
 import com.nirwashh.rickandmortyapp.core.App
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation
 import com.nirwashh.rickandmortyapp.core.utils.idsParser
@@ -72,7 +72,7 @@ class EpisodeDetailsFragment : Fragment(), EpisodeDetailAdapter.Listener {
         }
     }
 
-    private fun setupCharacters(characters: List<Character>) {
+    private fun setupCharacters(characters: List<CharacterUi>) {
         episodeDetailAdapter.characters.addAll(characters)
         episodeDetailAdapter.notifyDataSetChanged()
     }
