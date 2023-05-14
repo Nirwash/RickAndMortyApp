@@ -74,7 +74,7 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         setupRecyclerView();
         setsLiveData();
         observeLiveData();
-        binding.btnBack.setOnClickListener(view1 ->
+        binding.btnBackDetail.setOnClickListener(view1 ->
                 getParentFragmentManager().popBackStack()
         );
     }

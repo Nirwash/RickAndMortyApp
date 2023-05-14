@@ -66,7 +66,7 @@ public class LocationDetailsFragment extends Fragment implements LocationDetailA
         setupRecyclerView();
         setLiveData();
         observeLiveData();
-        binding.btnBack.setOnClickListener(view1 ->
+        binding.btnBackLocationDetail.setOnClickListener(view1 ->
                 getParentFragmentManager().popBackStack()
         );
 

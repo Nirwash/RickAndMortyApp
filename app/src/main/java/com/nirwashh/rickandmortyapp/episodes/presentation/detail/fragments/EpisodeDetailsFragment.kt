@@ -59,7 +59,7 @@ class EpisodeDetailsFragment : Fragment(), EpisodeDetailAdapter.Listener {
         viewModel.characters.observe(viewLifecycleOwner) {
             setupCharacters(it)
         }
-        binding.btnBack.setOnClickListener {
+        binding.btnBackEpisodeDetail.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
     }
