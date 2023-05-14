@@ -25,6 +25,7 @@
 * Room
 * Dagger2
 * MVVM, Clean architecture
+* JUnit/Espresso/Mockk
 
 
 ## функционал
