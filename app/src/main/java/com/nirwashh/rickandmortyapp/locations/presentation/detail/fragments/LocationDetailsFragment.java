@@ -80,7 +80,7 @@ public class LocationDetailsFragment extends Fragment implements LocationDetailA
 
     private void setLiveData() {
         if (!location.getResidents().isEmpty()) {
-            viewModel.setCharacters(StringParser.idsParser(location.getResidents()));
+            viewModel.setCharacters(StringParser.idsListParser(location.getResidents()));
         }
     }
 

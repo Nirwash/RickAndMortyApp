@@ -99,16 +99,27 @@ class CharacterFiltersFragment(private val viewModel: CharactersViewModel) : Dia
     }
 
     private fun applyFilters() {
-        val name = binding.search.text.toString()
-        val type = binding.type.text.toString()
-        val species = binding.species.text.toString()
+        val name = if (binding.search.text.toString() == "")
+            null
+        else
+            binding.search.text.toString()
+        val type = if (binding.type.text.toString() == "")
+            null
+        else
+            binding.type.text.toString()
+        val species = if (binding.species.text.toString() == "")
+            null
+        else
+            binding.species.text.toString()
         val gender = choiceGender()
         val status = choiceStatus()
-        refresh(name = name,
+        refresh(
+            name = name,
             type = type,
             species = species,
             gender = gender,
-            status = status)
+            status = status
+        )
         dismiss()
     }
 
@@ -122,11 +133,13 @@ class CharacterFiltersFragment(private val viewModel: CharactersViewModel) : Dia
     }
 
     interface RefreshCallback {
-        operator fun invoke(name: String?,
-                            status: String?,
-                            gender: String?,
-                            type: String?,
-                            species: String?)
+        operator fun invoke(
+            name: String?,
+            status: String?,
+            gender: String?,
+            type: String?,
+            species: String?
+        )
     }
 }
 

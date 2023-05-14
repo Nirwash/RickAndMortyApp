@@ -15,5 +15,5 @@ interface CharactersRepository {
     ): Flow<PagingData<CharacterDomain>>
 
     suspend fun getCharactersByIds(ids: String): List<CharacterDomain>
-    fun getObservableCharactersByIds(ids: String): Single<List<CharacterDomain>>
+    fun getObservableCharactersByIds(ids: List<Int>): Single<List<CharacterDomain>>
 }

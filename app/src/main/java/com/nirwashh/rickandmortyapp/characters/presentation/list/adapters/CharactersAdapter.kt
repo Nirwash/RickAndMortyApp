@@ -22,18 +22,21 @@ class CharactersAdapter(private val listener: Listener) :
         )
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        val character = getItem(position)
-        if (character != null) {
-            with(holder) {
-                with(binding) {
-                    Glide.with(itemView).load(character.image).into(imgCharacterDetail)
-                    tvName.text = character.name
-                    species.text = character.species
-                    status.text = character.status
-                    gender.text = character.gender
-                }
-                itemView.setOnClickListener {
-                    listener.onClick(character)
+        getItem(position).let {
+            val character = it
+            if (character != null) {
+                with(holder) {
+                    with(binding) {
+                        Glide.with(itemView).load(character.image).into(imgCharacterDetail)
+                        tvName.text = character.name
+                        species.text = character.species
+                        status.text = character.status
+                        gender.text = character.gender
+                    }
+                    itemView.setOnClickListener {
+                        listener.onClick(character)
+
+                    }
                 }
             }
         }

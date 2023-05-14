@@ -30,7 +30,7 @@ public class LocationDetailViewModel extends ViewModel {
         charactersInteractor = interactor;
     }
 
-    public void setCharacters(String ids) {
+    public void setCharacters(List<Integer> ids) {
         charactersInteractor.getObservableCharactersByIds(ids)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

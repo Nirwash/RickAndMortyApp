@@ -71,10 +71,10 @@ class CharactersFragment : Fragment(), CharacterFiltersFragment.RefreshCallback,
             viewModel.filters.collect {
                 viewModel.load(
                     name = viewModel.filters.value.getValue("name"),
-                    gender =  viewModel.filters.value.getValue("gender"),
-                    status =  viewModel.filters.value.getValue("status"),
-                    species =  viewModel.filters.value.getValue("species"),
-                    type =  viewModel.filters.value.getValue("type")
+                    gender = viewModel.filters.value.getValue("gender"),
+                    status = viewModel.filters.value.getValue("status"),
+                    species = viewModel.filters.value.getValue("species"),
+                    type = viewModel.filters.value.getValue("type")
                 )
             }
         }
@@ -96,8 +96,7 @@ class CharactersFragment : Fragment(), CharacterFiltersFragment.RefreshCallback,
     private fun setupRecyclerView() {
         characterAdapter = CharactersAdapter(this)
         binding.rvCharacters.apply {
-            adapter = characterAdapter.withLoadStateHeaderAndFooter(
-                header = CharacterLoadStateAdapter(characterAdapter),
+            adapter = characterAdapter.withLoadStateFooter(
                 footer = CharacterLoadStateAdapter(characterAdapter)
             )
             layoutManager = GridLayoutManager(requireContext(), 2)
@@ -122,6 +121,7 @@ class CharactersFragment : Fragment(), CharacterFiltersFragment.RefreshCallback,
         species: String?
     ) {
         viewModel.load(name, status, gender, type, species)
+        binding.rvCharacters.scrollToPosition(0)
     }
 
     override fun onClick(character: CharacterUi) {

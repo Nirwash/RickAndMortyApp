@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.nirwashh.rickandmortyapp.characters.domain.model.CharacterDomain;
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.CharacterDetailsAdapter;
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem;
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.viewmodel.CharacterDetailViewModel;
@@ -34,7 +33,7 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
     private FragmentCharacterDetailsBinding binding;
     private Navigation navigation;
     private CharacterDetailViewModel viewModel;
-    private CharacterDomain character;
+    private CharacterUi character;
     private CharacterDetailsAdapter characterDetailAdapter;
     private ArrayList<Episode> episodes;
     private LocationData location;
@@ -98,7 +97,7 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         characterDetailAdapter.notifyDataSetChanged();
     }
 
-    private Collection<? extends DetailsRecyclerViewItem> createViewItems(CharacterDomain character) {
+    private Collection<? extends DetailsRecyclerViewItem> createViewItems(CharacterUi character) {
         ArrayList<DetailsRecyclerViewItem> list = new ArrayList<>();
         list.add(
                 new DetailsRecyclerViewItem.CharacterViewItem(
@@ -115,8 +114,8 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         );
         list.add(
                 new DetailsRecyclerViewItem.LocationViewItem(
-                        character.getLocation().get("locationName"),
-                        Integer.parseInt(character.getLocation().get("locationId"))
+                        character.getLocation().getOrDefault("locationName", "null"),
+                        character.getLocation().getOrDefault("locationId", "-1")
                 )
         );
 
@@ -125,8 +124,8 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         );
         list.add(
                 new DetailsRecyclerViewItem.OriginViewItem(
-                        character.getOrigin().get("locationName"),
-                        Integer.parseInt(character.getOrigin().get("locationId"))
+                        character.getOrigin().getOrDefault("locationName", "null"),
+                        character.getOrigin().getOrDefault("locationId", "-1")
                 )
         );
         list.add(

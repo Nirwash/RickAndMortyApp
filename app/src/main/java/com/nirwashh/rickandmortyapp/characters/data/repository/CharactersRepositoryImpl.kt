@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.map
 @ExperimentalPagingApi
 class CharactersRepositoryImpl(
     private val characterService: CharactersService,
-    private val characterDatabase: RickAndMortyDatabase,
+    private val database: RickAndMortyDatabase,
     private val characterDataToDomain: CharacterDataToDomain
 ) : CharactersRepository {
 
@@ -31,7 +31,7 @@ class CharactersRepositoryImpl(
     ): Flow<PagingData<CharacterDomain>> {
 
         val pagingSourceFactory = {
-            characterDatabase.characterDao().getPagedCharacters(
+            database.characterDao().getPagedCharacters(
                 name = name,
                 status = status,
                 species = species,
@@ -50,7 +50,7 @@ class CharactersRepositoryImpl(
             ),
             remoteMediator = CharacterRemoteMediator(
                 service = characterService,
-                database = characterDatabase,
+                database = database,
                 name = name, status = status, gender = gender, type = type, species = species
             ),
             pagingSourceFactory = pagingSourceFactory
@@ -65,11 +65,15 @@ class CharactersRepositoryImpl(
     override suspend fun getCharactersByIds(ids: String) =
         characterService.fetchMultipleCharacters(ids).map { characterDataToDomain.map(it) }
 
-    override fun getObservableCharactersByIds(ids: String): Single<List<CharacterDomain>> {
-        val response = characterService.fetchObservableMultipleCharacters(ids)
-        return response.map { list ->
-            list.map { characterDataToDomain.map(it) }
+    override fun getObservableCharactersByIds(ids: List<Int>): Single<List<CharacterDomain>> {
+        val characters = mutableListOf<CharacterDomain>()
+        ids.forEach {
+            val character = database.characterDao().getObservableCharacterById(it)
+            characters.add(
+                characterDataToDomain.map(character)
+            )
         }
+        return Single.just(characters)
     }
 
 }

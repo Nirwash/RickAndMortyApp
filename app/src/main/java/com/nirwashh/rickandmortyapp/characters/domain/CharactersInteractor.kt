@@ -18,7 +18,7 @@ class CharactersInteractor(private val repository: CharactersRepository) {
 
     suspend fun getCharactersByIds(ids: String) = repository.getCharactersByIds(ids)
 
-    fun getObservableCharactersByIds(ids: String) = repository.getObservableCharactersByIds(ids)
+    fun getObservableCharactersByIds(ids: List<Int>) = repository.getObservableCharactersByIds(ids)
 
 
 }

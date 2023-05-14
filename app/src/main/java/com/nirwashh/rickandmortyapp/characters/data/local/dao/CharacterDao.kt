@@ -48,6 +48,9 @@ interface CharacterDao {
     @Query("SELECT * FROM characters_table WHERE id = :id")
     suspend fun getCharacterById(id: Int): CharacterData
 
+    @Query("SELECT * FROM characters_table WHERE id = :id")
+    fun getObservableCharacterById(id: Int): CharacterData
+
     @Query("DELETE FROM characters_table")
     suspend fun deleteAllCharacters()
 }

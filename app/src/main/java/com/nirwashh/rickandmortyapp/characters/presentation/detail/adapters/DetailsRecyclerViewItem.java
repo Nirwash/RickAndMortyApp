@@ -66,18 +66,18 @@ public abstract class DetailsRecyclerViewItem {
     public static final class LocationViewItem extends DetailsRecyclerViewItem {
         @NotNull
         private final String name;
-        private final int id;
+        private final String id;
 
         @NotNull
         public String getName() {
             return this.name;
         }
 
-        public int getId() {
+        public String getId() {
             return this.id;
         }
 
-        public LocationViewItem(@NotNull String name, int id) {
+        public LocationViewItem(@NotNull String name, String id) {
             this.name = name;
             this.id = id;
         }
@@ -86,18 +86,18 @@ public abstract class DetailsRecyclerViewItem {
     public static final class OriginViewItem extends DetailsRecyclerViewItem {
         @NotNull
         private final String name;
-        private final int id;
+        private final String id;
 
         @NotNull
         public String getName() {
             return this.name;
         }
 
-        public int getId() {
+        public String getId() {
             return this.id;
         }
 
-        public OriginViewItem(@NotNull String name, int id) {
+        public OriginViewItem(@NotNull String name, String id) {
             this.name = name;
             this.id = id;
         }
