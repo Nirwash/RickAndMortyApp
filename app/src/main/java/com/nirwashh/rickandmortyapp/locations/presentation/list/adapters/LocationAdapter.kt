@@ -6,16 +6,16 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nirwashh.rickandmortyapp.databinding.ItemLocationBinding
-import com.nirwashh.rickandmortyapp.locations.data.model.LocationData
+import com.nirwashh.rickandmortyapp.locations.presentation.model.LocationUi
 
 class LocationAdapter(private val listener: Listener) :
-    PagingDataAdapter<LocationData, LocationAdapter.LocationViewHolder>(LocationDiffCallback()) {
+    PagingDataAdapter<LocationUi, LocationAdapter.LocationViewHolder>(LocationDiffCallback()) {
 
-    class LocationDiffCallback : DiffUtil.ItemCallback<LocationData>() {
-        override fun areItemsTheSame(oldItem: LocationData, newItem: LocationData) =
+    class LocationDiffCallback : DiffUtil.ItemCallback<LocationUi>() {
+        override fun areItemsTheSame(oldItem: LocationUi, newItem: LocationUi) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: LocationData, newItem: LocationData) =
+        override fun areContentsTheSame(oldItem: LocationUi, newItem: LocationUi) =
             oldItem == newItem
     }
 
@@ -23,19 +23,23 @@ class LocationAdapter(private val listener: Listener) :
         RecyclerView.ViewHolder(binding.root)
 
     interface Listener {
-        fun onClick(location: LocationData)
+        fun onClick(location: LocationUi)
     }
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
-        val location = checkNotNull(getItem(position))
-        with(holder) {
-            with(binding) {
-                tvLocationName.text = location.name
-                tvType.text = location.type
-                tvDimension.text = location.dimension
-            }
-            itemView.setOnClickListener {
-                listener.onClick(location)
+        getItem(position).let {
+            val location = it
+            if (location != null) {
+                with(holder) {
+                    with(binding) {
+                        tvLocationName.text = location.name
+                        tvType.text = location.type
+                        tvDimension.text = location.dimension
+                    }
+                    itemView.setOnClickListener {
+                        listener.onClick(location)
+                    }
+                }
             }
         }
     }

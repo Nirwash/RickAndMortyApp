@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface EpisodeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllEpisodes(episodes: List<EpisodeData>?)
+    suspend fun insertEpisodes(episodes: List<EpisodeData>?)
 
     @Query("DELETE FROM episodes_table")
-    suspend fun deleteAllEpisodes()
+    suspend fun deleteEpisodes()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEpisode(episode: EpisodeData)

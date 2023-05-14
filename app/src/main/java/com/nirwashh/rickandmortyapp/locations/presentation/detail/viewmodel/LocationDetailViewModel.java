@@ -12,45 +12,55 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.inject.Inject;
-
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
 public class LocationDetailViewModel extends ViewModel {
     CharactersInteractor charactersInteractor;
+    CharacterDomainToUi characterDomainToUi;
     public MutableLiveData<List<CharacterUi>> charactersLiveData = new MutableLiveData<>();
 
-    @Inject
-    CharacterDomainToUi characterDomainToUi;
-
-    public LocationDetailViewModel(CharactersInteractor interactor) {
+    public LocationDetailViewModel(CharactersInteractor interactor, CharacterDomainToUi mapper) {
         charactersInteractor = interactor;
+        characterDomainToUi = mapper;
+
     }
 
-    public void setCharacters(List<Integer> ids) {
+    public void setCharactersLiveData(List<Integer> ids) {
         charactersInteractor.getObservableCharactersByIds(ids)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new DisposableSingleObserver<List<CharacterDomain>>() {
-                            @Override
-                            public void onSuccess(List<CharacterDomain> characterResults) {
-                                ArrayList<CharacterUi> characters = new ArrayList<>();
-                                for (CharacterDomain character : characterResults) {
-                                    characters.add(characterDomainToUi.map(character));
-                                }
-                                charactersLiveData.setValue(characters);
-                            }
+                .subscribe(new Observer<List<CharacterDomain>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
 
-                            @Override
-                            public void onError(Throwable e) {
+                    @Override
+                    public void onNext(List<CharacterDomain> characterDomains) {
+                        setCharacters(characterDomains);
+                    }
 
-                            }
-                        }
-                );
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    private void setCharacters(List<CharacterDomain> characterDomains) {
+        ArrayList<CharacterUi> characterUis = new ArrayList<>();
+        for (CharacterDomain character : characterDomains) {
+            characterUis.add(
+                    characterDomainToUi.map(character)
+            );
+        }
+        charactersLiveData.setValue(characterUis);
     }
 
     public CharacterUi getCharacter(int id) {

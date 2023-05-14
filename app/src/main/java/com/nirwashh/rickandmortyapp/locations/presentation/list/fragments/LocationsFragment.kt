@@ -5,19 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.PagingData
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nirwashh.rickandmortyapp.core.App
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation
 import com.nirwashh.rickandmortyapp.databinding.FragmentLocationsBinding
-import com.nirwashh.rickandmortyapp.locations.data.model.LocationData
 import com.nirwashh.rickandmortyapp.locations.presentation.list.adapters.LocationAdapter
 import com.nirwashh.rickandmortyapp.locations.presentation.list.adapters.LocationLoadStateAdapter
 import com.nirwashh.rickandmortyapp.locations.presentation.list.viewmodel.LocationViewModel
 import com.nirwashh.rickandmortyapp.locations.presentation.list.viewmodel.LocationViewModelFactory
+import com.nirwashh.rickandmortyapp.locations.presentation.model.LocationUi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -55,50 +57,71 @@ class LocationsFragment : Fragment(), LocationAdapter.Listener,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        loadLocations()
         setupSwipeToRefresh()
+        observeFilters()
         binding.filter.setOnClickListener {
             LocationFiltersFragment(viewModel).show(childFragmentManager, "")
         }
 
     }
 
+    private fun observeFilters() {
+        lifecycle.coroutineScope.launch {
+            viewModel.filters.collect {
+                viewModel.load(
+                    name = viewModel.filters.value.getValue("name"),
+                    type = viewModel.filters.value.getValue("type"),
+                    dimension = viewModel.filters.value.getValue("dimension")
+                )
+            }
+        }
+    }
+
+    private fun loadLocations() {
+        lifecycleScope.launch {
+            viewModel.load(null, null, null)
+            viewModel.locationFlow.collectLatest {
+                locationAdapter.submitData(it)
+            }
+        }
+        locationAdapter.addLoadStateListener {
+            binding.rvLocations.isVisible = it.refresh != LoadState.Loading
+            binding.progressBar.isVisible = it.refresh == LoadState.Loading
+        }
+    }
+
     private fun setupSwipeToRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            lifecycleScope.launch {
-                updateUi()
+            viewModel.load(null, null, null)
+            with(binding) {
+                swipeRefreshLayout.isRefreshing = false
+                rvLocations.scrollToPosition(0)
             }
-            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
     private fun setupRecyclerView() {
         locationAdapter = LocationAdapter(this)
         binding.rvLocations.apply {
-            adapter = locationAdapter.withLoadStateHeaderAndFooter(
-                header = LocationLoadStateAdapter(locationAdapter),
+            adapter = locationAdapter.withLoadStateFooter(
                 footer = LocationLoadStateAdapter(locationAdapter)
             )
             layoutManager = GridLayoutManager(requireContext(), 2)
-            lifecycleScope.launch {
-                updateUi()
-            }
         }
     }
 
-    private suspend fun updateUi() {
-        locationAdapter.submitData(PagingData.empty())
-        viewModel.locationFlow.collectLatest(locationAdapter::submitData)
-    }
-
-
-    override fun onClick(location: LocationData) {
+    override fun onClick(location: LocationUi) {
         navigation.navigateToLocationDetails(location)
     }
 
-    override fun invoke() {
-        lifecycleScope.launch {
-            updateUi()
-        }
+    override fun invoke(
+        name: String?,
+        type: String?,
+        dimension: String?
+    ) {
+        viewModel.load(name, type, dimension)
+        binding.rvLocations.scrollToPosition(0)
     }
 }
 

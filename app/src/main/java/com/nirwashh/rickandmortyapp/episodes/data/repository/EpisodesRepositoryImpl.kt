@@ -37,10 +37,8 @@ class EpisodesRepositoryImpl(
         return Pager(
             config = PagingConfig(
                 pageSize = 20,
-                prefetchDistance = 2,
                 maxSize = PagingConfig.MAX_SIZE_UNBOUNDED,
                 jumpThreshold = Int.MIN_VALUE,
-                enablePlaceholders = true,
             ),
             remoteMediator = EpisodeRemoteMediator(
                 service = episodesService,

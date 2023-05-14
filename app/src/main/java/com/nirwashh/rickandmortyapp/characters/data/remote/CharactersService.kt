@@ -3,7 +3,7 @@ package com.nirwashh.rickandmortyapp.characters.data.remote
 
 import com.nirwashh.rickandmortyapp.characters.data.model.CharacterData
 import com.nirwashh.rickandmortyapp.characters.data.model.CharactersResponse
-import io.reactivex.Single
+import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -34,5 +34,5 @@ interface CharactersService {
     @GET("character/{ids}")
     fun fetchObservableMultipleCharacters(
         @Path("ids") ids: String
-    ): Single<List<CharacterData>>
+    ): Observable<List<CharacterData>>
 }

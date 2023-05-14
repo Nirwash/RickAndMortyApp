@@ -13,9 +13,9 @@ import com.nirwashh.rickandmortyapp.databinding.ActivityMainBinding
 import com.nirwashh.rickandmortyapp.episodes.presentation.detail.fragments.EpisodeDetailsFragment
 import com.nirwashh.rickandmortyapp.episodes.presentation.list.fragments.EpisodesFragment
 import com.nirwashh.rickandmortyapp.episodes.presentation.model.EpisodeUi
-import com.nirwashh.rickandmortyapp.locations.data.model.LocationData
 import com.nirwashh.rickandmortyapp.locations.presentation.detail.fragments.LocationDetailsFragment
 import com.nirwashh.rickandmortyapp.locations.presentation.list.fragments.LocationsFragment
+import com.nirwashh.rickandmortyapp.locations.presentation.model.LocationUi
 
 class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var binding: ActivityMainBinding
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity(), Navigation {
         setCurrentFragment(EpisodeDetailsFragment.newInstance(episode), true)
     }
 
-    override fun navigateToLocationDetails(location: LocationData) {
+    override fun navigateToLocationDetails(location: LocationUi) {
         setCurrentFragment(LocationDetailsFragment.newInstance(location), true)
     }
 }

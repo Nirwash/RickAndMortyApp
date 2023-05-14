@@ -10,11 +10,11 @@ import com.nirwashh.rickandmortyapp.episodes.data.model.EpisodeKeys
 interface EpisodesKeysDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllEpisodesKeys(remoteKeysEpisodes: List<EpisodeKeys>?)
+    suspend fun insertKeys(remoteKeysEpisodes: List<EpisodeKeys>?)
 
     @Query("SELECT * FROM episode_page_keys WHERE id =:id")
-    suspend fun getEpisodesRemoteKeys(id: Int): EpisodeKeys
+    suspend fun getKeys(id: Int): EpisodeKeys
 
     @Query("DELETE FROM episode_page_keys")
-    suspend fun deleteAllEpisodesRemoteKeys()
+    suspend fun deleteKeys()
 }

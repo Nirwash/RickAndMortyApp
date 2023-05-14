@@ -13,17 +13,33 @@ class EpisodeDetailViewModel(
     private val characterDomainToUi: CharacterDomainToUi
 ) : ViewModel() {
 
-    var characters = MutableLiveData<List<CharacterUi>>()
+    val characters = MutableLiveData<List<CharacterUi>>()
 
     fun setCharacters(ids: String) {
         viewModelScope.launch {
-            characters.value =
-                characterInteractor.getCharactersByIds(ids).map { characterDomainToUi.map(it) }
+            try {
+                characters.value =
+                    characterInteractor.getCharactersByIds(ids).map { characterDomainToUi.map(it) }
+            } catch (_: Exception) {
+            }
+
         }
     }
 
     fun getCharacter(id: Int): CharacterUi {
-        return characters.value?.find { it.id == id }!!
+        val character = characters.value?.find { it.id == id }
+        return character ?: CharacterUi(
+            emptyList(),
+            "",
+            0,
+            "",
+            mapOf(Pair("", "")),
+            "",
+            mapOf(Pair("", "")),
+            "",
+            "",
+            ""
+        )
     }
 
 }

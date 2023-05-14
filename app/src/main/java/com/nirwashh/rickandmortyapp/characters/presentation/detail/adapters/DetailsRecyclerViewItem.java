@@ -33,32 +33,32 @@ public abstract class DetailsRecyclerViewItem {
         }
 
         @NotNull
-        public final String getGender() {
+        public String getGender() {
             return this.gender;
         }
 
         @NotNull
-        public final String getImage() {
+        public String getImage() {
             return this.image;
         }
 
         @NotNull
-        public final String getName() {
+        public String getName() {
             return this.name;
         }
 
         @NotNull
-        public final String getSpecies() {
+        public String getSpecies() {
             return this.species;
         }
 
         @NotNull
-        public final String getStatus() {
+        public String getStatus() {
             return this.status;
         }
 
         @NotNull
-        public final String getType() {
+        public String getType() {
             return this.type;
         }
     }

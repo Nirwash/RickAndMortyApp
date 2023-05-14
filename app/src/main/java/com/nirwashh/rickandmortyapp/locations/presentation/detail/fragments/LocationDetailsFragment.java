@@ -17,10 +17,10 @@ import com.nirwashh.rickandmortyapp.core.App;
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation;
 import com.nirwashh.rickandmortyapp.core.utils.StringParser;
 import com.nirwashh.rickandmortyapp.databinding.FragmentLocationDetailsBinding;
-import com.nirwashh.rickandmortyapp.locations.data.model.LocationData;
 import com.nirwashh.rickandmortyapp.locations.presentation.detail.adapters.LocationDetailAdapter;
 import com.nirwashh.rickandmortyapp.locations.presentation.detail.viewmodel.LocationDetailViewModel;
 import com.nirwashh.rickandmortyapp.locations.presentation.detail.viewmodel.LocationDetailViewModelFactory;
+import com.nirwashh.rickandmortyapp.locations.presentation.model.LocationUi;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class LocationDetailsFragment extends Fragment implements LocationDetailA
     private FragmentLocationDetailsBinding binding;
     private Navigation navigation;
     private LocationDetailViewModel viewModel;
-    private LocationData location;
+    private LocationUi location;
     private LocationDetailAdapter locationDetailAdapter;
     private static final String LOCATION = "location";
 
@@ -80,7 +80,7 @@ public class LocationDetailsFragment extends Fragment implements LocationDetailA
 
     private void setLiveData() {
         if (!location.getResidents().isEmpty()) {
-            viewModel.setCharacters(StringParser.idsListParser(location.getResidents()));
+            viewModel.setCharactersLiveData(StringParser.idsListParser(location.getResidents()));
         }
     }
 
@@ -108,7 +108,7 @@ public class LocationDetailsFragment extends Fragment implements LocationDetailA
         navigation.navigateToCharacterDetails(viewModel.getCharacter(characterId));
     }
 
-    public static LocationDetailsFragment newInstance(LocationData location) {
+    public static LocationDetailsFragment newInstance(LocationUi location) {
         LocationDetailsFragment myFragment = new LocationDetailsFragment();
         Bundle args = new Bundle();
         args.putParcelable(LOCATION, location);

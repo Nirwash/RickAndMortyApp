@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.nirwashh.rickandmortyapp.characters.data.model.Location
-import com.nirwashh.rickandmortyapp.locations.data.model.LocationData
 
 
 object Converter {

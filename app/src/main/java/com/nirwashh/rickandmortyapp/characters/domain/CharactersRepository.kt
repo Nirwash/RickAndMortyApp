@@ -2,7 +2,7 @@ package com.nirwashh.rickandmortyapp.characters.domain
 
 import androidx.paging.PagingData
 import com.nirwashh.rickandmortyapp.characters.domain.model.CharacterDomain
-import io.reactivex.Single
+import io.reactivex.Observable
 import kotlinx.coroutines.flow.Flow
 
 interface CharactersRepository {
@@ -15,5 +15,5 @@ interface CharactersRepository {
     ): Flow<PagingData<CharacterDomain>>
 
     suspend fun getCharactersByIds(ids: String): List<CharacterDomain>
-    fun getObservableCharactersByIds(ids: List<Int>): Single<List<CharacterDomain>>
+    fun getObservableCharactersByIds(ids: List<Int>): Observable<List<CharacterDomain>>
 }

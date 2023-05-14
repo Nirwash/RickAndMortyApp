@@ -16,7 +16,7 @@ class EpisodesViewModel(
     private val interactor: EpisodesInteractor,
     private val mapper: EpisodeDomainToUi
 ) : ViewModel() {
-    var episodesFlow = MutableSharedFlow<PagingData<EpisodeUi>>()
+    val episodesFlow = MutableSharedFlow<PagingData<EpisodeUi>>()
     val filters = MutableStateFlow<MutableMap<String, String?>>(
         mutableMapOf(
             "name" to null,

@@ -7,6 +7,7 @@ import com.nirwashh.rickandmortyapp.characters.presentation.mapper.CharacterDoma
 import com.nirwashh.rickandmortyapp.episodes.domain.EpisodesInteractor
 import com.nirwashh.rickandmortyapp.episodes.presentation.mapper.EpisodeDomainToUi
 import com.nirwashh.rickandmortyapp.locations.domain.LocationInteractor
+import com.nirwashh.rickandmortyapp.locations.presentation.mapper.LocationDomainToUi
 import dagger.Module
 import dagger.Provides
 
@@ -16,9 +17,15 @@ class CharacterModule {
     fun provideCharacterDetailViewModelFactory(
         episodeInteractor: EpisodesInteractor,
         locationInteractor: LocationInteractor,
-        episodeDomainToUi: EpisodeDomainToUi
+        episodeDomainToUi: EpisodeDomainToUi,
+        locationDomainToUi: LocationDomainToUi
     ) =
-        CharacterDetailViewModelFactory(episodeInteractor, locationInteractor, episodeDomainToUi)
+        CharacterDetailViewModelFactory(
+            episodeInteractor,
+            locationInteractor,
+            episodeDomainToUi,
+            locationDomainToUi
+        )
 
     @Provides
     fun provideCharactersViewModelFactory(

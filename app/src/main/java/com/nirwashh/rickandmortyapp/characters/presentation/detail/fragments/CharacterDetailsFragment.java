@@ -22,10 +22,11 @@ import com.nirwashh.rickandmortyapp.core.presentation.Navigation;
 import com.nirwashh.rickandmortyapp.core.utils.StringParser;
 import com.nirwashh.rickandmortyapp.databinding.FragmentCharacterDetailsBinding;
 import com.nirwashh.rickandmortyapp.episodes.presentation.model.EpisodeUi;
-import com.nirwashh.rickandmortyapp.locations.data.model.LocationData;
+import com.nirwashh.rickandmortyapp.locations.presentation.model.LocationUi;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -36,8 +37,8 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
     private CharacterUi character;
     private CharacterDetailsAdapter characterDetailAdapter;
     private ArrayList<EpisodeUi> episodes;
-    private LocationData location;
-    private LocationData origin;
+    private LocationUi location;
+    private LocationUi origin;
     @Inject
     public CharacterDetailViewModelFactory vmFactory;
     private static final String CHARACTER = "character";
@@ -147,10 +148,10 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         if (!character.getEpisode().isEmpty()) {
             viewModel.setEpisodesLiveData(StringParser.idsListParser(character.getEpisode()));
         }
-        if (!character.getLocation().get("locationName").equals("unknown")) {
+        if (!Objects.equals(character.getLocation().get("locationName"), "unknown")) {
             viewModel.setLocationLiveData(Integer.parseInt(character.getLocation().get("locationId")));
         }
-        if (!character.getOrigin().get("locationName").equals("unknown")) {
+        if (!Objects.equals(character.getOrigin().get("locationName"), "unknown")) {
             viewModel.setOriginLiveData(Integer.parseInt(character.getOrigin().get("locationId")));
         }
     }

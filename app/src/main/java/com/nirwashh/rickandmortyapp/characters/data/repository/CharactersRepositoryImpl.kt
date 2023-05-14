@@ -11,7 +11,7 @@ import com.nirwashh.rickandmortyapp.characters.data.remote.CharactersService
 import com.nirwashh.rickandmortyapp.characters.domain.CharactersRepository
 import com.nirwashh.rickandmortyapp.characters.domain.model.CharacterDomain
 import com.nirwashh.rickandmortyapp.core.data.local.RickAndMortyDatabase
-import io.reactivex.Single
+import io.reactivex.Observable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -65,15 +65,13 @@ class CharactersRepositoryImpl(
     override suspend fun getCharactersByIds(ids: String) =
         characterService.fetchMultipleCharacters(ids).map { characterDataToDomain.map(it) }
 
-    override fun getObservableCharactersByIds(ids: List<Int>): Single<List<CharacterDomain>> {
-        val characters = mutableListOf<CharacterDomain>()
-        ids.forEach {
-            val character = database.characterDao().getObservableCharacterById(it)
-            characters.add(
+    override fun getObservableCharactersByIds(ids: List<Int>): Observable<List<CharacterDomain>> {
+        val characters = characterService.fetchObservableMultipleCharacters(ids.toString())
+        return characters.map { list ->
+            list.map { character ->
                 characterDataToDomain.map(character)
-            )
+            }
         }
-        return Single.just(characters)
     }
 
 }

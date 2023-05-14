@@ -22,7 +22,7 @@ public abstract class DetailRecyclerViewHolder extends RecyclerView.ViewHolder {
         private final CharacterDetailBinding binding;
 
         public CharacterViewHolder(CharacterDetailBinding binding) {
-            super((ViewBinding) binding);
+            super(binding);
             this.binding = binding;
         }
 
@@ -51,7 +51,7 @@ public abstract class DetailRecyclerViewHolder extends RecyclerView.ViewHolder {
         private final ItemLocationDetailBinding binding;
 
         public LocationViewHolder(ItemLocationDetailBinding binding) {
-            super((ViewBinding) binding);
+            super(binding);
             this.binding = binding;
         }
 
@@ -66,7 +66,7 @@ public abstract class DetailRecyclerViewHolder extends RecyclerView.ViewHolder {
         private final ItemOriginBinding binding;
 
         public OriginViewHolder(ItemOriginBinding binding) {
-            super((ViewBinding) binding);
+            super(binding);
             this.binding = binding;
         }
 
@@ -81,7 +81,7 @@ public abstract class DetailRecyclerViewHolder extends RecyclerView.ViewHolder {
         private final ItemEpisodeDetailBinding binding;
 
         public EpisodeViewHolder(ItemEpisodeDetailBinding binding) {
-            super((ViewBinding) binding);
+            super(binding);
             this.binding = binding;
         }
 
@@ -98,7 +98,7 @@ public abstract class DetailRecyclerViewHolder extends RecyclerView.ViewHolder {
         private final ItemTitleBinding binding;
 
         public TitleViewHolder(ItemTitleBinding binding) {
-            super((ViewBinding) binding);
+            super(binding);
             this.binding = binding;
         }
 
