@@ -29,11 +29,6 @@ interface EpisodeDao {
         episode: String?,
     ): PagingSource<Int, EpisodeData>
 
-    @Query(
-        "SELECT * FROM episodes_table WHERE id IN (:ids) ORDER BY id ASC"
-    )
-    suspend fun getEpisodesByIds(ids: List<Int>): List<EpisodeData>
-
     @Query("SELECT * FROM episodes_table WHERE id = :id")
     suspend fun getEpisodeById(id: Int): EpisodeData
 

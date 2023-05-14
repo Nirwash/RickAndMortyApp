@@ -85,7 +85,7 @@ class EpisodeRemoteMediator(
         return state.pages
             .firstOrNull { it.data.isNotEmpty() }
             ?.data?.firstOrNull()
-            ?.let { it ->
+            ?.let {
                 keyDao.getKeys(id = it.id)
             }
     }
@@ -96,7 +96,7 @@ class EpisodeRemoteMediator(
         return state.pages
             .lastOrNull { it.data.isNotEmpty() }
             ?.data?.lastOrNull()
-            ?.let { it ->
+            ?.let {
                 keyDao.getKeys(id = it.id)
             }
     }
@@ -121,7 +121,7 @@ class EpisodeRemoteMediator(
             LoadType.APPEND -> {
                 val remoteKeys = getRemoteKeyForLastItem(state)
                 val nextPage = remoteKeys?.nextPage
-                return nextPage ?: RemoteMediator.MediatorResult.Success(
+                return nextPage ?: MediatorResult.Success(
                     endOfPaginationReached = remoteKeys != null
                 )
             }

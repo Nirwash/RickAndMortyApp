@@ -123,7 +123,7 @@ class LocationRemoteMediator(
             LoadType.APPEND -> {
                 val remoteKeys = getRemoteKeyForLastItem(state)
                 val nextPage = remoteKeys?.nextPage
-                return nextPage ?: RemoteMediator.MediatorResult.Success(
+                return nextPage ?: MediatorResult.Success(
                     endOfPaginationReached = remoteKeys != null
                 )
             }

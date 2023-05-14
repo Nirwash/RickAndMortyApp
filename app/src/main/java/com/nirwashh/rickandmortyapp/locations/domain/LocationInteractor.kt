@@ -7,6 +7,5 @@ class LocationInteractor(private val repository: LocationRepository) {
         dimension: String?
     ) = repository.getLocations(name, type, dimension)
 
-    suspend fun getLocationByName(name: String) = repository.getLocationByName(name)
     fun getObservableLocationById(id: Int) = repository.getObservableLocationById(id)
 }
