@@ -1,7 +1,7 @@
-package com.nirwashh.rickandmortyapp.characters.presentation.list.mapper
+package com.nirwashh.rickandmortyapp.characters.presentation.mapper
 
 import com.nirwashh.rickandmortyapp.characters.domain.model.CharacterDomain
-import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi
 import com.nirwashh.rickandmortyapp.core.utils.Mapper
 import javax.inject.Inject
 

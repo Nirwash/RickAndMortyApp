@@ -8,11 +8,11 @@ import androidx.fragment.app.FragmentManager
 import com.nirwashh.rickandmortyapp.R
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.fragments.CharacterDetailsFragment
 import com.nirwashh.rickandmortyapp.characters.presentation.list.fragments.CharactersFragment
-import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi
 import com.nirwashh.rickandmortyapp.databinding.ActivityMainBinding
-import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
 import com.nirwashh.rickandmortyapp.episodes.presentation.detail.fragments.EpisodeDetailsFragment
 import com.nirwashh.rickandmortyapp.episodes.presentation.list.fragments.EpisodesFragment
+import com.nirwashh.rickandmortyapp.episodes.presentation.model.EpisodeUi
 import com.nirwashh.rickandmortyapp.locations.data.model.LocationData
 import com.nirwashh.rickandmortyapp.locations.presentation.detail.fragments.LocationDetailsFragment
 import com.nirwashh.rickandmortyapp.locations.presentation.list.fragments.LocationsFragment
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), Navigation {
         setCurrentFragment(CharacterDetailsFragment.newInstance(character), true)
     }
 
-    override fun navigateToEpisodeDetails(episode: Episode) {
+    override fun navigateToEpisodeDetails(episode: EpisodeUi) {
         setCurrentFragment(EpisodeDetailsFragment.newInstance(episode), true)
     }
 

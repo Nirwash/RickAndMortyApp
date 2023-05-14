@@ -1,4 +1,4 @@
-package com.nirwashh.rickandmortyapp.characters.presentation.list.model
+package com.nirwashh.rickandmortyapp.characters.presentation.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

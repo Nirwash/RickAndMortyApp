@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.nirwashh.rickandmortyapp.core.utils.setWidthPercent
 import com.nirwashh.rickandmortyapp.databinding.FragmentEpisodeFilterBinding
-import com.nirwashh.rickandmortyapp.episodes.data.model.EpisodeFilters
 import com.nirwashh.rickandmortyapp.episodes.presentation.list.viewmodels.EpisodesViewModel
 
 class EpisodeFiltersFragment(private val viewModel: EpisodesViewModel) : DialogFragment() {
@@ -34,38 +33,42 @@ class EpisodeFiltersFragment(private val viewModel: EpisodesViewModel) : DialogF
         init()
         with(binding) {
             clearButton.setOnClickListener {
-                viewModel.clearFilters()
-                updateAndClose()
+                clearFilters()
             }
             applyButton.setOnClickListener {
                 applyFilters()
-                updateAndClose()
             }
         }
     }
 
     private fun init() {
-        val filters = viewModel.filterState.value
         with(binding) {
-            search.setText(filters.name)
-            episode.setText(filters.episode)
+            search.setText(viewModel.filters.value.getValue("name"))
+            episode.setText(viewModel.filters.value.getValue("episode"))
         }
     }
 
     private fun applyFilters() {
-        val name = binding.search.text.toString()
-        val episode = binding.episode.text.toString()
-        viewModel.updateFilters(EpisodeFilters(name, episode))
-    }
-
-    private fun updateAndClose() {
-        viewModel.update()
-        refresh()
+        val name = if (binding.search.text.toString() == "")
+            null
+        else
+            binding.search.text.toString()
+        val episode = if (binding.episode.text.toString() == "")
+            null
+        else
+            binding.episode.text.toString()
+        refresh(name, episode)
         dismiss()
     }
 
+    private fun clearFilters() {
+        refresh(null, null)
+        dismiss()
+    }
+
+
     interface RefreshCallback {
-        operator fun invoke()
+        operator fun invoke(name: String?, episode: String?)
     }
 }
 

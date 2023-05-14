@@ -1,6 +1,7 @@
 package com.nirwashh.rickandmortyapp.episodes.di
 
 import com.nirwashh.rickandmortyapp.core.data.local.RickAndMortyDatabase
+import com.nirwashh.rickandmortyapp.episodes.data.mapper.EpisodeDataToDomain
 import com.nirwashh.rickandmortyapp.episodes.data.remote.EpisodesService
 import com.nirwashh.rickandmortyapp.episodes.data.repository.EpisodesRepositoryImpl
 import com.nirwashh.rickandmortyapp.episodes.domain.EpisodesRepository
@@ -12,6 +13,7 @@ class EpisodeDataModule {
     @Provides
     fun provideEpisodesRepository(
         service: EpisodesService,
-        database: RickAndMortyDatabase
-    ): EpisodesRepository = EpisodesRepositoryImpl(service, database)
+        database: RickAndMortyDatabase,
+        mapper: EpisodeDataToDomain
+    ): EpisodesRepository = EpisodesRepositoryImpl(service, database, mapper)
 }

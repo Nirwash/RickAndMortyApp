@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.nirwashh.rickandmortyapp.characters.domain.CharactersInteractor
-import com.nirwashh.rickandmortyapp.characters.presentation.list.mapper.CharacterDomainToUi
-import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi
+import com.nirwashh.rickandmortyapp.characters.presentation.mapper.CharacterDomainToUi
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.onEach
 
 class CharactersViewModel(
     private val interactor: CharactersInteractor,
-    private val characterMapper: CharacterDomainToUi
+    private val mapper: CharacterDomainToUi
 ) : ViewModel() {
     var charactersFlow = MutableSharedFlow<PagingData<CharacterUi>>()
     val filters = MutableStateFlow<MutableMap<String, String?>>(
@@ -38,7 +38,7 @@ class CharactersViewModel(
             name, status, gender, type, species
         ).onEach {
             charactersFlow.emit(
-                it.map { character -> characterMapper.map(character) }
+                it.map { character -> mapper.map(character) }
             )
         }.launchIn(viewModelScope)
     }

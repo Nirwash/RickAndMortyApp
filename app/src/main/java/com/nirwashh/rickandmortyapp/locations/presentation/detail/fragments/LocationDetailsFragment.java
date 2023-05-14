@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi;
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi;
 import com.nirwashh.rickandmortyapp.core.App;
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation;
 import com.nirwashh.rickandmortyapp.core.utils.StringParser;

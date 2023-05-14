@@ -4,17 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nirwashh.rickandmortyapp.characters.domain.CharactersInteractor
-import com.nirwashh.rickandmortyapp.characters.presentation.list.mapper.CharacterDomainToUi
-import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi
+import com.nirwashh.rickandmortyapp.characters.presentation.mapper.CharacterDomainToUi
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class EpisodeDetailViewModel(
-    private val characterInteractor: CharactersInteractor
+    private val characterInteractor: CharactersInteractor,
+    private val characterDomainToUi: CharacterDomainToUi
 ) : ViewModel() {
-
-    @Inject
-    lateinit var characterDomainToUi: CharacterDomainToUi
 
     var characters = MutableLiveData<List<CharacterUi>>()
 

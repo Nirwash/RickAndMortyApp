@@ -6,29 +6,33 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nirwashh.rickandmortyapp.databinding.ItemEpisodeBinding
-import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
+import com.nirwashh.rickandmortyapp.episodes.presentation.model.EpisodeUi
 
 class EpisodeAdapter(private val listener: Listener) :
-    PagingDataAdapter<Episode, EpisodeAdapter.EpisodeViewHolder>(EpisodeDiffCallback()) {
+    PagingDataAdapter<EpisodeUi, EpisodeAdapter.EpisodeViewHolder>(EpisodeDiffCallback()) {
 
     class EpisodeViewHolder(val binding: ItemEpisodeBinding) : RecyclerView.ViewHolder(binding.root)
 
     interface Listener {
-        fun onClick(episode: Episode)
+        fun onClick(episode: EpisodeUi)
     }
 
     override fun onBindViewHolder(holder: EpisodeViewHolder, position: Int) {
-        val episode = checkNotNull(getItem(position))
-        with(holder) {
-            with(binding) {
-                tvEpisodeName.text = episode.name
-                tvEpisode.text = episode.episode
-                AirDate.text = episode.air_date
-            }
-            itemView.setOnClickListener {
-                listener.onClick(episode)
-            }
+        getItem(position).let {
+            val episode = it
+            if (episode != null)
+                with(holder) {
+                    with(binding) {
+                        tvEpisodeName.text = episode.name
+                        tvEpisode.text = episode.episode
+                        AirDate.text = episode.air_date
+                    }
+                    itemView.setOnClickListener {
+                        listener.onClick(episode)
+                    }
+                }
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -40,11 +44,11 @@ class EpisodeAdapter(private val listener: Listener) :
             )
         )
 
-    class EpisodeDiffCallback : DiffUtil.ItemCallback<Episode>() {
-        override fun areItemsTheSame(oldItem: Episode, newItem: Episode) =
+    class EpisodeDiffCallback : DiffUtil.ItemCallback<EpisodeUi>() {
+        override fun areItemsTheSame(oldItem: EpisodeUi, newItem: EpisodeUi) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Episode, newItem: Episode) =
+        override fun areContentsTheSame(oldItem: EpisodeUi, newItem: EpisodeUi) =
             oldItem == newItem
     }
 }

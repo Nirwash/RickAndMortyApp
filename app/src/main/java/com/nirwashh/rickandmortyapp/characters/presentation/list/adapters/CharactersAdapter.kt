@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi
 import com.nirwashh.rickandmortyapp.databinding.ItemCharacterBinding
 
 class CharactersAdapter(private val listener: Listener) :

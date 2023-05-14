@@ -14,9 +14,9 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nirwashh.rickandmortyapp.characters.presentation.list.adapters.CharacterLoadStateAdapter
 import com.nirwashh.rickandmortyapp.characters.presentation.list.adapters.CharactersAdapter
-import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi
 import com.nirwashh.rickandmortyapp.characters.presentation.list.viewmodels.CharactersViewModel
 import com.nirwashh.rickandmortyapp.characters.presentation.list.viewmodels.CharactersViewModelFactory
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi
 import com.nirwashh.rickandmortyapp.core.App
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation
 import com.nirwashh.rickandmortyapp.databinding.FragmentCharactersBinding

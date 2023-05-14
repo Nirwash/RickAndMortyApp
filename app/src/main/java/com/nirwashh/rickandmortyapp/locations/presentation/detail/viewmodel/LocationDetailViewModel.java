@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.nirwashh.rickandmortyapp.characters.domain.CharactersInteractor;
 import com.nirwashh.rickandmortyapp.characters.domain.model.CharacterDomain;
-import com.nirwashh.rickandmortyapp.characters.presentation.list.mapper.CharacterDomainToUi;
-import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi;
+import com.nirwashh.rickandmortyapp.characters.presentation.mapper.CharacterDomainToUi;
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi;
 
 import java.util.ArrayList;
 import java.util.List;

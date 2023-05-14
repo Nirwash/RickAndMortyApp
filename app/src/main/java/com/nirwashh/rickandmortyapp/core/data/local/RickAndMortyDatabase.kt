@@ -10,7 +10,8 @@ import com.nirwashh.rickandmortyapp.characters.data.model.CharactersKeys
 import com.nirwashh.rickandmortyapp.core.utils.converter.Converter
 import com.nirwashh.rickandmortyapp.episodes.data.local.dao.EpisodeDao
 import com.nirwashh.rickandmortyapp.episodes.data.local.dao.EpisodesKeysDao
-import com.nirwashh.rickandmortyapp.episodes.data.local.entities.EpisodeDbEntity
+import com.nirwashh.rickandmortyapp.episodes.data.model.EpisodeData
+import com.nirwashh.rickandmortyapp.episodes.data.model.EpisodeKeys
 import com.nirwashh.rickandmortyapp.locations.data.local.dao.LocationDao
 import com.nirwashh.rickandmortyapp.locations.data.local.dao.LocationsKeysDao
 import com.nirwashh.rickandmortyapp.locations.data.local.entities.LocationDbEntity
@@ -21,7 +22,8 @@ import com.nirwashh.rickandmortyapp.locations.data.local.entities.LocationDbEnti
     entities = [
         CharacterData::class,
         CharactersKeys::class,
-        EpisodeDbEntity::class,
+        EpisodeData::class,
+        EpisodeKeys::class,
         LocationDbEntity::class
     ]
 )
@@ -31,6 +33,6 @@ abstract class RickAndMortyDatabase : RoomDatabase() {
     abstract fun characterKeysDao(): CharacterKeysDao
     abstract fun getLocationDao(): LocationDao
     abstract fun getLocationsKeyDao(): LocationsKeysDao
-    abstract fun getEpisodeDao(): EpisodeDao
-    abstract fun getEpisodesKeyDao(): EpisodesKeysDao
+    abstract fun episodeDao(): EpisodeDao
+    abstract fun episodesKeyDao(): EpisodesKeysDao
 }

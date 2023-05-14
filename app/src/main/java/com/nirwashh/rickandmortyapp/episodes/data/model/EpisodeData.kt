@@ -1,17 +1,16 @@
 package com.nirwashh.rickandmortyapp.episodes.data.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-//import com.nirwashh.rickandmortyapp.episodes.data.local.entities.EpisodeDbEntity
-
-@Parcelize
-data class Episode(
+@Entity(tableName = "episodes_table")
+data class EpisodeData(
     val air_date: String,
     val characters: List<String>,
     val created: String,
     val episode: String,
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val name: String,
     val url: String
-) : Parcelable
+)

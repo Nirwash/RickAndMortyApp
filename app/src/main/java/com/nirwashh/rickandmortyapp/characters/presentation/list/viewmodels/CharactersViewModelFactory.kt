@@ -3,7 +3,7 @@ package com.nirwashh.rickandmortyapp.characters.presentation.list.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nirwashh.rickandmortyapp.characters.domain.CharactersInteractor
-import com.nirwashh.rickandmortyapp.characters.presentation.list.mapper.CharacterDomainToUi
+import com.nirwashh.rickandmortyapp.characters.presentation.mapper.CharacterDomainToUi
 
 class CharactersViewModelFactory(
     private val interactor: CharactersInteractor,

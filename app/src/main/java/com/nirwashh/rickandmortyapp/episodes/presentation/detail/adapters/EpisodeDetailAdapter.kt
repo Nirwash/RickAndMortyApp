@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.nirwashh.rickandmortyapp.characters.presentation.list.model.CharacterUi
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi
 import com.nirwashh.rickandmortyapp.databinding.ItemCharacterDetailBinding
 
 class EpisodeDetailAdapter(
