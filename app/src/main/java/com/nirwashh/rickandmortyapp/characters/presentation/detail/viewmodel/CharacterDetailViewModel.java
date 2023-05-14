@@ -3,83 +3,127 @@ package com.nirwashh.rickandmortyapp.characters.presentation.detail.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.nirwashh.rickandmortyapp.episodes.data.model.Episode;
 import com.nirwashh.rickandmortyapp.episodes.domain.EpisodesInteractor;
-import com.nirwashh.rickandmortyapp.locations.data.model.Location;
+import com.nirwashh.rickandmortyapp.episodes.domain.model.EpisodeDomain;
+import com.nirwashh.rickandmortyapp.episodes.presentation.mapper.EpisodeDomainToUi;
+import com.nirwashh.rickandmortyapp.episodes.presentation.model.EpisodeUi;
 import com.nirwashh.rickandmortyapp.locations.domain.LocationInteractor;
+import com.nirwashh.rickandmortyapp.locations.domain.model.LocationDomain;
+import com.nirwashh.rickandmortyapp.locations.presentation.mapper.LocationDomainToUi;
+import com.nirwashh.rickandmortyapp.locations.presentation.model.LocationUi;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
 public class CharacterDetailViewModel extends ViewModel {
     EpisodesInteractor episodesInteractor;
     LocationInteractor locationInteractor;
-    public MutableLiveData<List<Episode>> episodesLiveData = new MutableLiveData<>();
-    public MutableLiveData<Location> locationLiveData = new MutableLiveData<>();
-    public MutableLiveData<Location> originLiveData = new MutableLiveData<>();
+    EpisodeDomainToUi episodeDomainToUi;
+    LocationDomainToUi locationDomainToUi;
+    public MutableLiveData<List<EpisodeUi>> episodesLiveData = new MutableLiveData<>();
+    public MutableLiveData<LocationUi> locationLiveData = new MutableLiveData<>();
+    public MutableLiveData<LocationUi> originLiveData = new MutableLiveData<>();
 
-    public CharacterDetailViewModel(EpisodesInteractor episodesInteractor, LocationInteractor locationInteractor) {
+    public CharacterDetailViewModel(EpisodesInteractor episodesInteractor, LocationInteractor locationInteractor, EpisodeDomainToUi episodeDomainToUi, LocationDomainToUi locationDomainToUi) {
         this.episodesInteractor = episodesInteractor;
         this.locationInteractor = locationInteractor;
+        this.episodeDomainToUi = episodeDomainToUi;
+        this.locationDomainToUi = locationDomainToUi;
     }
 
-    public void setEpisodesLiveData(String ids) {
+    public void setEpisodesLiveData(List<Integer> ids) {
         episodesInteractor.getObservableEpisodesByIds(ids)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new DisposableSingleObserver<List<Episode>>() {
-                            @Override
-                            public void onSuccess(List<Episode> episodes) {
-                                episodesLiveData.setValue(episodes);
-                            }
+                .subscribe(new Observer<List<EpisodeDomain>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
 
-                            @Override
-                            public void onError(Throwable e) {
+                    @Override
+                    public void onNext(List<EpisodeDomain> episodeDomains) {
+                        setEpisodes(episodeDomains);
+                    }
 
-                            }
-                        }
-                );
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    private void setEpisodes(List<EpisodeDomain> episodeDomains) {
+        ArrayList<EpisodeUi> episodeUis = new ArrayList<>();
+        for (EpisodeDomain episode : episodeDomains) {
+            episodeUis.add(
+                    episodeDomainToUi.map(episode)
+            );
+        }
+        episodesLiveData.setValue(episodeUis);
     }
 
     public void setLocationLiveData(int locationId) {
         locationInteractor.getObservableLocationById(locationId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new DisposableSingleObserver<Location>() {
-                            @Override
-                            public void onSuccess(Location location) {
-                                locationLiveData.setValue(location);
-                            }
+                .subscribe(new Observer<LocationDomain>() {
 
-                            @Override
-                            public void onError(Throwable e) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                            }
-                        }
-                );
+                    }
+
+                    @Override
+                    public void onNext(LocationDomain locationDomain) {
+                        locationLiveData.setValue(locationDomainToUi.map(locationDomain));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     public void setOriginLiveData(int originId) {
         locationInteractor.getObservableLocationById(originId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new DisposableSingleObserver<Location>() {
-                            @Override
-                            public void onSuccess(Location origin) {
-                                originLiveData.setValue(origin);
-                            }
+                .subscribe(new Observer<LocationDomain>() {
 
-                            @Override
-                            public void onError(Throwable e) {
-                            }
-                        }
-                );
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(LocationDomain locationDomain) {
+                        locationLiveData.setValue(locationDomainToUi.map(locationDomain));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

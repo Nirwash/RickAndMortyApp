@@ -4,20 +4,24 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.nirwashh.rickandmortyapp.R
-import com.nirwashh.rickandmortyapp.characters.data.model.Character
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.fragments.CharacterDetailsFragment
 import com.nirwashh.rickandmortyapp.characters.presentation.list.fragments.CharactersFragment
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi
 import com.nirwashh.rickandmortyapp.databinding.ActivityMainBinding
-import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
 import com.nirwashh.rickandmortyapp.episodes.presentation.detail.fragments.EpisodeDetailsFragment
 import com.nirwashh.rickandmortyapp.episodes.presentation.list.fragments.EpisodesFragment
-import com.nirwashh.rickandmortyapp.locations.data.model.Location
+import com.nirwashh.rickandmortyapp.episodes.presentation.model.EpisodeUi
 import com.nirwashh.rickandmortyapp.locations.presentation.detail.fragments.LocationDetailsFragment
 import com.nirwashh.rickandmortyapp.locations.presentation.list.fragments.LocationsFragment
+import com.nirwashh.rickandmortyapp.locations.presentation.model.LocationUi
 
 class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var charactersFragment: CharactersFragment
+    private lateinit var locationsFragment: LocationsFragment
+    private lateinit var episodesFragment: EpisodesFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -25,9 +29,9 @@ class MainActivity : AppCompatActivity(), Navigation {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
 
-        val charactersFragment = CharactersFragment()
-        val locationsFragment = LocationsFragment()
-        val episodesFragment = EpisodesFragment()
+        charactersFragment = CharactersFragment()
+        locationsFragment = LocationsFragment()
+        episodesFragment = EpisodesFragment()
         setCurrentFragment(charactersFragment, false)
 
         binding.bottomNavView.setOnItemSelectedListener {
@@ -46,20 +50,20 @@ class MainActivity : AppCompatActivity(), Navigation {
             if (addBackStack)
                 addToBackStack(fragment.tag)
             else
-                supportFragmentManager.popBackStack()
+                supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             commit()
         }
     }
 
-    override fun navigateToCharacterDetails(character: Character) {
+    override fun navigateToCharacterDetails(character: CharacterUi) {
         setCurrentFragment(CharacterDetailsFragment.newInstance(character), true)
     }
 
-    override fun navigateToEpisodeDetails(episode: Episode) {
+    override fun navigateToEpisodeDetails(episode: EpisodeUi) {
         setCurrentFragment(EpisodeDetailsFragment.newInstance(episode), true)
     }
 
-    override fun navigateToLocationDetails(location: Location) {
+    override fun navigateToLocationDetails(location: LocationUi) {
         setCurrentFragment(LocationDetailsFragment.newInstance(location), true)
     }
 }

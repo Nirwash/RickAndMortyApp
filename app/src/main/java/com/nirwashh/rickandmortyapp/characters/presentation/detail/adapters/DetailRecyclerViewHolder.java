@@ -22,13 +22,12 @@ public abstract class DetailRecyclerViewHolder extends RecyclerView.ViewHolder {
         private final CharacterDetailBinding binding;
 
         public CharacterViewHolder(CharacterDetailBinding binding) {
-            super((ViewBinding) binding);
+            super(binding);
             this.binding = binding;
         }
 
         public void bind(DetailsRecyclerViewItem.CharacterViewItem characterViewItem) {
             Glide.with(this.itemView).load(characterViewItem.getImage()).into(binding.imageCharacter);
-            binding.created.setText(characterViewItem.getCreated());
             binding.status.setText(characterViewItem.getStatus());
             binding.gender.setText(characterViewItem.getGender());
             binding.species.setText(characterViewItem.getSpecies());
@@ -52,7 +51,7 @@ public abstract class DetailRecyclerViewHolder extends RecyclerView.ViewHolder {
         private final ItemLocationDetailBinding binding;
 
         public LocationViewHolder(ItemLocationDetailBinding binding) {
-            super((ViewBinding) binding);
+            super(binding);
             this.binding = binding;
         }
 
@@ -67,7 +66,7 @@ public abstract class DetailRecyclerViewHolder extends RecyclerView.ViewHolder {
         private final ItemOriginBinding binding;
 
         public OriginViewHolder(ItemOriginBinding binding) {
-            super((ViewBinding) binding);
+            super(binding);
             this.binding = binding;
         }
 
@@ -82,7 +81,7 @@ public abstract class DetailRecyclerViewHolder extends RecyclerView.ViewHolder {
         private final ItemEpisodeDetailBinding binding;
 
         public EpisodeViewHolder(ItemEpisodeDetailBinding binding) {
-            super((ViewBinding) binding);
+            super(binding);
             this.binding = binding;
         }
 
@@ -99,7 +98,7 @@ public abstract class DetailRecyclerViewHolder extends RecyclerView.ViewHolder {
         private final ItemTitleBinding binding;
 
         public TitleViewHolder(ItemTitleBinding binding) {
-            super((ViewBinding) binding);
+            super(binding);
             this.binding = binding;
         }
 

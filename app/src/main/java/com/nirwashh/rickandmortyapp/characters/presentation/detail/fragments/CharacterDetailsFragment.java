@@ -12,20 +12,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.nirwashh.rickandmortyapp.characters.data.model.Character;
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.CharacterDetailsAdapter;
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.adapters.DetailsRecyclerViewItem;
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.viewmodel.CharacterDetailViewModel;
 import com.nirwashh.rickandmortyapp.characters.presentation.detail.viewmodel.CharacterDetailViewModelFactory;
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi;
 import com.nirwashh.rickandmortyapp.core.App;
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation;
 import com.nirwashh.rickandmortyapp.core.utils.StringParser;
 import com.nirwashh.rickandmortyapp.databinding.FragmentCharacterDetailsBinding;
-import com.nirwashh.rickandmortyapp.episodes.data.model.Episode;
-import com.nirwashh.rickandmortyapp.locations.data.model.Location;
+import com.nirwashh.rickandmortyapp.episodes.presentation.model.EpisodeUi;
+import com.nirwashh.rickandmortyapp.locations.presentation.model.LocationUi;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -33,11 +34,11 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
     private FragmentCharacterDetailsBinding binding;
     private Navigation navigation;
     private CharacterDetailViewModel viewModel;
-    private Character character;
+    private CharacterUi character;
     private CharacterDetailsAdapter characterDetailAdapter;
-    private ArrayList<Episode> episodes;
-    private Location location;
-    private Location origin;
+    private ArrayList<EpisodeUi> episodes;
+    private LocationUi location;
+    private LocationUi origin;
     @Inject
     public CharacterDetailViewModelFactory vmFactory;
     private static final String CHARACTER = "character";
@@ -73,14 +74,14 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         setupRecyclerView();
         setsLiveData();
         observeLiveData();
-        binding.btnBack.setOnClickListener(view1 ->
+        binding.btnBackDetail.setOnClickListener(view1 ->
                 getParentFragmentManager().popBackStack()
         );
     }
 
     private void observeLiveData() {
         viewModel.episodesLiveData.observe(getViewLifecycleOwner(), it -> {
-            episodes = (ArrayList<Episode>) it;
+            episodes = (ArrayList<EpisodeUi>) it;
             updateUi();
         });
         viewModel.locationLiveData.observe(getViewLifecycleOwner(), it -> {
@@ -97,11 +98,10 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         characterDetailAdapter.notifyDataSetChanged();
     }
 
-    private Collection<? extends DetailsRecyclerViewItem> createViewItems(Character character) {
+    private Collection<? extends DetailsRecyclerViewItem> createViewItems(CharacterUi character) {
         ArrayList<DetailsRecyclerViewItem> list = new ArrayList<>();
         list.add(
                 new DetailsRecyclerViewItem.CharacterViewItem(
-                        character.getCreated(),
                         character.getGender(),
                         character.getImage(),
                         character.getName(),
@@ -115,8 +115,8 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         );
         list.add(
                 new DetailsRecyclerViewItem.LocationViewItem(
-                        character.getLocation().getName(),
-                        character.getLocation().getId()
+                        character.getLocation().getOrDefault("locationName", "null"),
+                        character.getLocation().getOrDefault("locationId", "-1")
                 )
         );
 
@@ -125,14 +125,14 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         );
         list.add(
                 new DetailsRecyclerViewItem.OriginViewItem(
-                        character.getOrigin().getName(),
-                        character.getOrigin().getId()
+                        character.getOrigin().getOrDefault("locationName", "null"),
+                        character.getOrigin().getOrDefault("locationId", "-1")
                 )
         );
         list.add(
                 new DetailsRecyclerViewItem.TitleViewItem(EPISODES)
         );
-        for (Episode episode : episodes) {
+        for (EpisodeUi episode : episodes) {
             list.add(
                     new DetailsRecyclerViewItem.EpisodeViewItem(
                             episode.getName(),
@@ -146,13 +146,13 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
 
     private void setsLiveData() {
         if (!character.getEpisode().isEmpty()) {
-            viewModel.setEpisodesLiveData(StringParser.idsParser(character.getEpisode()));
+            viewModel.setEpisodesLiveData(StringParser.idsListParser(character.getEpisode()));
         }
-        if (!character.getLocation().getName().equals("unknown")) {
-            viewModel.setLocationLiveData(StringParser.idParser(character.getLocation().getUrl()));
+        if (!Objects.equals(character.getLocation().get("locationName"), "unknown")) {
+            viewModel.setLocationLiveData(Integer.parseInt(character.getLocation().get("locationId")));
         }
-        if (!character.getOrigin().getName().equals("unknown")) {
-            viewModel.setOriginLiveData(StringParser.idParser(character.getOrigin().getUrl()));
+        if (!Objects.equals(character.getOrigin().get("locationName"), "unknown")) {
+            viewModel.setOriginLiveData(Integer.parseInt(character.getOrigin().get("locationId")));
         }
     }
 
@@ -164,7 +164,7 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
 
     @Override
     public void onClickEpisode(@NonNull DetailsRecyclerViewItem.EpisodeViewItem episodeViewItem) {
-        for (Episode episode : episodes) {
+        for (EpisodeUi episode : episodes) {
             if (episode.getId() == episodeViewItem.getId()) {
                 navigation.navigateToEpisodeDetails(episode);
             }
@@ -185,7 +185,7 @@ public class CharacterDetailsFragment extends Fragment implements CharacterDetai
         }
     }
 
-    public static CharacterDetailsFragment newInstance(Character character) {
+    public static CharacterDetailsFragment newInstance(CharacterUi character) {
         CharacterDetailsFragment fragment = new CharacterDetailsFragment();
         Bundle args = new Bundle();
         args.putParcelable(CHARACTER, character);

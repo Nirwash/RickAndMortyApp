@@ -3,46 +3,37 @@ package com.nirwashh.rickandmortyapp.episodes.presentation.list.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.nirwashh.rickandmortyapp.core.utils.update
-import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
-import com.nirwashh.rickandmortyapp.episodes.data.model.EpisodeFilters
+import androidx.paging.map
 import com.nirwashh.rickandmortyapp.episodes.domain.EpisodesInteractor
-import kotlinx.coroutines.flow.Flow
+import com.nirwashh.rickandmortyapp.episodes.presentation.mapper.EpisodeDomainToUi
+import com.nirwashh.rickandmortyapp.episodes.presentation.model.EpisodeUi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class EpisodesViewModel(
-    private val episodesInteractor: EpisodesInteractor
+    private val interactor: EpisodesInteractor,
+    private val mapper: EpisodeDomainToUi
 ) : ViewModel() {
-    var episodesFlow: Flow<PagingData<Episode>> = emptyFlow()
-    private val _filterState = MutableStateFlow(EpisodeFilters())
-    val filterState = _filterState.asStateFlow()
+    val episodesFlow = MutableSharedFlow<PagingData<EpisodeUi>>()
+    val filters = MutableStateFlow<MutableMap<String, String?>>(
+        mutableMapOf(
+            "name" to null,
+            "episode" to null
+        )
+    )
 
-    init {
-        update()
-    }
-
-    fun update() {
-        episodesFlow = filterState
-            .flatMapConcat {
-                episodesInteractor.getEpisodes(it)
-            }
-            .cachedIn(viewModelScope)
-    }
-
-    fun updateFilters(filters: EpisodeFilters) {
-        _filterState.update {
-            it.copy(
-                name = filters.name,
-                episode = filters.episode
+    fun load(
+        name: String?,
+        episode: String?
+    ) {
+        interactor.getEpisodes(
+            name, episode
+        ).onEach {
+            episodesFlow.emit(
+                it.map { character -> mapper.map(character) }
             )
-        }
-    }
-
-    fun clearFilters() {
-        _filterState.update { EpisodeFilters().copy() }
+        }.launchIn(viewModelScope)
     }
 }

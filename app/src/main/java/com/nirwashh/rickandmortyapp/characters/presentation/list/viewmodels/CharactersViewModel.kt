@@ -3,49 +3,43 @@ package com.nirwashh.rickandmortyapp.characters.presentation.list.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.nirwashh.rickandmortyapp.characters.data.model.Character
-import com.nirwashh.rickandmortyapp.characters.data.model.CharacterFilters
+import androidx.paging.map
 import com.nirwashh.rickandmortyapp.characters.domain.CharactersInteractor
-import com.nirwashh.rickandmortyapp.core.utils.update
-import kotlinx.coroutines.flow.Flow
+import com.nirwashh.rickandmortyapp.characters.presentation.mapper.CharacterDomainToUi
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class CharactersViewModel(
-    private val interactor: CharactersInteractor
+    private val interactor: CharactersInteractor,
+    private val mapper: CharacterDomainToUi
 ) : ViewModel() {
-    var charactersFlow: Flow<PagingData<Character>> = emptyFlow()
-    private val _filterState = MutableStateFlow(CharacterFilters())
-    val filterState = _filterState.asStateFlow()
+    var charactersFlow = MutableSharedFlow<PagingData<CharacterUi>>()
+    val filters = MutableStateFlow<MutableMap<String, String?>>(
+        mutableMapOf(
+            "name" to null,
+            "gender" to null,
+            "status" to null,
+            "species" to null,
+            "type" to null
+        )
+    )
 
-    init {
-        update()
-    }
-
-    fun update() {
-        charactersFlow = filterState
-            .flatMapConcat {
-                interactor.getCharacters(it)
-            }
-            .cachedIn(viewModelScope)
-    }
-
-    fun updateFilters(filters: CharacterFilters) {
-        _filterState.update {
-            it.copy(
-                name = filters.name,
-                status = filters.status,
-                species = filters.species,
-                type = filters.type,
-                gender = filters.gender
+    fun load(
+        name: String?,
+        status: String?,
+        gender: String?,
+        type: String?,
+        species: String?
+    ) {
+        interactor.getCharacters(
+            name, status, gender, type, species
+        ).onEach {
+            charactersFlow.emit(
+                it.map { character -> mapper.map(character) }
             )
-        }
-    }
-
-    fun clearFilters() {
-        _filterState.update { CharacterFilters().copy() }
+        }.launchIn(viewModelScope)
     }
 }

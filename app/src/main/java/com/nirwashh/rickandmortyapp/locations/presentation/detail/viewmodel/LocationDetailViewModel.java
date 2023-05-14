@@ -3,46 +3,68 @@ package com.nirwashh.rickandmortyapp.locations.presentation.detail.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.nirwashh.rickandmortyapp.characters.data.model.Character;
 import com.nirwashh.rickandmortyapp.characters.domain.CharactersInteractor;
+import com.nirwashh.rickandmortyapp.characters.domain.model.CharacterDomain;
+import com.nirwashh.rickandmortyapp.characters.presentation.mapper.CharacterDomainToUi;
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
 public class LocationDetailViewModel extends ViewModel {
     CharactersInteractor charactersInteractor;
-    public MutableLiveData<List<Character>> charactersLiveData = new MutableLiveData<>();
+    CharacterDomainToUi characterDomainToUi;
+    public MutableLiveData<List<CharacterUi>> charactersLiveData = new MutableLiveData<>();
 
-    public LocationDetailViewModel(CharactersInteractor interactor) {
+    public LocationDetailViewModel(CharactersInteractor interactor, CharacterDomainToUi mapper) {
         charactersInteractor = interactor;
+        characterDomainToUi = mapper;
+
     }
 
-    public void setCharacters(String ids) {
+    public void setCharactersLiveData(List<Integer> ids) {
         charactersInteractor.getObservableCharactersByIds(ids)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new DisposableSingleObserver<List<Character>>() {
-                            @Override
-                            public void onSuccess(List<Character> characterResults) {
-                                charactersLiveData.setValue(characterResults);
-                            }
+                .subscribe(new Observer<List<CharacterDomain>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
 
-                            @Override
-                            public void onError(Throwable e) {
+                    @Override
+                    public void onNext(List<CharacterDomain> characterDomains) {
+                        setCharacters(characterDomains);
+                    }
 
-                            }
-                        }
-                );
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
-    public Character getCharacter(int id) {
-        for (Character character : Objects.requireNonNull(charactersLiveData.getValue())) {
+    private void setCharacters(List<CharacterDomain> characterDomains) {
+        ArrayList<CharacterUi> characterUis = new ArrayList<>();
+        for (CharacterDomain character : characterDomains) {
+            characterUis.add(
+                    characterDomainToUi.map(character)
+            );
+        }
+        charactersLiveData.setValue(characterUis);
+    }
+
+    public CharacterUi getCharacter(int id) {
+        for (CharacterUi character : Objects.requireNonNull(charactersLiveData.getValue())) {
             if (character.getId() == id) {
                 return character;
             }

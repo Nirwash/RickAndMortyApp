@@ -1,14 +1,12 @@
 package com.nirwashh.rickandmortyapp.episodes.domain
 
-import com.nirwashh.rickandmortyapp.episodes.data.model.EpisodeFilters
-
 class EpisodesInteractor(private val repository: EpisodesRepository) {
 
-    suspend fun getEpisodes(filters: EpisodeFilters) =
-        repository.getEpisodes(filters)
+    fun getEpisodes(
+        name: String?,
+        episode: String?
+    ) =
+        repository.getEpisodes(name, episode)
 
-    suspend fun getEpisodesByIds(ids: String) =
-        repository.getEpisodesByIds(ids)
-
-    fun getObservableEpisodesByIds(ids: String) = repository.getObservableEpisodesByIds(ids)
+    fun getObservableEpisodesByIds(ids: List<Int>) = repository.getObservableEpisodesByIds(ids)
 }

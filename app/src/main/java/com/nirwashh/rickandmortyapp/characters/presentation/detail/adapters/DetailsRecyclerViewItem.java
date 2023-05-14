@@ -5,8 +5,6 @@ import org.jetbrains.annotations.NotNull;
 public abstract class DetailsRecyclerViewItem {
     public static final class CharacterViewItem extends DetailsRecyclerViewItem {
         @NotNull
-        private final String created;
-        @NotNull
         private final String gender;
         @NotNull
         private final String image;
@@ -20,14 +18,12 @@ public abstract class DetailsRecyclerViewItem {
         private final String type;
 
         public CharacterViewItem(
-                @NotNull String created,
                 @NotNull String gender,
                 @NotNull String image,
                 @NotNull String name,
                 @NotNull String species,
                 @NotNull String status,
                 @NotNull String type) {
-            this.created = created;
             this.gender = gender;
             this.image = image;
             this.name = name;
@@ -37,37 +33,32 @@ public abstract class DetailsRecyclerViewItem {
         }
 
         @NotNull
-        public final String getCreated() {
-            return this.created;
-        }
-
-        @NotNull
-        public final String getGender() {
+        public String getGender() {
             return this.gender;
         }
 
         @NotNull
-        public final String getImage() {
+        public String getImage() {
             return this.image;
         }
 
         @NotNull
-        public final String getName() {
+        public String getName() {
             return this.name;
         }
 
         @NotNull
-        public final String getSpecies() {
+        public String getSpecies() {
             return this.species;
         }
 
         @NotNull
-        public final String getStatus() {
+        public String getStatus() {
             return this.status;
         }
 
         @NotNull
-        public final String getType() {
+        public String getType() {
             return this.type;
         }
     }
@@ -75,18 +66,18 @@ public abstract class DetailsRecyclerViewItem {
     public static final class LocationViewItem extends DetailsRecyclerViewItem {
         @NotNull
         private final String name;
-        private final int id;
+        private final String id;
 
         @NotNull
         public String getName() {
             return this.name;
         }
 
-        public int getId() {
+        public String getId() {
             return this.id;
         }
 
-        public LocationViewItem(@NotNull String name, int id) {
+        public LocationViewItem(@NotNull String name, String id) {
             this.name = name;
             this.id = id;
         }
@@ -95,18 +86,18 @@ public abstract class DetailsRecyclerViewItem {
     public static final class OriginViewItem extends DetailsRecyclerViewItem {
         @NotNull
         private final String name;
-        private final int id;
+        private final String id;
 
         @NotNull
         public String getName() {
             return this.name;
         }
 
-        public int getId() {
+        public String getId() {
             return this.id;
         }
 
-        public OriginViewItem(@NotNull String name, int id) {
+        public OriginViewItem(@NotNull String name, String id) {
             this.name = name;
             this.id = id;
         }

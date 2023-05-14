@@ -4,5 +4,5 @@ import com.nirwashh.rickandmortyapp.characters.data.model.Info
 
 data class EpisodesResponse(
     val info: Info,
-    val results: List<Episode>
+    val results: List<EpisodeData>
 )

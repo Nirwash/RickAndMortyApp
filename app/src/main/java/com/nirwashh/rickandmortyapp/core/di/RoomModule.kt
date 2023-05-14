@@ -15,7 +15,4 @@ class RoomModule {
     fun providesRoomDatabase(context: Context) =
         Room.databaseBuilder(context, RickAndMortyDatabase::class.java, "rickAndMorty.db").build()
 
-    @Singleton
-    @Provides
-    fun providesDao(db: RickAndMortyDatabase) = db.dao()
 }

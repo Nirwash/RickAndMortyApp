@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.nirwashh.rickandmortyapp.databinding.DefaultLoadStateBinding
 
 class LocationLoadStateAdapter(
@@ -15,7 +14,6 @@ class LocationLoadStateAdapter(
 
     class Holder(
         private val binding: DefaultLoadStateBinding,
-        private val swipeRefreshLayout: SwipeRefreshLayout?,
         private val retryCallback: () -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
@@ -41,7 +39,6 @@ class LocationLoadStateAdapter(
             LayoutInflater.from(parent.context),
             parent,
             false
-        ),
-        null
+        )
     ) { adapter.retry() }
 }

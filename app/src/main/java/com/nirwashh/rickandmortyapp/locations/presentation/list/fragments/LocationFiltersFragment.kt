@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.nirwashh.rickandmortyapp.core.utils.setWidthPercent
 import com.nirwashh.rickandmortyapp.databinding.FragmentLocationFilterBinding
-import com.nirwashh.rickandmortyapp.locations.data.model.LocationFilters
 import com.nirwashh.rickandmortyapp.locations.presentation.list.viewmodel.LocationViewModel
 
 class LocationFiltersFragment(private val viewModel: LocationViewModel) : DialogFragment() {
@@ -29,7 +28,11 @@ class LocationFiltersFragment(private val viewModel: LocationViewModel) : Dialog
     }
 
     interface RefreshCallback {
-        operator fun invoke()
+        operator fun invoke(
+            name: String?,
+            type: String?,
+            dimension: String?
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,38 +41,45 @@ class LocationFiltersFragment(private val viewModel: LocationViewModel) : Dialog
         init()
         with(binding) {
             clearButton.setOnClickListener {
-                viewModel.clearFilters()
-                updateAndClose()
+                clearFilters()
             }
             applyButton.setOnClickListener {
                 applyFilters()
-                updateAndClose()
             }
         }
+    }
+
+    private fun clearFilters() {
+        refresh(null, null, null)
+        dismiss()
     }
 
 
     private fun init() {
-        val filters = viewModel.filterState.value
         with(binding) {
-            search.setText(filters.name)
-            type.setText(filters.type)
-            dimension.setText(filters.dimension)
+            search.setText(viewModel.filters.value.getValue("name"))
+            type.setText(viewModel.filters.value.getValue("type"))
+            dimension.setText(viewModel.filters.value.getValue("dimension"))
         }
     }
 
     private fun applyFilters() {
-        val name = binding.search.text.toString()
-        val type = binding.type.text.toString()
-        val dimension = binding.dimension.text.toString()
-        viewModel.updateFilters(LocationFilters(name, type, dimension))
-    }
-
-    private fun updateAndClose() {
-        viewModel.update()
-        refresh()
+        val name = if (binding.search.text.toString() == "")
+            null
+        else
+            binding.search.text.toString()
+        val type = if (binding.type.text.toString() == "")
+            null
+        else
+            binding.type.text.toString()
+        val dimension = if (binding.dimension.text.toString() == "")
+            null
+        else
+            binding.dimension.text.toString()
+        refresh(name, type, dimension)
         dismiss()
     }
+
 }
 
 

@@ -1,8 +1,14 @@
 package com.nirwashh.rickandmortyapp.characters.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Info(
+    @SerializedName("count")
     val count: Int,
-    val next: String,
+    @SerializedName("next")
+    val next: String?,
+    @SerializedName("pages")
     val pages: Int,
-    val prev: Any
+    @SerializedName("prev")
+    val prev: String?
 )

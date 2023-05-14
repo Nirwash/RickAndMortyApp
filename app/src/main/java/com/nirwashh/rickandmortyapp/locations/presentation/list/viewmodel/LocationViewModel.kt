@@ -3,45 +3,37 @@ package com.nirwashh.rickandmortyapp.locations.presentation.list.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.nirwashh.rickandmortyapp.locations.data.model.Location
-import com.nirwashh.rickandmortyapp.locations.data.model.LocationFilters
+import androidx.paging.map
 import com.nirwashh.rickandmortyapp.locations.domain.LocationInteractor
-import kotlinx.coroutines.flow.Flow
+import com.nirwashh.rickandmortyapp.locations.presentation.mapper.LocationDomainToUi
+import com.nirwashh.rickandmortyapp.locations.presentation.model.LocationUi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class LocationViewModel(
-    private val interactor: LocationInteractor
+    private val interactor: LocationInteractor,
+    private val mapper: LocationDomainToUi
 ) : ViewModel() {
-    var locationFlow: Flow<PagingData<Location>> = emptyFlow()
-    private val _filterState = MutableStateFlow(LocationFilters())
-    val filterState = _filterState.asStateFlow()
+    val locationFlow = MutableSharedFlow<PagingData<LocationUi>>()
+    val filters = MutableStateFlow<MutableMap<String, String?>>(
+        mutableMapOf(
+            "name" to null,
+            "type" to null,
+            "dimension" to null
+        )
+    )
 
-    init {
-        update()
-    }
-
-    fun update() {
-        locationFlow = filterState
-            .flatMapConcat { interactor.getLocations(it) }
-            .cachedIn(viewModelScope)
-    }
-
-    fun updateFilters(filters: LocationFilters) {
-        _filterState.update {
-            it.copy(
-                name = filters.name,
-                type = filters.type,
-                dimension = filters.dimension
+    fun load(
+        name: String?,
+        type: String?,
+        dimension: String?
+    ) {
+        interactor.getLocations(name, type, dimension).onEach {
+            locationFlow.emit(
+                it.map { location -> mapper.map(location) }
             )
-        }
-    }
-
-    fun clearFilters() {
-        _filterState.update { LocationFilters().copy() }
+        }.launchIn(viewModelScope)
     }
 }

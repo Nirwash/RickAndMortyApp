@@ -1,13 +1,19 @@
 package com.nirwashh.rickandmortyapp.characters.domain
 
 import androidx.paging.PagingData
-import com.nirwashh.rickandmortyapp.characters.data.model.Character
-import com.nirwashh.rickandmortyapp.characters.data.model.CharacterFilters
-import io.reactivex.Single
+import com.nirwashh.rickandmortyapp.characters.domain.model.CharacterDomain
+import io.reactivex.Observable
 import kotlinx.coroutines.flow.Flow
 
 interface CharactersRepository {
-    suspend fun getCharacters(filters: CharacterFilters): Flow<PagingData<Character>>
-    suspend fun getCharactersByIds(ids: String): List<Character>
-    fun getObservableCharactersByIds(ids: String): Single<List<Character>>
+    fun getCharacters(
+        name: String?,
+        status: String?,
+        gender: String?,
+        type: String?,
+        species: String?
+    ): Flow<PagingData<CharacterDomain>>
+
+    suspend fun getCharactersByIds(ids: String): List<CharacterDomain>
+    fun getObservableCharactersByIds(ids: List<Int>): Observable<List<CharacterDomain>>
 }

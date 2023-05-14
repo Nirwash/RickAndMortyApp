@@ -8,22 +8,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.nirwashh.rickandmortyapp.characters.data.model.Character
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi
 import com.nirwashh.rickandmortyapp.core.App
 import com.nirwashh.rickandmortyapp.core.presentation.Navigation
 import com.nirwashh.rickandmortyapp.core.utils.idsParser
 import com.nirwashh.rickandmortyapp.databinding.FragmentEpisodeDetailsBinding
-import com.nirwashh.rickandmortyapp.episodes.data.model.Episode
 import com.nirwashh.rickandmortyapp.episodes.presentation.detail.adapters.EpisodeDetailAdapter
 import com.nirwashh.rickandmortyapp.episodes.presentation.detail.viewmodels.EpisodeDetailViewModel
 import com.nirwashh.rickandmortyapp.episodes.presentation.detail.viewmodels.EpisodeDetailViewModelFactory
+import com.nirwashh.rickandmortyapp.episodes.presentation.model.EpisodeUi
 import javax.inject.Inject
 
 class EpisodeDetailsFragment : Fragment(), EpisodeDetailAdapter.Listener {
     private var _binding: FragmentEpisodeDetailsBinding? = null
     private val binding get() = _binding!!
     private lateinit var navigation: Navigation
-    private lateinit var currentEpisode: Episode
+    private lateinit var currentEpisode: EpisodeUi
     private lateinit var viewModel: EpisodeDetailViewModel
     private lateinit var episodeDetailAdapter: EpisodeDetailAdapter
 
@@ -59,7 +59,7 @@ class EpisodeDetailsFragment : Fragment(), EpisodeDetailAdapter.Listener {
         viewModel.characters.observe(viewLifecycleOwner) {
             setupCharacters(it)
         }
-        binding.btnBack.setOnClickListener {
+        binding.btnBackEpisodeDetail.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
     }
@@ -72,7 +72,7 @@ class EpisodeDetailsFragment : Fragment(), EpisodeDetailAdapter.Listener {
         }
     }
 
-    private fun setupCharacters(characters: List<Character>) {
+    private fun setupCharacters(characters: List<CharacterUi>) {
         episodeDetailAdapter.characters.addAll(characters)
         episodeDetailAdapter.notifyDataSetChanged()
     }
@@ -93,7 +93,7 @@ class EpisodeDetailsFragment : Fragment(), EpisodeDetailAdapter.Listener {
 
     companion object {
         private const val EPISODE = "Episode"
-        fun newInstance(episode: Episode): Fragment {
+        fun newInstance(episode: EpisodeUi): Fragment {
             val fragment = EpisodeDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(EPISODE, episode)

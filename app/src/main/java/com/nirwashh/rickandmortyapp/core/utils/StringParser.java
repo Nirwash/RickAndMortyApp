@@ -17,6 +17,17 @@ public class StringParser {
         return String.valueOf(returnStrings);
     }
 
+    public static List<Integer> idsListParser(List<String> strings) {
+        ArrayList<Integer> returnIds = new ArrayList<>();
+        for (String string : strings) {
+            Uri uri = Uri.parse(string);
+            String[] parts = uri.toString().split("/");
+            String id = parts[parts.length - 1];
+            returnIds.add(Integer.valueOf(id));
+        }
+        return returnIds;
+    }
+
     public static int idParser(String string) {
         if (!string.equals("")) {
             Uri uri = Uri.parse(string);

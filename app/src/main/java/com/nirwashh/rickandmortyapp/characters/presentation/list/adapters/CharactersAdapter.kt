@@ -6,11 +6,11 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.nirwashh.rickandmortyapp.characters.data.model.Character
+import com.nirwashh.rickandmortyapp.characters.presentation.model.CharacterUi
 import com.nirwashh.rickandmortyapp.databinding.ItemCharacterBinding
 
 class CharactersAdapter(private val listener: Listener) :
-    PagingDataAdapter<Character, CharactersAdapter.CharacterViewHolder>(CharacterDiffCallback()) {
+    PagingDataAdapter<CharacterUi, CharactersAdapter.CharacterViewHolder>(CharacterDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         CharacterViewHolder(
@@ -22,17 +22,22 @@ class CharactersAdapter(private val listener: Listener) :
         )
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        val character = checkNotNull(getItem(position))
-        with(holder) {
-            with(binding) {
-                Glide.with(itemView).load(character.image).into(imgCharacterDetail)
-                tvName.text = character.name
-                species.text = character.species
-                status.text = character.status
-                gender.text = character.gender
-            }
-            itemView.setOnClickListener {
-                listener.onClick(character)
+        getItem(position).let {
+            val character = it
+            if (character != null) {
+                with(holder) {
+                    with(binding) {
+                        Glide.with(itemView).load(character.image).into(imgCharacterDetail)
+                        tvName.text = character.name
+                        species.text = character.species
+                        status.text = character.status
+                        gender.text = character.gender
+                    }
+                    itemView.setOnClickListener {
+                        listener.onClick(character)
+
+                    }
+                }
             }
         }
     }
@@ -40,16 +45,16 @@ class CharactersAdapter(private val listener: Listener) :
     class CharacterViewHolder(val binding: ItemCharacterBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class CharacterDiffCallback : DiffUtil.ItemCallback<Character>() {
-        override fun areItemsTheSame(oldItem: Character, newItem: Character) =
+    class CharacterDiffCallback : DiffUtil.ItemCallback<CharacterUi>() {
+        override fun areItemsTheSame(oldItem: CharacterUi, newItem: CharacterUi) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Character, newItem: Character) =
+        override fun areContentsTheSame(oldItem: CharacterUi, newItem: CharacterUi) =
             oldItem == newItem
     }
 
     interface Listener {
-        fun onClick(character: Character)
+        fun onClick(character: CharacterUi)
     }
 }
 
